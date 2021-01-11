@@ -3,7 +3,8 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import { GlobalStyle } from "./styles/global";
 import { isAuthenticated } from "./services/auth";
-import SingUp from "./pages/SignUp/index";
+import SignUp from "./pages/SignUp/index";
+import SignIn from "./pages/SignIn/index";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -27,9 +28,10 @@ const Routes = () => (
     <BrowserRouter>        
         <GlobalStyle />
         <Switch>
-            <PrivateRoute path="/app" component={() => <h1>App</h1>} />
-            <Route exact path="/" component={() => <h1>Login</h1>} />
-            <Route path="/signup" component={SingUp} />
+            <Route exact path="/" component={() => <h1>Home Page</h1>} />
+            <Route path="/login" component={SignIn} />
+            <Route path="/signup" component={SignUp} />
+            <PrivateRoute path="/dashboard" component={() => <h1>Dashboard</h1>} />
             <Route path="*" component={() => <h1>Page not found</h1>} />
         </Switch>
     </BrowserRouter>

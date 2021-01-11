@@ -20,4 +20,15 @@ export default class User {
         });
     }
 
+    /**
+     * Realiza o login do usuario na API, retorna o Token JWT.
+     * @param {string} email Email do usuario
+     * @param {string} password senha do usuário
+     */
+    static async login(email, password){
+        return await api.post("/login",  {
+            email, password
+        });
+    }
+
 }

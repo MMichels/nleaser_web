@@ -2,7 +2,6 @@ import React, {
     Component
 } from "react";
 import {Link, withRouter} from "react-router-dom";
-import { useForm } from "react-hook-form";
 
 import Logo from "../../assets/airbnb-logo.svg"
 
@@ -15,12 +14,7 @@ import {
 
 
 
-class SingUp extends Component {
-    constructor(){
-        super();
-        const {register, handler } = useForm();
-    }
-
+class SignUp extends Component {
     state = {
         email: "",
         password: "",
@@ -74,4 +68,4 @@ class SingUp extends Component {
     }
 }
 
-export default withRouter(SingUp);
+export default withRouter(SignUp);
