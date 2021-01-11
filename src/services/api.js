@@ -16,4 +16,13 @@ api.interceptors.request.use(async config => {
     return config;
 });
 
+api.interceptors.response.use((response) => {
+    return response;
+}, (error) => {
+    if(error.response){
+        return Promise.reject(error.response.data);
+    }
+    return error;
+})
+
 export default api

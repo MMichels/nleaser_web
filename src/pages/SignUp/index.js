@@ -2,6 +2,7 @@ import React, {
     Component
 } from "react";
 import {Link, withRouter} from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import Logo from "../../assets/airbnb-logo.svg"
 
@@ -15,6 +16,11 @@ import {
 
 
 class SingUp extends Component {
+    constructor(){
+        super();
+        const {register, handler } = useForm();
+    }
+
     state = {
         email: "",
         password: "",
@@ -28,13 +34,13 @@ class SingUp extends Component {
         if(!email || !password || !name){
             this.setState({error: "Preencha todos os dados"});
         }else{
-            try{
-                await User.create(email, password, name);
-                this.props.history.push("/");
-            }catch(err){
-                console.error("Erro ao criar usuário: ", err);
-                this.setState({error: "Ocorreu um erro ao registrar sua conta"});
-            }
+            await User.create(email, password, name).then(
+                user => {
+                    this.props.history.push("/");
+                }).catch(
+                    (err) => {
+                    this.setState({error: err.error});
+                });
         }
     };
 
