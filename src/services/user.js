@@ -1,7 +1,7 @@
 import api from "./api";
 
 
-export default class User {
+export default class UserService {
     constructor() {
         this.api = api;
     }
@@ -12,8 +12,8 @@ export default class User {
      * @param {string} password Senha
      * @param {string} name Nome do usuario
      */
-    static async create(email, password, name) {
-        return await api.post("/user", {
+    create(email, password, name) {
+        return this.api.post("/user", {
             email,
             password,
             name
@@ -25,8 +25,8 @@ export default class User {
      * @param {string} email Email do usuario
      * @param {string} password senha do usuário
      */
-    static async login(email, password){
-        return await api.post("/login",  {
+    login(email, password){
+        return this.api.post("/login",  {
             email, password
         });
     }

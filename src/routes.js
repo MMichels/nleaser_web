@@ -3,10 +3,12 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import { GlobalStyle } from "./styles/global";
 import { isAuthenticated } from "./services/auth";
-import SignUp from "./pages/SignUp/index";
-import SignIn from "./pages/SignIn/index";
+import Home from "./pages/Home";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
+import DashboardRoutes from "./pages/DataFiles/routes";
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+export const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
@@ -28,10 +30,10 @@ const Routes = () => (
     <BrowserRouter>        
         <GlobalStyle />
         <Switch>
-            <Route exact path="/" component={() => <h1>Home Page</h1>} />
+            <Route exact path="/" component={Home} />
             <Route path="/login" component={SignIn} />
             <Route path="/signup" component={SignUp} />
-            <PrivateRoute path="/dashboard" component={() => <h1>Dashboard</h1>} />
+            {DashboardRoutes()}
             <Route path="*" component={() => <h1>Page not found</h1>} />
         </Switch>
     </BrowserRouter>

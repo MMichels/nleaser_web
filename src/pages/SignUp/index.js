@@ -5,7 +5,7 @@ import {Link, withRouter} from "react-router-dom";
 
 import Logo from "../../assets/airbnb-logo.svg"
 
-import User from "../../services/user";
+import UserService from "../../services/user";
 
 import {
     Form,
@@ -15,6 +15,7 @@ import {
 
 
 class SignUp extends Component {
+    userService = new UserService()
     state = {
         email: "",
         password: "",
@@ -28,7 +29,7 @@ class SignUp extends Component {
         if(!email || !password || !name){
             this.setState({error: "Preencha todos os dados"});
         }else{
-            await User.create(email, password, name).then(
+            await this.userService.create(email, password, name).then(
                 user => {
                     this.props.history.push("/");
                 }).catch(

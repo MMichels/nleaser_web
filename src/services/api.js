@@ -16,13 +16,24 @@ api.interceptors.request.use(async config => {
     return config;
 });
 
-api.interceptors.response.use((response) => {
-    return response.data;
-}, (error) => {
+api.interceptors.response.use(response => {
+    if(response.data)
+        return response.data;
+    else
+        return response
+}, error => {
+    console.log("Api error: ");
     if(error.response && error.response.data){
+        console.log(error.response);
         return Promise.reject(error.response.data);
+    }if(!error.status){
+        return Promise.reject({
+            "status": "offline",
+            "error": "A aplicação esta em manutenção no momento, tente novamente mais tarde"
+        });
     }
-    return error;
+    console.log(error);
+    return Promise.reject(error);
 })
 
 export default api
