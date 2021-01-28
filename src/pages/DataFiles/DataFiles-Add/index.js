@@ -143,8 +143,8 @@ class DataFilesAdd extends Component {
                   name="language"
                   onChange={(e) => this.setState({ language: e.target.value })}
                 >
-                  <option value="en-US">English (USA)</option>
-                  <option value="pt-BR">Português (Brasil)</option>
+                  <option value="english">English (USA)</option>
+                  <option value="portuguese">Português (Brasil)</option>
                 </select>
               </FormInputCol>
             </FormRow>
