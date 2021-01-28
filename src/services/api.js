@@ -25,7 +25,12 @@ api.interceptors.response.use(response => {
     console.log("Api error: ");
     if(error.response && error.response.data){
         console.log(error.response);
-        return Promise.reject(error.response.data);
+        if(error.response.status === 403){
+            window.location = "/login";
+            return
+        }
+        else
+            return Promise.reject(error.response.data);
     }if(!error.status){
         return Promise.reject({
             "status": "offline",

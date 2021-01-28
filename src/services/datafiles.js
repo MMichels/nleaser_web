@@ -17,7 +17,7 @@ export default class DataFilesService {
   delete(id) {
     return this.api.delete("/datafile", {
       params: {
-        id: id,
+        datafile_id: id,
       },
     });
   }

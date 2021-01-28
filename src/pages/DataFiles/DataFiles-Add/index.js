@@ -13,7 +13,7 @@ class DataFilesAdd extends Component {
     file: null,
     format: "xlsx",
     text_column: "",
-    language: "",
+    language: "english",
     separador: ";",
     error: "",
   };
@@ -21,7 +21,7 @@ class DataFilesAdd extends Component {
   handleUpload = async (e) => {
     e.preventDefault();
     const { file, format, text_column, language, separador } = this.state;
-    if (!file || !format || language) {
+    if (!file || !format || !language) {
       this.setState({
         error: "O arquivo, o formato e o idioma são obrigatórios",
       });
