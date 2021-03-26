@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 
 export const Container = styled.div`
+    background-image: url("fundo_cidade.jpg");
     display: flex;
     aling-items: center;
     justify-content: center;
@@ -12,15 +13,15 @@ export const Form = styled.form`
     margin: auto;
     width: 400px;
     height: 500px;
-    background: #fff;
+    background-color: rgba(0,0,0,.7);
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     img {
-        width: 100px;
-        margin: 10px 0 40px;
+        width:50%;
+        margin: 10px 0 40px;  
     }
 
     p {
@@ -33,14 +34,15 @@ export const Form = styled.form`
     }
 
     input {
-        flex: 1;
+        flex: auto;
         height: 46px;
-        margin-bottom: 15px;
+        margin-bottom: 25px;
         padding: 0 20px;
         color: #777;
         font-size: 15px;
         width: 100%;
         border: 1px solid #ddd;
+        border-radius: 5px;
         &::placeholder {
             color: #999;
         }
@@ -49,11 +51,11 @@ export const Form = styled.form`
     button {
         color: #fff;
         font-size: 16px;
-        background: #fc6963;
+        background: #ff0000;
         height: 56px;
         border: 0;
         border-radius: 5px;
-        width: 100%;
+        width: 80%;
     }
 
     hr {

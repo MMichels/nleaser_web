@@ -2,15 +2,8 @@ import React, {
     Component
 } from "react";
 import {Link, withRouter} from "react-router-dom";
-
-import Logo from "../../assets/airbnb-logo.svg"
-
 import UserService from "../../services/user";
-
-import {
-    Form,
-    Container
-} from "./styles.js";
+import {Form,Container} from "./styles.js";
 
 
 
@@ -43,7 +36,7 @@ class SignUp extends Component {
         return ( 
             <Container>
                 <Form onSubmit = {this.handleSingup}>
-                    <img src = { Logo } alt = "Logo da aplicação" /> 
+                    <img src = {"logo.png"} alt = "Logo da NLeaser" /> 
                     { this.state.error && <p> {this.state.error} </p> }
                     <input
                         type="text"

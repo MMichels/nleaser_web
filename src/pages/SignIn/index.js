@@ -44,7 +44,7 @@ class SignIn extends Component {
     return (
       <Container>
         <Form onSubmit={this.handleSigIn}>
-          <img src={Logo} alt="NLEaser Logo" />
+          <img src={'Logo.png'} alt="NLEaser Logo" />
           {this.state.error && <p>{this.state.error}</p>}
           <input
             type="email"
