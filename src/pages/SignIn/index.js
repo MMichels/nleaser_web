@@ -16,6 +16,7 @@ class SignIn extends Component {
   };
 
   handleSigIn = async (e) => {
+    console.log('handleSigIn');
     e.preventDefault();
     const { email, password } = this.state;
     if (!email || !password) {
@@ -43,7 +44,7 @@ class SignIn extends Component {
   render() {
     return (
       <Container>
-        <Form onSubmit={this.handleSigIn}>
+        <Form onSubmit={(e) => this.handleSigIn(e)}>
           <img src={'Logo.png'} alt="NLEaser Logo" />
           {this.state.error && <p>{this.state.error}</p>}
           <input

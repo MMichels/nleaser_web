@@ -1,28 +1,26 @@
 import React from 'react';
-import {Container, Tab_env, But1,But2,But3,But4,But5,But6,Box_r,Box_l,Box,Img_Box,Title_box,Text_box} from "./styles";
+import {Container, TabsHeader, ButtonFerramenta, Box,Img_Box,Title_box,Text_box} from "./styles";
 import { Tabs, Tab, Panel } from '@bumaga/tabs' 
 
 
 
-const Content = () => {
+const CardsFerramentas = () => {
 
     const [toggle, setToggle] = React.useState(true);
 
     return (
     <Container>
     <Tabs>
-        <Tab_env>
-            <Box_l/>
-            <Tab><But1 onClick={e => setToggle(state => !state)}  >
+        <TabsHeader>
+            <Tab><ButtonFerramenta onClick={e => setToggle(state => !state)}>
                 Wordcloud
-            </But1></Tab>
-            <Tab><But2 toggle={toggle}>Frequancia </But2></Tab>
-            <Tab><But3>Ngrams</But3></Tab>
-            <Tab><But4>Entidades</But4></Tab>
-            <Tab><But5>Relevancia</But5></Tab>
-            <Tab><But6>Similaridades</But6></Tab>
-            <Box_r/>
-        </Tab_env>    
+            </ButtonFerramenta></Tab>
+            <Tab><ButtonFerramenta onClick={e => setToggle(state => !state)}>Frequência </ButtonFerramenta></Tab>
+            <Tab><ButtonFerramenta onClick={e => setToggle(state => !state)}>Ngrams</ButtonFerramenta></Tab>
+            <Tab><ButtonFerramenta onClick={e => setToggle(state => !state)}>Entidades</ButtonFerramenta></Tab>
+            <Tab><ButtonFerramenta onClick={e => setToggle(state => !state)}>Relevancia</ButtonFerramenta></Tab>
+            <Tab><ButtonFerramenta onClick={e => setToggle(state => !state)}>Similaridades</ButtonFerramenta></Tab>
+        </TabsHeader>    
             <Panel>
                 <Box>
                    <Title_box>Wordcloud</Title_box>
@@ -107,4 +105,4 @@ const Content = () => {
     )
 }
 
-export default Content;
+export default CardsFerramentas;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Container, Box1, Box2} from "./styles";
 
-export default function Content() {
+export default function CardMetodosHeader() {
 
     return (
         <Container>

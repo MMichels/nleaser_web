@@ -22,7 +22,7 @@ export const Container = styled.div`
 `;
 
 
-export const Box_Title = styled.div`
+export const BoxTitle = styled.div`
     grid-area: title;
     position:relative;
     display:inline-block;
@@ -41,9 +41,7 @@ export const Text = styled.p`
     text-align:center;
 `;
 
-
-export const Box1 = styled.div`
-    grid-area: card1;
+export const TextBox = styled.div`
     display:grid;
     width: 300px;
     height: 150px;
@@ -54,35 +52,4 @@ export const Box1 = styled.div`
     border-radius: 10px;
     padding-left:5px;
     padding-right:5px;
-    
-    
-`;
-export const Box2 = styled.div`
-    grid-area: card2;
-    display:grid;
-    width: 300px;
-    height: 150px;
-    background-color:white;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    padding-left:5px;
-    padding-right:5px;
-
-    
-`;
-export const Box3 = styled.div`
-   grid-area: card3;
-    display:grid;
-    width: 300px;
-    height: 150px;
-    background-color:white;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    padding-left:5px;
-    padding-right:5px;
-   
 `;
