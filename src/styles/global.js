@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
   margin: 0;
   outline: 0;
 }
+
 body, html {
   background: #eee;
   font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
@@ -67,10 +68,5 @@ p.error {
     background: #C00 !important;
   }
 }
-
-
-
 `;
-
-
 export {GlobalStyle};

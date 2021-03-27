@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Container,Box_Title,Box1,Box2,Box3,Title,Text} from "./styles";
 
-export default function Card2() {
+export default function CardBeneficios() {
 
     return (
         <Container>
