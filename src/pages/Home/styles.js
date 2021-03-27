@@ -5,7 +5,7 @@ export const Layout_home = styled.div`
  grid-template-areas:
  'Head'
  'TopNav'
- 'Card1'
+ 'CardIntroducao'
  'Card2'
  'Card3'
  'Card4'

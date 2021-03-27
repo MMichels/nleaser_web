@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Container,Title,Text} from "./styles";
 
-export default function Card1() {
+export default function CardIntroducao() {
 
     return (
         <Container>
