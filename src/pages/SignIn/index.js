@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import Logo from "../../assets/airbnb-logo.svg";
+import Logo from "../../assets/logo.png";
 
 import UserService from "../../services/user";
 import { login } from "../../services/auth";
@@ -16,6 +16,7 @@ class SignIn extends Component {
   };
 
   handleSigIn = async (e) => {
+    console.log('handleSigIn');
     e.preventDefault();
     const { email, password } = this.state;
     if (!email || !password) {
