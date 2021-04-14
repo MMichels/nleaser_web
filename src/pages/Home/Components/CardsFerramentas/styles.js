@@ -13,14 +13,14 @@ export const TabsHeader = styled.div`
 `;
 
 export const ButtonFerramenta = styled.button`
-    margin: auto;
+    margin: 5px 0px;
     padding: 10px 4px;
     font-size: 18px;
     &:hover {
         background-color: #F5F5F5;
     }    
     background: ${({toggle}) => toggle ? 'none': '#446677'};
-`
+`;
 
 export const Box = styled.div`
     background-color: #ffffff;

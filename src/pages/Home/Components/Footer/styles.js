@@ -72,8 +72,8 @@ export const Margem_l = styled.div`
 export const User_1 = styled.div`
     display: grid;
     grid-area: User1;
-    
 `;
+
 export const User1img = styled.div`
     display: grid;
     grid-area: User1_img;
@@ -85,36 +85,43 @@ export const User1name = styled.div`
     grid-area: User1_name;
     
 `;
+
 export const User1eng = styled.div`
     display: grid;
     grid-area: User1_eng;
     
 `;
+
 export const User1rede = styled.div`
     display: grid;
     grid-area: User1_rede;
     
 `;
+
 export const User_2 = styled.div`
     display: grid;
     grid-area: User2;
     
 `;
+
 export const User2img = styled.div`
     display: grid;
     grid-area: User2_img;
     
 `;
+
 export const User2name = styled.div`
     display: grid;
     grid-area: User2_name;
 
 `;
+
 export const User2eng = styled.div`
     display: grid;
     grid-area: User2_eng;
     
 `;
+
 export const User2rede = styled.div`
     display: grid;
     grid-area: User2_rede;
@@ -145,7 +152,6 @@ export const Social_git1 = styled.div`
     justify-content:flex-start;
     padding-left: 15px;
 `;
-
 
 export const User1But = styled.div`
     display: grid;

@@ -34,7 +34,7 @@ const CardsFerramentas = () => {
             </Panel>
             <Panel>
                 <Box>
-                   <Title_box>Frequancia</Title_box>
+                   <Title_box>Frequência</Title_box>
                         <Text_box>
                             A método de frequência das palavras consiste em gerar um dicionário de palavras 
                             que contabiliza a ocorrência de mesma em um determinado texto. Isso pode ser muito 
