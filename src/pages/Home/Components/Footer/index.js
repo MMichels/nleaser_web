@@ -1,66 +1,69 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { SocialIcon } from 'react-social-icons';
 
-import { Container, BoX,Margem_l,Margem_r,User1eng,User1name,User2eng,
-    User1img,User1rede,User2img,User2name,User2rede,Margin_sup,Imgem,
-    Titulo_nome,Titulo_se,User1But,User2But,Social_git1,Social_link1,
-    Social_link2,Social_git2
+import { Container, BoX,MargemL,MargemR,User1eng,User1name,User2eng,
+    User1img,User1rede,User2img,User2name,User2rede,MarginSup,Imgem,
+    TituloNome,TituloSe,User1But,User2But,SocialGit1,SocialLink1,
+    SocialLink2,SocialGit2
 } from "./styles"
+
+
+import MateusImg from "../../../../assets/images/home/mateus.jfif";
+import LucasImg from "../../../../assets/images/home/lucas.jfif";
 
 export default function Footer() {
     return (
         <Container>
-            <Margin_sup/>
-            <   Margem_r/>
+            <MarginSup/>
+            <MargemR/>
             <BoX>
                 Projeto desenvolvido como parte do trabalho de conclusão de curso 
             </BoX>
 
             <User1img>
-                <Imgem src='matheus.jfif'/>
+                <Imgem src={MateusImg}/>
             </User1img>
             <User1name>
-                <Titulo_nome>Mateus Michels</Titulo_nome>
+                <TituloNome>Mateus Michels</TituloNome>
             </User1name>
             <User1eng>
-                <Titulo_se>Backend Developer</Titulo_se>
+                <TituloSe>Backend Developer</TituloSe>
             </User1eng>
             <User1rede>
-                <Titulo_se>IA Engineer</Titulo_se>
+                <TituloSe>IA Engineer</TituloSe>
             </User1rede>
             <User1But>
-                <Social_link2>
+                <SocialLink2>
                     <SocialIcon url="https://www.linkedin.com/in/lucas-domiciano-1bb334124/" />
-                </Social_link2>
-                <Social_git2>
+                </SocialLink2>
+                <SocialGit2>
                     <SocialIcon url="https://github.com/Lucdk" />
-                </Social_git2>
+                </SocialGit2>
             </User1But>
 
             <User2img>
-                <Imgem src='lucas.jfif'/>
+                <Imgem src={LucasImg}/>
             </User2img>
             <User2name>
-                <Titulo_nome>Lucas Domiciano</Titulo_nome>
+                <TituloNome>Lucas Domiciano</TituloNome>
             </User2name>
             <User2eng>
-                <Titulo_se>Frontend Developer</Titulo_se>
+                <TituloSe>Frontend Developer</TituloSe>
             </User2eng>
             <User2rede>
-                <Titulo_se>UX Design</Titulo_se>
+                <TituloSe>UX Design</TituloSe>
             </User2rede>
             <User2But>
-                <Social_link1>
+                <SocialLink1>
                     <SocialIcon url="https://www.linkedin.com/in/lucas-domiciano-1bb334124/" />
-                </Social_link1>
-                <Social_git1>
+                </SocialLink1>
+                <SocialGit1>
                     <SocialIcon url="https://github.com/Lucdk" />
-                </Social_git1>
+                </SocialGit1>
                 
             </User2But>
                 
-            <Margem_l/>
+            <MargemL/>
         </Container>
     )
 }

@@ -8,18 +8,20 @@ export const Container = styled.div`
 `;
 
 export const TabsHeader = styled.div`
+    margin: auto;
     display: flex;
     align-items: center;
+    width: 85%;
 `;
 
 export const ButtonFerramenta = styled.button`
     margin: 5px 0px;
     padding: 10px 4px;
     font-size: 18px;
+    width: 100%;
     &:hover {
         background-color: #F5F5F5;
     }    
-    background: ${({toggle}) => toggle ? 'none': '#446677'};
 `;
 
 export const Box = styled.div`
@@ -30,7 +32,7 @@ export const Box = styled.div`
    
 `;
 
-export const Img_Box= styled.img`
+export const ImgBox= styled.img`
     padding : 25px 15% 25px 15%;
     align-items: center;
     overflow: hidden;
@@ -43,10 +45,10 @@ export const Box_Similaridades= styled.div`
     padding: 15px 15px 15px 15px;
 `;
 
-export const Title_box= styled.h2`
+export const TitleBox= styled.h2`
     padding: 15px ;
 `;
 
-export const Text_box= styled.p`
+export const TextBox= styled.p`
     padding: 15px ;
 `;

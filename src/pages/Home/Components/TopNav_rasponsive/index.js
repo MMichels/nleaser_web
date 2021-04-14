@@ -1,11 +1,13 @@
 import React,{useEffect} from 'react';
 import {Container,Logo, Menu,Layout_menu,Tema, Links, Forma} from "./styles";
 
+import LogoImg from "../../../../assets/logo.png"
+
 const Navbar=() => {
   
   return (
     <Container>
-        <Logo src='logo.png' />
+        <Logo src={LogoImg} />
         <Menu >
             <ul>
                 <Layout_menu><Links href="#">Sugestões</Links></Layout_menu>

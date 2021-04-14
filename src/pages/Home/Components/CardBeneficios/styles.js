@@ -5,7 +5,7 @@ export const Container = styled.div`
     grid-area: Card2;
     width: 99.1vw;
     height:350px;
-    background-image: url('back.png');
+    background-image: url("images/home/back.png");
     background-position: center;
     background-repeat: no-repeat; 
     background-size: cover;

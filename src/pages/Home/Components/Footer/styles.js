@@ -16,13 +16,13 @@ export const Container = styled.div`
     ;
 `;
 
-export const Titulo_nome = styled.h2`
+export const TituloNome = styled.h2`
     margin-top: 15px;
     font-size:26px;
     text-align:center;
 `;
 
-export const Titulo_se = styled.h3`
+export const TituloSe = styled.h3`
     margin-top:0px;
     text-align: center;
     font-size:15px;
@@ -40,7 +40,7 @@ export const Imgem = styled.img`
     position: relative;
 `;
 
-export const Margin_sup = styled.div`
+export const MarginSup = styled.div`
     display: grid;
     grid-area: Margin_s;
     background-color:#ff0000;
@@ -57,13 +57,13 @@ export const BoX = styled.div`
     font-size: 24px;
 `;
 
-export const Margem_r = styled.div`
+export const MargemR = styled.div`
     display: grid;
     grid-area: BoX_r;
     
 `;
 
-export const Margem_l = styled.div`
+export const MargemL = styled.div`
     display: grid;
     grid-area: BoX_l;
     
@@ -136,7 +136,7 @@ export const User2But = styled.div`
     'Div1 Div2';
 `;
 
-export const Social_link1 = styled.div`
+export const SocialLink1 = styled.div`
     grid-area: Div1;
     display: flex;
     align-items: center;
@@ -144,7 +144,7 @@ export const Social_link1 = styled.div`
     padding-right: 15px;
 `;
 
-export const Social_git1 = styled.div`
+export const SocialGit1 = styled.div`
     display: grid;
     grid-area: Div2;
     display: flex;
@@ -164,7 +164,7 @@ export const User1But = styled.div`
     
 `;
 
-export const Social_link2 = styled.div`
+export const SocialLink2 = styled.div`
     grid-area: Div3;
     display: flex;
     align-items: center;
@@ -172,7 +172,7 @@ export const Social_link2 = styled.div`
     padding-right: 15px;
 `;
 
-export const Social_git2 = styled.div`
+export const SocialGit2 = styled.div`
     grid-area: Div4;
     display: flex;
     align-items: center;

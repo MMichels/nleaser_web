@@ -33,8 +33,8 @@ export const Card1 = styled.div`
 
 export const Card = styled.div`
     width: 100vw;
-    height: 100vh;
-    background-image: url('Fundo_cidade.jpg');
+    height: 100vh;    
+    background-image: url('images/home/Fundo_cidade.jpg');
     background-position: center;
     background-repeat: no-repeat; 
     background-size: cover;
