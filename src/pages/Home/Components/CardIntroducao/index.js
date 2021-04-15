@@ -1,13 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import {Container,Title,Text} from "./styles";
+import {Container,Card,Card1,Text,ExpCard} from "./styles";
 
-export default function CardIntroducao() {
+
+
+export function CardIntroducao() {
 
     return (
         <Container>
-            <Title>O que é a NLeaser ? </Title>
-            <Text>NLeaser é um projeto que visa disponibilisar uma conjunto de soluções que proporciome as pessoas o acesso as tecnologias de processamento de linguagem natural de um modo simples e facil.</Text>
+            <Card>
+                <ExpCard>
+                <Card1/>
+                <Text>NLeaser é a forma mais facil de seus dados virarem soluções</Text>
+                </ExpCard>
+            </Card>
+           
         </Container>
     )
 }
+

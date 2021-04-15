@@ -25,7 +25,7 @@ const BtnFerramenta = (props) => {
 }
 
 
-const CardsFerramentas = () => {
+export const CardsFerramentas = () => {
     return (
     <Container>
     <Tabs>
@@ -122,5 +122,3 @@ const CardsFerramentas = () => {
   </Container>
     )
 }
-
-export default CardsFerramentas;

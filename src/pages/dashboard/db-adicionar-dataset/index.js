@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import { Container, PageTitle } from "../../styles";
@@ -7,7 +7,7 @@ import { UploadForm, FormRow, FormLabelCol, FormInputCol } from "./styles";
 
 import DataFilesService from "../../../services/datafiles";
 
-class DataFilesAdd extends Component {
+class AdicionarDatasetComponent extends Component {
   datafilesService = new DataFilesService();
   state = {
     file: null,
@@ -156,4 +156,4 @@ class DataFilesAdd extends Component {
   }
 }
 
-export default withRouter(DataFilesAdd);
+export const AdicionarDatasetPage = withRouter(AdicionarDatasetComponent);

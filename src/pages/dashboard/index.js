@@ -29,7 +29,7 @@ function AddCard(id) {
   );
 }
 
-class DataFiles extends Component {
+class DashboardComponent extends Component {
   constructor(props) {
     super(props);
     this.dataFilesService = new DataFilesService();
@@ -71,4 +71,6 @@ class DataFiles extends Component {
   }
 }
 
-export default withRouter(DataFiles);
+export const DashboardPage = withRouter(DashboardComponent);
+
+

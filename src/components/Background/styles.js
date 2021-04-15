@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 
-export const Container = styled.div`
-    grid-area: Head;
-    display: grid;
-    width: 100%;
-    height: auto;
-    background: url(Fundo_cidade.jpg) no-repeat center fixed;
-    background-size: cover;
-    overflow: hidden;
+export const BackgroundStyled = styled.div`
+    background-image: url("images/home/Fundo_cidade.jpg");        
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: auto;
 `;

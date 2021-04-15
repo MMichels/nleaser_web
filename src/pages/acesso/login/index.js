@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import Logo from "../../assets/logo.png";
 
-import UserService from "../../services/user";
-import { login } from "../../services/auth";
+import UserService from "../../../services/user";
+import { login } from "../../../services/auth";
+
+import { LogoComponent } from "../../../components/logo";
 
 import { Form, Container } from "./styles";
 
-class SignIn extends Component {
+
+
+class LoginComponent extends Component {
   userService = new UserService();
   state = {
     email: "",
@@ -45,7 +48,7 @@ class SignIn extends Component {
     return (
       <Container>
         <Form onSubmit={(e) => this.handleSigIn(e)}>
-          <img src={Logo} alt="NLEaser Logo" />
+          <LogoComponent />
           {this.state.error && <p>{this.state.error}</p>}
           <input
             type="email"
@@ -59,11 +62,11 @@ class SignIn extends Component {
           />
           <button type="submit">Entrar</button>
           <hr />
-          <Link to="/signup">Cadastre-se</Link>
+          <Link to="/cadastro">Cadastre-se</Link>
         </Form>
       </Container>
     );
   }
 }
 
-export default withRouter(SignIn);
+export const LoginPage = withRouter(LoginComponent);

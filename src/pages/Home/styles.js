@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Layout_home = styled.div`
+export const LayoutHome = styled.div`
  grid-template-rows: 99vh 500px 360px 360px 360px 360px 200px;
  grid-template-areas:
  'Head'

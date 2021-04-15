@@ -1,25 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-import { Layout_home} from "./styles";
-import Header from "./Components/Header";
-import CardIntroducao from './Components/CardIntroducao';
-import CardBeneficios from './Components/CardBeneficios';
-import CardMetodosHeader from './Components/CardMetodosHeader';
-import CardsFerramentas from './Components/CardsFerramentas';
-import Footer from "./Components/Footer";
-import Topnav from "./Components/TopNav_rasponsive"
+import { LayoutHome} from "./styles";
+import { HeaderComponent } from "../../components/Header";
+import { CardIntroducao } from './Components/CardIntroducao';
+import { CardExplicacao } from './Components/CardExplicacao';
+import { CardBeneficios } from './Components/CardBeneficios';
+import { CardMetodos } from './Components/CardMetodosHeader';
+import { CardsFerramentas } from './Components/CardsFerramentas';
+import { Footer } from "./Components/Footer";
 
-export default function Main() {
+export const Home = function(props) {
     return (
-        <Layout_home>
-                <Topnav/>
-                <Header/>
-                <CardIntroducao/>
-                <CardBeneficios/>
-                <CardMetodosHeader/>
-                <CardsFerramentas/>
-                <Footer/>
-        </Layout_home>
+        <LayoutHome>
+            <HeaderComponent/>
+            <CardIntroducao/>
+            <CardExplicacao/>
+            <CardBeneficios/>
+            <CardMetodos/>
+            <CardsFerramentas/>
+            <Footer/>
+        </LayoutHome>
     )
 }

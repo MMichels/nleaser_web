@@ -11,7 +11,7 @@ import { Container, BoX,MargemL,MargemR,User1eng,User1name,User2eng,
 import MateusImg from "../../../../assets/images/home/mateus.jfif";
 import LucasImg from "../../../../assets/images/home/lucas.jfif";
 
-export default function Footer() {
+export function Footer() {
     return (
         <Container>
             <MarginSup/>

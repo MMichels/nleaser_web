@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Container,BoxTitle,TextBox,Title,Text} from "./styles";
 
-export default function CardBeneficios() {
+export function CardBeneficios() {
 
     return (
         <Container>
