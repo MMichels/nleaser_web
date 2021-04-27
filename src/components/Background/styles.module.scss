@@ -1,8 +1,5 @@
-import styled from "styled-components";
-
-
-export const BackgroundStyled = styled.div`
-    background-image: url("images/home/Fundo_cidade.jpg");        
+.backgroundStyled {
+    background-image: url('../../assets/images/home/Fundo_cidade.jpg');      
     background-repeat: no-repeat;
     background-position: right top;
     background-attachment: fixed;
@@ -10,4 +7,4 @@ export const BackgroundStyled = styled.div`
     flex-direction: column;
     height: 100vh;
     overflow: auto;
-`;
+}

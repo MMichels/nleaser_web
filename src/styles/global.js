@@ -1,4 +1,4 @@
-import {createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 
 const GlobalStyle = createGlobalStyle`
@@ -69,4 +69,4 @@ p.error {
   }
 }
 `;
-export {GlobalStyle};
+export { GlobalStyle };

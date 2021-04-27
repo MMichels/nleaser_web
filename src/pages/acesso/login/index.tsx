@@ -1,21 +1,23 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 
 import UserService from "../../../services/user";
 import { login } from "../../../services/auth";
 
-import { LogoComponent } from "../../../components/logo";
+import { BackgroundComponent } from '../../../components/Background';
+import { HeaderComponent } from "../../../components/Header";
+import { LoadingSpinnerComponent } from "../../../components/loading";
+import accessFormStyles from "../styles.module.scss";
 
-import { Form, Container } from "./styles";
 
 
-
-class LoginComponent extends Component {
+class LoginComponent extends Component<RouteComponentProps> {
   userService = new UserService();
   state = {
     email: "",
     password: "",
     error: "",
+    loading: false
   };
 
   handleSigIn = async (e) => {
@@ -27,7 +29,7 @@ class LoginComponent extends Component {
     } else {
       await this.userService.login(email, password).then(
         (resp) => {
-          login(resp.access_token);
+          login(resp.accessToken);
           this.props.history.push("/dashboard");
         },
         (err) => {
@@ -46,25 +48,36 @@ class LoginComponent extends Component {
 
   render() {
     return (
-      <Container>
-        <Form onSubmit={(e) => this.handleSigIn(e)}>
-          <LogoComponent />
-          {this.state.error && <p>{this.state.error}</p>}
-          <input
+      <BackgroundComponent>
+        <HeaderComponent />
+        <form className={accessFormStyles.accessFormStyled} onSubmit={(e) => this.handleSigIn(e)}>
+          <p className={accessFormStyles.titleStyled}>
+            Realizar Login
+          </p>
+          {
+            this.state.error &&
+            <p className={accessFormStyles.errorStyled}>
+              {this.state.error}
+            </p>
+          }
+          <input className={accessFormStyles.textInputStyled}
             type="email"
             placeholder="Email do usuário"
             onChange={(e) => this.setState({ email: e.target.value })}
           />
-          <input
+          <input className={accessFormStyles.textInputStyled}
             type="password"
             placeholder="Senha"
             onChange={(e) => this.setState({ password: e.target.value })}
           />
-          <button type="submit">Entrar</button>
+          <button className={accessFormStyles.submitButtonStyled} type="submit">
+            {!this.state.loading && <p>Entrar</p>}
+            {this.state.loading && <LoadingSpinnerComponent />}
+          </button>
           <hr />
           <Link to="/cadastro">Cadastre-se</Link>
-        </Form>
-      </Container>
+        </form>
+      </BackgroundComponent>
     );
   }
 }

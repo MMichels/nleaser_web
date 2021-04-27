@@ -33,20 +33,20 @@ class DataFileCard extends Component {
       html: `<p>Ao confirmar, o conjunto de dados <b>${this.props.name}</b> será excluido, juntamente com todas as analises já realizadas.</p>`,
       icon: "warning",
       showConfirmButton: true,
-      confirmButtonText: "Sim, exclua", 
+      confirmButtonText: "Sim, exclua",
       showCancelButton: true,
       cancelButtonText: "Não, deixe como esta",
       showLoaderOnConfirm: true,
       reverseButtons: true,
-      position: 'top',      
+      position: 'top',
     }).then((value) => {
-      if(value.isConfirmed){
+      if (value.isConfirmed) {
         this.service.delete(this.props.id).then((result) => {
           Swal.fire(
             "Excluido!",
             "O arquivo de dados foi excluido com sucesso",
             "success"
-          ).then(() => {            
+          ).then(() => {
             this.props.history.go(0);
           });
         }, (err) => {
@@ -62,27 +62,27 @@ class DataFileCard extends Component {
     })
   }
 
-  handleExcludeDataFile(){
-    this.setState({showExcludeDataFileAlert: false});
+  handleExcludeDataFile() {
+    this.setState({ showExcludeDataFileAlert: false });
   }
 
   render() {
-    let year =this.props.createdAt.substring(0, 4);
+    let year = this.props.createdAt.substring(0, 4);
     let month = this.props.createdAt.substring(5, 7);
     let day = this.props.createdAt.substring(8, 10);
     let hour = this.props.createdAt.substring(11, 13);
     let minute = this.props.createdAt.substring(14, 16);
-  
+
     return (
       <Card key={this.props.id}>
         <DataFile>
           <div className="datafile-header">
             <h1>{this.props.name}</h1>
             <Link onClick={() => this.handleExcludeDataFileClick()}>
-              <FontAwesomeIcon icon={faTrashAlt} className="exclude"/>
+              <FontAwesomeIcon icon={faTrashAlt} className="exclude" />
             </Link>
           </div>
-          <Link className="fill-div" to={`/dashboard/${this.props.id}`}/>
+          <Link className="fill-div" to={`/dashboard/${this.props.id}`} />
           <p className="createdDate">
             {`Enviado em: ${day}/${month}/${year} - ${hour}:${minute}`}
           </p>

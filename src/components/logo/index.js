@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { LogoContainerStyled, LogoImgStyled } from "./styles";
 import LogoImg from "../../assets/logo.png";
 
-export const LogoComponent = function(props) {
+export const LogoComponent = function (props) {
     return (
-        <LogoContainerStyled>            
+        <LogoContainerStyled>
             <Link to="/">
-                <LogoImgStyled className="logo-img" src={LogoImg} alt="Logo da aplicação NLEaser"/>
+                <LogoImgStyled className="logo-img" src={LogoImg} alt="Logo da aplicação NLEaser" />
             </Link>
             {props.children}
         </LogoContainerStyled>

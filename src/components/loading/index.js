@@ -3,7 +3,7 @@ import { LoadingSpinnerStyled } from "./styles";
 
 import LoadingGif from "../../assets/gifs/loading.gif"
 
-export default function LoadingSpinnerComponent() {
+export function LoadingSpinnerComponent() {
     return (
         <LoadingSpinnerStyled src={LoadingGif} />
     )
