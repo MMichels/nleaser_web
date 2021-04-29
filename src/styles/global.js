@@ -31,7 +31,6 @@ p.error {
     border: 1px solid #ff3333;
     padding: 10px;
     width: 100%;
-    text-aling: center;
 }
 
 .exclude {

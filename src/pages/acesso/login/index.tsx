@@ -27,12 +27,15 @@ class LoginComponent extends Component<RouteComponentProps> {
     if (!email || !password) {
       this.setState({ error: "Todos os campos precisam ser preenchidos" });
     } else {
+      this.setState({ loading: true });
       await this.userService.login(email, password).then(
         (resp) => {
+          this.setState({ loading: false });
           login(resp.accessToken);
           this.props.history.push("/dashboard");
         },
         (err) => {
+          this.setState({ loading: false });
           if (err.error) this.setState({ error: err.error });
           else {
             console.log("Erro ao realizar o login: ", err);
