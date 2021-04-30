@@ -1,8 +1,9 @@
+import qs from "querystring";
 import React, { Component } from "react";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 
 import UserService from "../../../services/user.service";
-import { login } from "../../../services/auth";
+import { login, logout } from "../../../services/auth";
 
 import { BackgroundComponent } from '../../../components/Background';
 import { HeaderComponent } from "../../../components/Header";
@@ -20,6 +21,13 @@ class LoginComponent extends Component<RouteComponentProps> {
     loading: false
   };
 
+  componentDidMount() {
+    const query = new URLSearchParams(this.props.location.search);
+    if(query.get("logout")){
+      logout();
+    }
+  }
+
   handleSigIn = async (e) => {
     console.log('handleSigIn');
     e.preventDefault();
@@ -31,7 +39,7 @@ class LoginComponent extends Component<RouteComponentProps> {
       await this.userService.login(email, password).then(
         (resp) => {
           this.setState({ loading: false });
-          login(resp.accessToken);
+          login(resp.access_token);
           this.props.history.push("/dashboard");
         },
         (err) => {

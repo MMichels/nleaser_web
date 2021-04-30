@@ -53,14 +53,17 @@ class DashboardComponent extends Component<RouteComponentProps, DashBoardState> 
   }
 
   async componentDidMount() {
+    this.setState({loading: true});
     await this.dataFilesService.list("created_at", false).then(
       (response) => {
+        this.setState({loading: false});
         this.setState({
           total: response.total,
           datafiles: response.documents,
         });
       },
       (err) => {
+        this.setState({ loading: false });
         this.setState({ error: err.error });
       }
     );
@@ -71,12 +74,26 @@ class DashboardComponent extends Component<RouteComponentProps, DashBoardState> 
       <DataFileCardRoutedComponent id={d.id} name={d.name} createdAt={d.created_at.toString()} />
     );
     cards.push(AddCard(cards.length));
+
+    const renderElements = () => {
+      if(this.state.loading){
+        return <LoadingSpinnerComponent />
+      }else{
+        return (
+          <div className={styles.dataFileCardsList}>
+            {cards}
+          </div>
+        )
+      }
+    }
+
     return (
       <BackgroundComponent>
         <HeaderComponent />
-        <div>
-          <h2>Seus conjuntos de dados</h2>
-          <div className={styles.dashBoard}>{cards}</div>
+        <div className={styles.dashBoard}>
+          <h1>Seus conjuntos de dados</h1>
+          {this.state.error && <p className="error">{this.state.error}</p>}
+          {renderElements()}
         </div>
       </BackgroundComponent>
     );

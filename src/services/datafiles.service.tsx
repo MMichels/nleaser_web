@@ -1,13 +1,7 @@
-import api from "./api.service";
-import { AxiosInstance } from "axios";
+import {BaseService} from "./base.service";
 import { DataFileType } from "../types/datafiles.types";
 
-export default class DataFilesService {
-  api: AxiosInstance;
-
-  constructor() {
-    this.api = api;
-  }
+export default class DataFilesService extends BaseService{
 
   list(orderBy: string, orderAscending: boolean) : Promise<{total: number, documents: Array<DataFileType>}> {
     return this.api.get("/datafile", {

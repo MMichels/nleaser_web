@@ -1,4 +1,4 @@
 
 export interface ILoginInterface {
-    accessToken: string
+    access_token: string
 }

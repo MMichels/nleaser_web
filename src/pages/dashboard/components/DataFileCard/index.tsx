@@ -69,19 +69,19 @@ class DataFileCardComponent extends Component<RouteComponentProps<{}> & IDataFil
   }
 
   render() {
-    const formatedCreatedAtDate = format(new Date(this.props.createdAt), 'HH:MM  DD MMMM yyyy', {locale: ptBR});
+    const formatedCreatedAtDate = format(new Date(this.props.createdAt), 'dd MMMM yyyy - HH:MM', {locale: ptBR});
 
     return (
       <div className={styles.fileCard} key={this.props.id}>
         <div className={styles.dataFile}>
-          <div className="datafile-header">
+          <div className={styles.datafileHeader}>
             <h1>{this.props.name}</h1>
             <span onClick={() => this.handleExcludeDataFileClick()}>
               <FontAwesomeIcon icon={faTrashAlt} className="exclude" />
             </span>
           </div>
           <Link className="fill-div" to={`/dashboard/${this.props.id}`} />
-          <p className="createdDate">
+          <p className={styles.createdDate}>
             {`Enviado em: ${formatedCreatedAtDate}`}
           </p>
         </div>

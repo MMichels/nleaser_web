@@ -1,12 +1,7 @@
-import api from "./api.service";
-import { AxiosInstance } from "axios";
+import { BaseService } from "./base.service";
 import { ILoginInterface } from "../types/user.types";
 
-export default class UserService {
-    api: AxiosInstance;
-    constructor() {
-        this.api = api;
-    }
+export default class UserService extends BaseService{
 
     /**
      * Realiza o request para criar um novo usuário no backend
