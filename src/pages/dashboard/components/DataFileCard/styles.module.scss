@@ -1,6 +1,26 @@
-import styled from "styled-components";
+.fileCard {
+  display: flex;
+  flex-direction: row;
+  flex-basis: 33.33%;
+  width: 33.33%;
+  height: 33vh;
+  box-sizing: border-box;
 
-export const DataFile = styled.div`
+  
+  background: rgba(0, 0, 0, 0.8);
+
+  border-radius: 15px;  
+  border: 2px solid #333;
+  box-shadow: 2px 2px 5px black;
+
+
+  &:last-child {
+    padding-right: 0;
+  }
+
+}
+
+.dataFile {
   display: flex;
   flex-direction: column;
   background: #fff;
@@ -12,7 +32,7 @@ export const DataFile = styled.div`
   border-radius: 15px;
 
   cursor: pointer;
-  trasition: 0.3s ease;
+  transition: 0.3s ease;
 
   .datafile-header {
     display: flex;
@@ -39,7 +59,7 @@ export const DataFile = styled.div`
     }
   }
 
-  .createdDate {
+  p.createdDate {
     margin: auto;
     margin-bottom: -10px;
     margin-right: 0;
@@ -53,4 +73,7 @@ export const DataFile = styled.div`
   &:hover {
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
   }
-`;
+}
+
+
+

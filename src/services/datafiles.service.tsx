@@ -1,11 +1,15 @@
-import api from "./api";
+import api from "./api.service";
+import { AxiosInstance } from "axios";
+import { DataFileType } from "../types/datafiles.types";
 
 export default class DataFilesService {
+  api: AxiosInstance;
+
   constructor() {
     this.api = api;
   }
 
-  list(orderBy, orderAscending) {
+  list(orderBy: string, orderAscending: boolean) : Promise<{total: number, documents: Array<DataFileType>}> {
     return this.api.get("/datafile", {
       params: {
         orderby: orderBy,
@@ -14,7 +18,7 @@ export default class DataFilesService {
     });
   }
 
-  delete(id) {
+  delete(id: string) : Promise<{deleted: boolean}>{
     return this.api.delete("/datafile", {
       params: {
         datafile_id: id,
@@ -22,7 +26,8 @@ export default class DataFilesService {
     });
   }
 
-  upload(file, format, textColumn, language, separador) {
+  upload(file: string | Blob, format: string, textColumn: string, 
+    language: string, separador: string) : Promise<{id: string}>  {
     const formData = new FormData();
     formData.append("file", file);
 

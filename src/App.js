@@ -1,6 +1,6 @@
 import React from 'react';
 import Routes from './routes';
-import "./styles/global";
+import "./styles/global.scss";
 import 'fontsource-roboto';
 
 

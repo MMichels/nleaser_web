@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
-import UserService from "../../../services/user";
+import UserService from "../../../services/user.service";
 
 import { BackgroundComponent } from '../../../components/Background';
 import { HeaderComponent } from "../../../components/Header";

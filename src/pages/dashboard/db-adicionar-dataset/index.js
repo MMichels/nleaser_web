@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { Container, PageTitle } from "../../styles";
 import { UploadForm, FormRow, FormLabelCol, FormInputCol } from "./styles";
 
-import DataFilesService from "../../../services/datafiles";
+import DataFilesService from "../../../services/datafiles.service";
 
 class AdicionarDatasetComponent extends Component {
   datafilesService = new DataFilesService();

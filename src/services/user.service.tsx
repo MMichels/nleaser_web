@@ -1,9 +1,6 @@
-import api from "./api";
+import api from "./api.service";
 import { AxiosInstance } from "axios";
-
-interface ILoginInterface {
-    accessToken: string
-}
+import { ILoginInterface } from "../types/user.types";
 
 export default class UserService {
     api: AxiosInstance;

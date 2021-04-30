@@ -1,7 +1,5 @@
-import { createGlobalStyle } from "styled-components";
 
-
-const GlobalStyle = createGlobalStyle`
+// ELEMENTOS HTML
 * {
   box-sizing: border-box;
   padding: 0;
@@ -18,6 +16,11 @@ body, html {
   width: 100%;
 }
 
+button {
+  cursor: pointer;
+}
+
+// CLASSES CSS
 a.fill-div {
   display: block;
   height: 100%;
@@ -36,6 +39,8 @@ p.error {
 .exclude {
   color: #F44;
 }
+
+// SWEET ALERT
 
 .swal2-popup {
   width: 25%;
@@ -67,5 +72,3 @@ p.error {
     background: #C00 !important;
   }
 }
-`;
-export { GlobalStyle };

@@ -1,7 +1,9 @@
+
+import "./styles/global.scss"
+
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-import { GlobalStyle } from "./styles/global";
 import { isAuthenticated } from "./services/auth";
 import { Home } from "./pages/home";
 import { CadastroPage } from "./pages/acesso/cadastro";
@@ -22,8 +24,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 const Routes = () => (
-    <BrowserRouter>        
-        <GlobalStyle />
+    <BrowserRouter>    
         <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={LoginPage} />
