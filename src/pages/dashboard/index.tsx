@@ -1,31 +1,29 @@
 import React, { Component } from "react";
+import Modal from "react-modal";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./styles.module.scss";
 import dataFileCardStyles from "./components/DataFileCard/styles.module.scss";
+import modalStyles from "../../styles/modalStyles.module.scss";
+
 import { BackgroundComponent } from "../../components/Background";
 import { HeaderComponent } from "../../components/Header";
 import { LoadingSpinnerComponent } from "../../components/loading";
-import {DataFileCardRoutedComponent} from "./components/DataFileCard";
+import { DataFileCardRoutedComponent } from "./components/DataFileCard";
+import { AddDataFileModalComponent } from "./db-addDatafile-component";
 
 import DataFilesService from "../../services/datafiles.service";
 import { DataFileType } from "../../types/datafiles.types";
 
 
 
-function AddCard(id: number) {
+function AddCard(id: number, onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void ) {
   return (
     <div className={dataFileCardStyles.fileCard} key={id}>
-      <button className={styles.addButton}>
-        <Link
-          className="fill-div"
-          style={{ padding: "30px" }}
-          to={"/dashboard/add"}
-        >
+      <button className={styles.addButton} onClick={onClick}>          
           <FontAwesomeIcon icon={faPlusCircle} size="4x" />
-        </Link>
       </button>
     </div>
   );
@@ -35,7 +33,8 @@ interface DashBoardState {
   datafiles: Array<DataFileType>,
   total: number,
   error: string,
-  loading: boolean
+  loading: boolean,
+  modalAddFileIsOpen: boolean
 }
 
 class DashboardComponent extends Component<RouteComponentProps, DashBoardState> {
@@ -48,8 +47,11 @@ class DashboardComponent extends Component<RouteComponentProps, DashBoardState> 
       datafiles: new Array<DataFileType>(),
       total: 0,
       error: "",
-      loading: false
+      loading: false,
+      modalAddFileIsOpen: false
     };
+    this.closeModal = this.closeModal.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
 
   async componentDidMount() {
@@ -69,11 +71,20 @@ class DashboardComponent extends Component<RouteComponentProps, DashBoardState> 
     );
   }
 
+  openModal(e: React.MouseEvent) {
+    e.preventDefault();
+    this.setState({modalAddFileIsOpen: true});
+  }
+
+  closeModal() {
+    this.setState({modalAddFileIsOpen: false});
+  }
+
   render() {
     const cards = this.state.datafiles.map((d) =>
       <DataFileCardRoutedComponent id={d.id} name={d.name} createdAt={d.created_at.toString()} />
     );
-    cards.push(AddCard(cards.length));
+    cards.push(AddCard(cards.length, this.openModal));
 
     const renderElements = () => {
       if(this.state.loading){
@@ -90,6 +101,15 @@ class DashboardComponent extends Component<RouteComponentProps, DashBoardState> 
     return (
       <BackgroundComponent>
         <HeaderComponent />
+        <Modal 
+          isOpen={this.state.modalAddFileIsOpen}
+          onRequestClose={this.closeModal}
+          contentLabel="Modal Adicionar novo conjunto de dados"
+          className={modalStyles.defaultModal}
+          overlayClassName={modalStyles.overlayModal}
+        >
+          <AddDataFileModalComponent onRequestClose={this.closeModal}/>
+        </Modal>
         <div className={styles.dashBoard}>
           <h1>Seus conjuntos de dados</h1>
           {this.state.error && <p className="error">{this.state.error}</p>}

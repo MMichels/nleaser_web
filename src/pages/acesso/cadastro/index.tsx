@@ -5,7 +5,7 @@ import UserService from "../../../services/user.service";
 import { BackgroundComponent } from '../../../components/Background';
 import { HeaderComponent } from "../../../components/Header";
 import { LoadingSpinnerComponent } from "../../../components/loading";
-import accessFormStyles from "../styles.module.scss";
+import formStyles from "../../../styles/formStyles.module.scss";
 
 class CadastroComponent extends Component<RouteComponentProps> {
     userService = new UserService();
@@ -40,35 +40,35 @@ class CadastroComponent extends Component<RouteComponentProps> {
         return (
             <BackgroundComponent>
                 <HeaderComponent />
-                <form className={accessFormStyles.accessFormStyled} onSubmit={this.handleCadastro}>
-                    <p className={accessFormStyles.titleStyled}>
+                <form className={formStyles.accessFormStyled} onSubmit={this.handleCadastro}>
+                    <p className={formStyles.titleStyled}>
                         Realizar Cadastro
                     </p>
-                    <p className={accessFormStyles.descriptionStyled}>
+                    <p className={formStyles.descriptionStyled}>
                         Preencha todas as informações abaixo para realizar seu cadastro na plataforma
                     </p>
                     {
                         this.state.error &&
-                        <p className={accessFormStyles.errorStyled}>
+                        <p className={formStyles.errorStyled}>
                             {this.state.error}
                         </p>
                     }
-                    <input className={accessFormStyles.textInputStyled}
+                    <input className={formStyles.textInputStyled}
                         type="text"
                         placeholder="Nome"
                         onChange={e => this.setState({ name: e.target.value })}
                     />
-                    <input className={accessFormStyles.textInputStyled}
+                    <input className={formStyles.textInputStyled}
                         type="text"
                         placeholder="Email"
                         onChange={e => this.setState({ email: e.target.value })}
                     />
-                    <input className={accessFormStyles.textInputStyled}
+                    <input className={formStyles.textInputStyled}
                         type="password"
                         placeholder="Senha"
                         onChange={e => this.setState({ password: e.target.value })}
                     />
-                    <button className={accessFormStyles.submitButtonStyled} type="submit">
+                    <button className={formStyles.submitButtonStyled} type="submit">
                         {!this.state.loading && <p>Inscrever-se</p>}
                         {this.state.loading && <LoadingSpinnerComponent />}
                     </button>

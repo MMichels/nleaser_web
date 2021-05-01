@@ -1,0 +1,69 @@
+@import 'formStyles.module';
+
+.defaultModal {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 5px;
+}
+
+
+.overlayModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modalHeader {
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+
+  width: 100%;
+  
+
+  .modalTitle {
+    @extend .titleStyled;
+
+    width: 90%;
+
+    color: black;
+    text-shadow: none;
+    
+    margin: 1rem;
+    margin-top: 0;
+  }
+
+  .closeModalButton {
+    width: 10%;
+
+    position: relative;
+    top: -2rem;
+    right: -2rem;
+
+    background: transparent;
+    color: #FF1111;
+    border: none;
+    height: 46px;
+
+    svg {
+      height: 90%;
+      width: 90%;
+    }
+  }
+
+}
+
+.modalDescription {
+  @extend .descriptionStyled;
+  color: black;
+  margin-bottom: 1rem;
+}

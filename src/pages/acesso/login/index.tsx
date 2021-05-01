@@ -1,4 +1,3 @@
-import qs from "querystring";
 import React, { Component } from "react";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 
@@ -8,7 +7,7 @@ import { login, logout } from "../../../services/auth";
 import { BackgroundComponent } from '../../../components/Background';
 import { HeaderComponent } from "../../../components/Header";
 import { LoadingSpinnerComponent } from "../../../components/loading";
-import accessFormStyles from "../styles.module.scss";
+import formStyles from "../../../styles/formStyles.module.scss";
 
 
 
@@ -26,26 +25,34 @@ class LoginComponent extends Component<RouteComponentProps> {
     if(query.get("logout")){
       logout();
     }
+    if(query.get("error")){
+      this.setState({error: query.get("error")});
+    }
   }
 
   handleSigIn = async (e) => {
-    console.log('handleSigIn');
     e.preventDefault();
     const { email, password } = this.state;
-    if (!email || !password) {
+    if (!email || !password) 
+    {
       this.setState({ error: "Todos os campos precisam ser preenchidos" });
-    } else {
+    } 
+    else 
+    {
       this.setState({ loading: true });
       await this.userService.login(email, password).then(
-        (resp) => {
+        (resp) => 
+        {
           this.setState({ loading: false });
           login(resp.access_token);
           this.props.history.push("/dashboard");
         },
-        (err) => {
+        (err) => 
+        {
           this.setState({ loading: false });
           if (err.error) this.setState({ error: err.error });
-          else {
+          else 
+          {
             console.log("Erro ao realizar o login: ", err);
             this.setState({
               error:
@@ -61,27 +68,30 @@ class LoginComponent extends Component<RouteComponentProps> {
     return (
       <BackgroundComponent>
         <HeaderComponent />
-        <form className={accessFormStyles.accessFormStyled} onSubmit={(e) => this.handleSigIn(e)}>
-          <p className={accessFormStyles.titleStyled}>
+        <form className={formStyles.accessFormStyled} onSubmit={(e) => this.handleSigIn(e)}>
+          <p className={formStyles.titleStyled}>
             Realizar Login
+          </p>
+          <p className={formStyles.descriptionStyled}>
+            Preencha seu usuário e senha para acessar seu dashboard
           </p>
           {
             this.state.error &&
-            <p className={accessFormStyles.errorStyled}>
+            <p className={formStyles.errorStyled}>
               {this.state.error}
             </p>
           }
-          <input className={accessFormStyles.textInputStyled}
+          <input className={formStyles.textInputStyled}
             type="email"
             placeholder="Email do usuário"
             onChange={(e) => this.setState({ email: e.target.value })}
           />
-          <input className={accessFormStyles.textInputStyled}
+          <input className={formStyles.textInputStyled}
             type="password"
             placeholder="Senha"
             onChange={(e) => this.setState({ password: e.target.value })}
           />
-          <button className={accessFormStyles.submitButtonStyled} type="submit">
+          <button className={formStyles.submitButtonStyled} type="submit">
             {!this.state.loading && <p>Entrar</p>}
             {this.state.loading && <LoadingSpinnerComponent />}
           </button>
