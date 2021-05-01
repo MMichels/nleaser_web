@@ -107,6 +107,7 @@ class DashboardComponent extends Component<RouteComponentProps, DashBoardState> 
           contentLabel="Modal Adicionar novo conjunto de dados"
           className={modalStyles.defaultModal}
           overlayClassName={modalStyles.overlayModal}
+          closeTimeoutMS={500}
         >
           <AddDataFileModalComponent onRequestClose={this.closeModal}/>
         </Modal>

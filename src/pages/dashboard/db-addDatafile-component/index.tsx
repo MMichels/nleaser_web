@@ -22,7 +22,7 @@ class AddDataFileFormComponent extends Component<RouteComponentProps<{}> & IAddD
   datafilesService = new DataFilesService();
   state = {
     file: null,
-    format: "xlsx",
+    format: "",
     text_column: "",
     language: "",
     separador: ";",
@@ -120,6 +120,7 @@ class AddDataFileFormComponent extends Component<RouteComponentProps<{}> & IAddD
             <select className={formStyles.textInputStyled}
               id="format"
               name="format"
+              style={{color: (this.state.format === "") ? '#969696':'black'}}
               onChange={(e) => this.setState({ format: e.target.value })}
             >
               <option value="" style={{color: '#555'}}>Formato do arquivo</option>
