@@ -7,27 +7,45 @@ import { faUpload, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 
 import styles from "./styles.module.scss";
-import modalStyles from "../../../styles/modalStyles.module.scss";
-import formStyles from "../../../styles/formStyles.module.scss";
+import modalStyles from "../../../../styles/modalStyles.module.scss";
+import formStyles from "../../../../styles/formStyles.module.scss";
 
-import DataFilesService from "../../../services/datafiles.service";
+import DataFilesService from "../../../../services/datafiles.service";
+
+import { LoadingSpinnerComponent } from "../../../../components/loading";
 
 
 interface IAddDataFileFormProps {
   onRequestClose?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
+interface IAddDataFileFormState {
+  file: any;
+  format: string;
+  text_column: string;
+  language: string;
+  separador: string;
+  error: string;
+  loading: boolean;
+}
 
-class AddDataFileFormComponent extends Component<RouteComponentProps<{}> & IAddDataFileFormProps> {
-  datafilesService = new DataFilesService();
-  state = {
-    file: null,
-    format: "",
-    text_column: "",
-    language: "",
-    separador: ";",
-    error: "",
-  };
+
+class AddDataFileFormComponent extends Component<RouteComponentProps<{}> & IAddDataFileFormProps, IAddDataFileFormState> {
+  datafilesService: DataFilesService;
+
+  constructor(props){
+    super(props);
+    this.datafilesService = new DataFilesService();
+    this.state = {
+      file: null,
+      format: "",
+      text_column: "",
+      language: "",
+      separador: ";",
+      error: "",
+      loading: false
+    };
+  }
 
   handleUpload = async (e) => {
     e.preventDefault();
@@ -43,18 +61,21 @@ class AddDataFileFormComponent extends Component<RouteComponentProps<{}> & IAddD
       return;
     }
 
+    this.setState({loading: true});
     this.datafilesService
       .upload(file, format, text_column, language, separador)
       .then(
-        (response) => {
+        (response) => {          
+          this.setState({loading: false});
           Swal.fire({
             title: "Upload realizado!",
             html: `<p>Seu arquivo já esta disponível para analise</p>`,
             icon: "success",
             position: "top",
-          }).then((value) => this.props.history.push(`/dashboard/${response.id}`));
+          }).then((value) => this.props.history.push(`/dashboard/nlp/${response.id}`));
         },
         (error) => {
+          this.setState({loading: false});
           this.setState({ error: error.error });
         }
       );
@@ -144,8 +165,13 @@ class AddDataFileFormComponent extends Component<RouteComponentProps<{}> & IAddD
             </select>
 
             <button className={formStyles.uploadButtonStyled} type="submit">
-              <p>Upload</p>
-              <FontAwesomeIcon icon={faUpload} />
+              {!this.state.loading && 
+                <>
+                  <p>Upload</p>
+                  <FontAwesomeIcon icon={faUpload} />
+                </>
+              }
+              {this.state.loading && <LoadingSpinnerComponent />}
             </button>
           </form>
         </div>

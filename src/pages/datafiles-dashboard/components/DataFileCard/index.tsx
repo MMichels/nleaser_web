@@ -80,7 +80,7 @@ class DataFileCardComponent extends Component<RouteComponentProps<{}> & IDataFil
               <FontAwesomeIcon icon={faTrashAlt} className="exclude" />
             </span>
           </div>
-          <Link className="fill-div" to={`/dashboard/${this.props.id}`} />
+          <Link className="fill-div" to={`/dashboard/nlp/${this.props.id}`} />
           <p className={styles.createdDate}>
             {`Enviado em: ${formatedCreatedAtDate}`}
           </p>

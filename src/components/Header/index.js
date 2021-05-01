@@ -17,11 +17,11 @@ export const HeaderComponent=() => {
    * Caso contrario, coloca as opções de login e cadastro
    */
   const accessComponents = () => {
-    if(token || token !== undefined)
+    if(token && token !== undefined)
     {
       return (
         <>
-          <LayoutMenu><Links href="/dashboard">Dashboard</Links></LayoutMenu>
+          <LayoutMenu><Links href="/dashboard/datafiles">Dashboard</Links></LayoutMenu>
           <LayoutMenu><Links href="/login?logout=true">Logout</Links></LayoutMenu>        
         </>
       )

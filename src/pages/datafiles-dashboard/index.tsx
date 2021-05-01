@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Modal from "react-modal";
-import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,7 +12,7 @@ import { BackgroundComponent } from "../../components/Background";
 import { HeaderComponent } from "../../components/Header";
 import { LoadingSpinnerComponent } from "../../components/loading";
 import { DataFileCardRoutedComponent } from "./components/DataFileCard";
-import { AddDataFileModalComponent } from "./db-addDatafile-component";
+import { AddDataFileModalComponent } from "./components/AddDataFileModal";
 
 import DataFilesService from "../../services/datafiles.service";
 import { DataFileType } from "../../types/datafiles.types";
@@ -29,7 +29,7 @@ function AddCard(id: number, onClick: (event: React.MouseEvent<HTMLButtonElement
   );
 }
 
-interface DashBoardState {
+interface IDashBoardState {
   datafiles: Array<DataFileType>,
   total: number,
   error: string,
@@ -37,7 +37,7 @@ interface DashBoardState {
   modalAddFileIsOpen: boolean
 }
 
-class DashboardComponent extends Component<RouteComponentProps, DashBoardState> {
+class DatafilesDashboardComponent extends Component<RouteComponentProps, IDashBoardState> {
   dataFilesService: DataFilesService;
 
   constructor(props) {
@@ -121,6 +121,6 @@ class DashboardComponent extends Component<RouteComponentProps, DashBoardState> 
   }
 }
 
-export const DashboardPage = withRouter(DashboardComponent);
+export const DataFilesDashboardPage = withRouter(DatafilesDashboardComponent);
 
 

@@ -45,7 +45,7 @@ class LoginComponent extends Component<RouteComponentProps> {
         {
           this.setState({ loading: false });
           login(resp.access_token);
-          this.props.history.push("/dashboard");
+          this.props.history.push("/dashboard/datafiles");
         },
         (err) => 
         {
