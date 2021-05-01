@@ -6,6 +6,7 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./styles.module.scss";
 import dataFileCardStyles from "./components/DataFileCard/styles.module.scss";
+import pagesStyles from "../pagesStyles.module.scss";
 import modalStyles from "../../styles/modalStyles.module.scss";
 
 import { BackgroundComponent } from "../../components/Background";
@@ -91,9 +92,9 @@ class DatafilesDashboardComponent extends Component<RouteComponentProps, IDashBo
         return <LoadingSpinnerComponent />
       }else{
         return (
-          <div className={styles.dataFileCardsList}>
+          <ul className={pagesStyles.cardsList}>
             {cards}
-          </div>
+          </ul>
         )
       }
     }
@@ -111,10 +112,12 @@ class DatafilesDashboardComponent extends Component<RouteComponentProps, IDashBo
         >
           <AddDataFileModalComponent onRequestClose={this.closeModal}/>
         </Modal>
-        <div className={styles.dashBoard}>
+        <div className={pagesStyles.dashBoard}>
           <h1>Seus conjuntos de dados</h1>
           {this.state.error && <p className="error">{this.state.error}</p>}
+          
           {renderElements()}
+          
         </div>
       </BackgroundComponent>
     );

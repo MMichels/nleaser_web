@@ -1,0 +1,13 @@
+.container {  
+    display: flex;
+    flex-direction: column;
+    flex-basis: 1;
+  
+    align-items: center;
+  
+    margin: 2rem;
+  
+    hr {
+      width: 100%;
+    }
+  }

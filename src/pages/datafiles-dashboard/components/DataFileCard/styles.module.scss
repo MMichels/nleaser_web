@@ -1,8 +1,7 @@
 .fileCard {
   display: flex;
   flex-direction: row;
-  flex-basis: 33.33%;
-  width: 33.33%;
+  width: 30%;
   height: 33vh;
   margin: 1rem;
 
@@ -12,7 +11,7 @@
 
   border-radius: 15px;  
   border: 2px solid #333;
-  box-shadow: 2px 2px 5px black;
+  box-shadow: 2px 2px 5px black; 
 
 }
 
@@ -28,12 +27,13 @@
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 
   cursor: pointer;
-  transition: 0.3s ease;
   
 
   &:hover {
-    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
   }
+
+  transition: all 200ms ease-in-out;
 
   .datafileHeader {
     display: flex;
@@ -44,6 +44,7 @@
       margin: 0;
       width: 90%;
       font-size: 2rem;
+      word-break: break-word;
     }
 
     span {      

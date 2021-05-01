@@ -72,7 +72,7 @@ class DataFileCardComponent extends Component<RouteComponentProps<{}> & IDataFil
     const formatedCreatedAtDate = format(new Date(this.props.createdAt), 'dd MMMM yyyy - HH:MM', {locale: ptBR});
 
     return (
-      <div className={styles.fileCard} key={this.props.id}>
+      <li className={styles.fileCard} key={this.props.id}>
         <div className={styles.dataFile}>
           <div className={styles.datafileHeader}>
             <h1>{this.props.name}</h1>
@@ -85,7 +85,7 @@ class DataFileCardComponent extends Component<RouteComponentProps<{}> & IDataFil
             {`Enviado em: ${formatedCreatedAtDate}`}
           </p>
         </div>
-      </div>
+      </li>
     );
   }
 }
