@@ -2,6 +2,10 @@ import {BaseService} from "./base.service";
 import { DataFileType } from "../types/datafiles.types";
 
 export default class DataFilesService extends BaseService{
+  
+  get(datafile_id: string) : Promise<DataFileType> {
+    return this.api.get(`/datafile/${datafile_id}`);
+  }
 
   list(orderBy: string, orderAscending: boolean) : Promise<{total: number, documents: Array<DataFileType>}> {
     return this.api.get("/datafile", {
@@ -13,11 +17,7 @@ export default class DataFilesService extends BaseService{
   }
 
   delete(id: string) : Promise<{deleted: boolean}>{
-    return this.api.delete("/datafile", {
-      params: {
-        datafile_id: id,
-      },
-    });
+    return this.api.delete(`/datafile/${id}`);
   }
 
   upload(file: string | Blob, format: string, textColumn: string, 

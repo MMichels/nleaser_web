@@ -1,4 +1,4 @@
-import React, { Component, useState, ReactNode } from 'react';
+import React, { Component } from 'react';
 import Modal from "react-modal";
 
 import styles from "./styles.module.scss";
@@ -12,6 +12,7 @@ interface INLPCardComponentProps {
     imgSrc:string;
     imgAlt:string;
     contentLabel:string;
+    datafile: DataFileType;
 }
 
 interface INLPCardComponentState {
@@ -20,14 +21,30 @@ interface INLPCardComponentState {
 
 export class NLPCardComponent extends Component<INLPCardComponentProps, INLPCardComponentState> {
 
-    state = {
-        modalIsOpen: false
+    constructor(props){
+        super(props);
+        this.state = {
+            modalIsOpen: false
+        };
+
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);        
+    }
+
+    openModal(e: React.MouseEvent){
+        e.preventDefault();
+        this.setState({modalIsOpen: true});
+    }
+
+    closeModal(e: React.MouseEvent){
+        e.preventDefault();
+        this.setState({modalIsOpen: false})
     }
 
     render() {
         return (
             <li className={styles.nlpCard} key={this.props.name}>
-                <button className={"fill-div"}>
+                <button className={"fill-div"} onClick={this.openModal}>
                     <h1 className={styles.title}>{this.props.name}</h1>
                     <hr />
                     <img className={styles.background} 
@@ -40,9 +57,9 @@ export class NLPCardComponent extends Component<INLPCardComponentProps, INLPCard
                 </button>
                 <Modal 
                     isOpen={this.state.modalIsOpen}
-                    onRequestClose={() => this.setState({modalIsOpen: false})}
+                    onRequestClose={this.closeModal}
                     contentLabel={this.props.contentLabel}
-                    className={modalStyles.defaultModal}
+                    className={modalStyles.nlpModal}
                     overlayClassName={modalStyles.overlayModal}
                     closeTimeoutMS={500}
                 >

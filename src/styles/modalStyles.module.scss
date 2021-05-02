@@ -12,6 +12,12 @@
   border-radius: 5px;
 }
 
+.nlpModal {
+  @extend .defaultModal;
+  top: 50%
+
+}
+
 
 .overlayModal {
   position: fixed;
@@ -19,8 +25,9 @@
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 1000;
   background-color: rgba(0, 0, 0, 0.9);    
-  transition: opacity 500ms ease;
+  transition: all 300ms ease;
 }
 
 .modalHeader {
@@ -34,17 +41,16 @@
   .modalTitle {
     @extend .titleStyled;
 
-    width: 90%;
+    width: 100%;
 
     color: black;
     text-shadow: none;
     
-    margin: 1rem;
-    margin-top: 0;
+    margin: 0 1rem 0 3.75rem;
   }
 
   .closeModalButton {
-    width: 10%;
+    width: 3.75rem;
 
     position: relative;
     top: -2rem;
@@ -58,6 +64,10 @@
     svg {
       height: 90%;
       width: 90%;
+    }    
+
+    &:not([disabled]):hover {
+      color: #cc1111 !important;
     }
   }
 

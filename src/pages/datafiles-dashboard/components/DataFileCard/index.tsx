@@ -17,9 +17,10 @@ interface IDataFileCardProps {
   id: string;   // ID do arquivo
   name: string; // Nome do arquivo
   createdAt: string; // Data de importação do arquivo
+  onExclude: (id: string) => void;
 }
 
-class DataFileCardComponent extends Component<RouteComponentProps<{}> & IDataFileCardProps> {
+export class DataFileCardComponent extends Component<IDataFileCardProps> {
   private _datafileService: DataFilesService;
 
   constructor(props) {
@@ -43,29 +44,22 @@ class DataFileCardComponent extends Component<RouteComponentProps<{}> & IDataFil
       position: 'top',
     }).then((value) => {
       if (value.isConfirmed) {
-        this._datafileService.delete(this.props.id).then(() => {
+        this._datafileService.delete(this.props.id).then(() => {          
+          this.props.onExclude(this.props.id);   
           Swal.fire(
             "Excluído!",
             "O arquivo de dados foi excluído com sucesso",
             "success"
-          ).then(() => {
-            this.props.history.go(0);
-          });
+          ).then();
         }, (err) => {
           Swal.fire(
             "Erro ao excluir!",
             `Não foi possível excluir o arquivo <br />${err.error}`,
             "error"
-          ).then(() => {
-            this.props.history.go(0);
-          });
+          );
         });
       }
     })
-  }
-
-  handleExcludeDataFile() {
-    this.setState({ showExcludeDataFileAlert: false });
   }
 
   render() {
@@ -90,4 +84,4 @@ class DataFileCardComponent extends Component<RouteComponentProps<{}> & IDataFil
   }
 }
 
-export const DataFileCardRoutedComponent = withRouter(DataFileCardComponent);
+const DataFileCardRoutedComponent = withRouter(DataFileCardComponent);

@@ -129,5 +129,9 @@
     svg {
         margin: auto;
         margin-left: 2px;
+    }    
+
+    &:not([disabled]):hover {
+        background: #006200 !important;
     }
 }
