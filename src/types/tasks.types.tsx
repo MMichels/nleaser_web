@@ -3,7 +3,7 @@ import { BaseResponseType } from "./baseresponse.type";
 export interface TaskType {
     id: string;
     created_at: string;
-    status: string;
+    status: "error" | "success" | "queued" | "in_progress";
     total: number;
     progress: number;
     error: string;

@@ -41,6 +41,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
         this.getTasks = this.getTasks.bind(this);
         this.getWordCloud = this.getWordCloud.bind(this);
         this.handleOnClickNovo = this.handleOnClickNovo.bind(this);
+        this.handleOnClickExcluir = this.handleOnClickExcluir.bind(this);
     }
 
     async componentDidMount() {
@@ -55,24 +56,32 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
     async getTasks(){
         await this.wordcloudService.getTasks(this.props.datafile.id).then((response) => {
             this.setState({tasks : response});
+        }).catch((err) => {
+            if(!this.state.error)
+                this.setState({error: err.error});
+        });
+    }
 
-            if(['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)){
-                setTimeout(() => {                    
-                    this.getTasks();
-                    this.getWordCloud();
-                }, 1000);
-            }
+    async getWordCloud() {
+        await this.wordcloudService.get(this.props.datafile.id).then((response) =>{            
+            this.setState({wordcloud: response, error: null});            
         }).catch((err) => {
             this.setState({error: err.error});
         });
     }
 
-    async getWordCloud() {
-        await this.wordcloudService.get(this.props.datafile.id).then((response) =>{
-            this.setState({wordcloud: response});            
-        }).catch((err) => {
-            this.setState({error: err.error});
-        });
+    async monitoringWordcloudProcessing(){
+        await this.getTasks();
+
+        // Se existir alguma tarefa na fila/processando, a cada segundo faz uma consulta na API,
+        // Até qe a tarefa seja concluida ou aconteça algum erro
+        if(['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)){
+            setTimeout(() => {                
+                this.monitoringWordcloudProcessing();
+            }, 1000);
+        }else if(this.state.tasks.tasks[0].status === 'success'){
+            this.getWordCloud();
+        }
     }
 
     handleOnClickNovo(e: React.MouseEvent){
@@ -92,15 +101,53 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
           confirmButtonText: "Solicitar wordcloud",
           showCancelButton: true,
           cancelButtonText: "Cancelar",
-          reverseButtons: true
+          reverseButtons: true,
+          showLoaderOnConfirm: true
         }).then((value) => {
             if(value.isConfirmed){
                 this.wordcloudService.create(this.props.datafile.id).then((response) => {
-                    this.getTasks();
+                    this.monitoringWordcloudProcessing();
                 });
             }
         });        
         this.setState({loading: false});
+    }
+
+    handleOnClickExcluir(e: React.MouseEvent){
+        e.preventDefault();
+        this.setState({loading: true});
+        Swal.fire({
+          title: "Excluir wordcloud",
+          html: `
+            <p>
+                Ao confirmar essa operação, o wordcloud sera excluído!
+                <br />
+                Você poderá solicitar outro a qualquer momento.
+            </p>
+          `,
+          icon: "warning",
+          showConfirmButton: true,
+          confirmButtonText: "Excluir wordcloud",
+          showCancelButton: true,
+          cancelButtonText: "Cancelar",
+          reverseButtons: true,
+          showLoaderOnConfirm: true
+        }).then((value) => {
+            if(value.isConfirmed){
+                this.setState({wordcloud: null});
+                this.wordcloudService.delete(this.props.datafile.id).then((response) => {                    
+                    Swal.fire(
+                        "Excluído!",
+                        "O wordcloud foi excluído com sucesso",
+                        "success"
+                    ).then(() => {                        
+                        this.getWordCloud();
+                    });
+                });
+            }
+        });        
+        this.setState({loading: false});
+
     }
 
 
@@ -125,9 +172,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                 </p>                
                 <hr />
                 <div className={styles.actions}>
-                    <button className={styles.actionButton + ' ' + styles.createNewButton}
-                        onClick={this.handleOnClickNovo}
-                    >
+                    <button className={styles.actionButton + ' ' + styles.createNewButton} onClick={this.handleOnClickNovo}>
                         <p>Novo</p>
                         <FontAwesomeIcon icon={faPlusCircle} />
                     </button>
@@ -135,7 +180,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                         <p>Baixar</p>
                         <FontAwesomeIcon icon={faArrowCircleDown} />
                     </button>
-                    <button className={styles.actionButton + ' ' + styles.deleteButton}>
+                    <button className={styles.actionButton + ' ' + styles.deleteButton} onClick={this.handleOnClickExcluir}>
                         <p>Excluir</p>
                         <FontAwesomeIcon icon={faTimesCircle} />
                     </button>
