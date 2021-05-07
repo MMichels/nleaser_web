@@ -76,7 +76,15 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
             <BackgroundComponent>
                 <HeaderComponent />                
                 <div className={pagesStyles.dashBoard}>
-                    <h1>Métodos de NLP</h1>
+                    <h1>
+                        Métodos de NLP 
+                        {
+                            (this.state.datafile) && 
+                            <>
+                              - Arquivo: {this.state.datafile.name} 
+                            </>
+                        }
+                    </h1>
                     <p className={pagesStyles.descriptionStyled}>
                         Cada um dos métodos abaixo transformam os dados de texto do seu arquivo em informações que podem ser 
                         facilmente interpretadas e utilizadas em analises e tomadas de decisões

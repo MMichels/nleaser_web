@@ -160,7 +160,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
             <div className={styles.container}>
                 <div className={modalStyles.modalHeader}>
                     <p className={modalStyles.modalTitle}>
-                        Wordcloud
+                        Wordcloud - Arquivo: {this.props.datafile.name}
                     </p>
                     <button className={modalStyles.closeModalButton}>
                         <FontAwesomeIcon icon={faTimesCircle} />
