@@ -3,7 +3,7 @@ import Swal from 'sweetalert2'
 import format from "date-fns/format"
 import ptBR from 'date-fns/locale/pt-BR';
 
-import { Link, RouteComponentProps, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -83,5 +83,3 @@ export class DataFileCardComponent extends Component<IDataFileCardProps> {
     );
   }
 }
-
-const DataFileCardRoutedComponent = withRouter(DataFileCardComponent);

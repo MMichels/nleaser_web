@@ -63,7 +63,7 @@ export function TaskInfoComponent({task}: ITaskInfoProps) {
                 (task.status === 'in_progress') &&
                 <p>Progresso: {task.progress}/{task.total}</p>
             }
-            {task.error && <p className={"error" + ' ' + styles.error}>{task.error}</p>}            
+            {task.error && <p className={"error " + styles.error}>{task.error}</p>}            
         </div>
     );
 }

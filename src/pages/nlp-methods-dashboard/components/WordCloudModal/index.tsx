@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faPlusCircle, faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
 import { DataFileType } from '../../../../types/datafiles.types';
 import { WordCloudService } from '../../../../services/wordcloud.service';
-import { TasksType, TaskType } from '../../../../types/tasks.types';
+import { TasksType } from '../../../../types/tasks.types';
 import { WordCloudType } from '../../../../types/wordcloud.types';
 import { TaskInfoComponent } from '../../../../components/task-info';
 import { LoadingSpinnerComponent } from '../../../../components/loading';
@@ -105,7 +105,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
           showLoaderOnConfirm: true
         }).then((value) => {
             if(value.isConfirmed){
-                this.wordcloudService.create(this.props.datafile.id).then((response) => {
+                this.wordcloudService.create(this.props.datafile.id).then(() => {
                     this.monitoringWordcloudProcessing();
                 });
             }
@@ -135,7 +135,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
         }).then((value) => {
             if(value.isConfirmed){
                 this.setState({wordcloud: null});
-                this.wordcloudService.delete(this.props.datafile.id).then((response) => {                    
+                this.wordcloudService.delete(this.props.datafile.id).then(() => {                    
                     Swal.fire(
                         "Excluído!",
                         "O wordcloud foi excluído com sucesso",
