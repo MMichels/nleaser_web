@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,7 +29,7 @@ interface IAddDataFileFormState {
 }
 
 
-class AddDataFileFormComponent extends Component<RouteComponentProps<{}> & IAddDataFileFormProps, IAddDataFileFormState> {
+export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, IAddDataFileFormState> {
   datafilesService: DataFilesService;
 
   constructor(props){
@@ -69,10 +68,10 @@ class AddDataFileFormComponent extends Component<RouteComponentProps<{}> & IAddD
           this.setState({loading: false});
           Swal.fire({
             title: "Upload realizado!",
-            html: `<p>Seu arquivo já esta disponível para analise</p>`,
+            html: `<p>Seu arquivo foi adicionado na fila de processamento!</p>`,
             icon: "success",
             position: "top",
-          }).then((value) => this.props.history.push(`/dashboard/nlp/${response.id}`));
+          }).then((value) => this.props.onRequestClose(null));
         },
         (error) => {
           this.setState({loading: false});
@@ -178,5 +177,3 @@ class AddDataFileFormComponent extends Component<RouteComponentProps<{}> & IAddD
     );
   }
 }
-
-export const AddDataFileModalComponent = withRouter(AddDataFileFormComponent);

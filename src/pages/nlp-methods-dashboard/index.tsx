@@ -68,10 +68,6 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
             );
         }
 
-
-
-        console.log(this.state);
-
         return (
             <BackgroundComponent>
                 <HeaderComponent />                

@@ -201,9 +201,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                         this.state.tasks &&
                         this.state.tasks.tasks[0].status !== "success"                        
                     ) && 
-                    <>
-                        <TaskInfoComponent task={this.state.tasks.tasks[0]} />
-                    </>
+                    <TaskInfoComponent task={this.state.tasks.tasks[0]} title="Construindo um novo wordcloud"/>                    
                 }
                 {
                     // Se nao aconteceu nenhum erro,
@@ -211,6 +209,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                     // Exibe o wordcloud
                     (
                         (!this.state.error) &&
+                        (!this.state.loading) &&
                         (this.state.tasks) &&
                         (!["queued", "progress"].includes(this.state.tasks.tasks[0].status)) &&
                         this.state.wordcloud

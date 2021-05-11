@@ -7,9 +7,11 @@ import { LoadingSpinnerComponent } from '../loading';
 
 interface ITaskInfoProps {
     task: TaskType
+    title: string
+
 }
 
-export function TaskInfoComponent({task}: ITaskInfoProps) {
+export function TaskInfoComponent({task, title}: ITaskInfoProps) {
 
     const renderTaskStatus = () =>{
         switch(task.status){
@@ -56,7 +58,7 @@ export function TaskInfoComponent({task}: ITaskInfoProps) {
         <div className={styles.container}>
             <p className={styles.title}>Status do ultimo processamento</p>
             <div className={styles.header}>                
-                <p>Construindo um novo wordcloud:</p>
+                <p>{title}:</p>
                 {renderTaskStatus()}
             </div>
             {

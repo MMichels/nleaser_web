@@ -1,13 +1,14 @@
 import {BaseService} from "./base.service";
 import { DataFileType } from "../types/datafiles.types";
+import { TasksType } from "../types/tasks.types";
 
 export default class DataFilesService extends BaseService{
-  
   get(datafile_id: string) : Promise<DataFileType> {
     return this.api.get(`/datafile/${datafile_id}`);
   }
 
-  list(orderBy: string, orderAscending: boolean) : Promise<{total: number, documents: Array<DataFileType>}> {
+  list(orderBy: string, orderAscending: boolean) 
+    : Promise<{total: number, documents: Array<DataFileType>}> {
     return this.api.get("/datafile", {
       params: {
         orderby: orderBy,
@@ -34,4 +35,9 @@ export default class DataFilesService extends BaseService{
       },
     });
   }
+
+  getTasks(id: string): Promise<TasksType> {
+    return this.api.get(`/datafile/${id}/tasks`)
+  }
+  
 }
