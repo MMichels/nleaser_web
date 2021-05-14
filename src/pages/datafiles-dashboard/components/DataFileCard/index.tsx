@@ -84,26 +84,32 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
       showCancelButton: true,
       cancelButtonText: "Não, deixe como esta",
       showLoaderOnConfirm: true,
+      preConfirm: () => this._datafileService.delete(this.props.id),
       reverseButtons: true,
       position: 'top',
-    }).then((value) => {
-      if (value.isConfirmed) {
-        this._datafileService.delete(this.props.id).then(() => {          
-          this.props.onExclude(this.props.id);   
-          Swal.fire(
-            "Excluído!",
-            "O arquivo de dados foi excluído com sucesso",
-            "success"
-          ).then();
-        }, (err) => {
-          Swal.fire(
-            "Erro ao excluir!",
-            `Não foi possível excluir o arquivo <br />${err.error}`,
-            "error"
-          );
-        });
+    }).then((response) => {
+      if (response.value.deleted) {       
+        this.props.onExclude(this.props.id);   
+        Swal.fire(
+          "Excluído!",
+          "O arquivo de dados foi excluído com sucesso",
+          "success"
+        ).then();
       }
-    })
+      else { 
+        Swal.fire(
+          "Erro ao excluir!",
+          `Não foi possível excluir o arquivo <br />${response.value.error}`,
+          "error"
+        ).then();
+      }
+    }, (err) => {
+        Swal.fire(
+          "Erro ao excluir!",
+          `Não foi possível excluir o arquivo <br />${err.error}`,
+          "error"
+        );
+    });
   }
 
   render() {
@@ -113,11 +119,9 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
       !this.state.loading && 
       (this.state.error === null) && 
       (this.state.tasks !== null) &&
-      (!["queued", "progress"].includes(this.state.tasks.tasks[0].status))
+      (this.state.tasks.tasks[0].status === "success")
     )
-
-    console.log("renderLink: ", renderLink, this.state);
-    
+  
 
     return (
       <li className={styles.fileCard} key={this.props.id}>

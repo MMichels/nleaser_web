@@ -3,7 +3,6 @@ import Modal from "react-modal";
 
 import styles from "./styles.module.scss";
 import modalStyles from "../../../../styles/modalStyles.module.scss";
-import { DataFileType } from '../../../../types/datafiles.types';
 
 
 interface INLPCardComponentProps {    
@@ -12,7 +11,6 @@ interface INLPCardComponentProps {
     imgSrc:string;
     imgAlt:string;
     contentLabel:string;
-    datafile: DataFileType;
 }
 
 interface INLPCardComponentState {

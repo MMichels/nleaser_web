@@ -15,7 +15,7 @@ import { LoadingSpinnerComponent } from "../../../../components/loading";
 
 
 interface IAddDataFileFormProps {
-  onRequestClose?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  onRequestClose?: (reload?: boolean) => void
 }
 
 interface IAddDataFileFormState {
@@ -71,7 +71,7 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
             html: `<p>Seu arquivo foi adicionado na fila de processamento!</p>`,
             icon: "success",
             position: "top",
-          }).then((value) => this.props.onRequestClose(null));
+          }).then((value) => this.props.onRequestClose(true));
         },
         (error) => {
           this.setState({loading: false});
@@ -119,7 +119,7 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
             <p className={modalStyles.modalTitle}>
               Enviar um novo arquivo
             </p>
-            <button className={modalStyles.closeModalButton} onClick={this.props.onRequestClose}>
+            <button className={modalStyles.closeModalButton} onClick={(ev) => this.props.onRequestClose(false)}>
               <FontAwesomeIcon icon={faTimesCircle} />
             </button>
           </div>
@@ -170,7 +170,9 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
                   <FontAwesomeIcon icon={faUpload} />
                 </>
               }
-              {this.state.loading && <LoadingSpinnerComponent />}
+              {
+                this.state.loading && <LoadingSpinnerComponent />
+              }
             </button>
           </form>
         </div>

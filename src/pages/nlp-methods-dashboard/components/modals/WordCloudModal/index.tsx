@@ -4,15 +4,15 @@ import format from "date-fns/format"
 import ptBR from 'date-fns/locale/pt-BR';
 
 import styles from "./styles.module.scss";
-import modalStyles from "../../../../styles/modalStyles.module.scss";
+import modalStyles from "../../../../../styles/modalStyles.module.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faPlusCircle, faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
-import { DataFileType } from '../../../../types/datafiles.types';
-import { WordCloudService } from '../../../../services/wordcloud.service';
-import { TasksType } from '../../../../types/tasks.types';
-import { WordCloudType } from '../../../../types/wordcloud.types';
-import { TaskInfoComponent } from '../../../../components/task-info';
-import { LoadingSpinnerComponent } from '../../../../components/loading';
+import { DataFileType } from '../../../../../types/datafiles.types';
+import { WordCloudService } from '../../../../../services/wordcloud.service';
+import { TasksType } from '../../../../../types/tasks.types';
+import { WordCloudType } from '../../../../../types/wordcloud.types';
+import { TaskInfoComponent } from '../../../../../components/task-info';
+import { LoadingSpinnerComponent } from '../../../../../components/loading';
 
 interface IWordCloudModalProps {
     datafile: DataFileType;

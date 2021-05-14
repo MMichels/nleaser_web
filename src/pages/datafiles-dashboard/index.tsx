@@ -22,7 +22,7 @@ import { DataFileType } from "../../types/datafiles.types";
 
 function AddCard(id: number, onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void ) {
   return (
-    <div className={dataFileCardStyles.fileCard} key={id}>
+    <div className={dataFileCardStyles.fileCard} key="add_datafile">
       <button className={styles.addButton} onClick={onClick}>          
           <FontAwesomeIcon icon={faPlusCircle} size="4x" />
       </button>
@@ -51,13 +51,18 @@ class DatafilesDashboardComponent extends Component<RouteComponentProps, IDashBo
       loading: false,
       modalAddFileIsOpen: false
     };
+    this.get = this.get.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
     this.onExcludeDatafile = this.onExcludeDatafile.bind(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.setState({loading: true});
+    this.get();  
+  }
+
+  async get(){
     await this.dataFilesService.list("created_at", false).then(
       (response) => {
         this.setState({
@@ -69,7 +74,7 @@ class DatafilesDashboardComponent extends Component<RouteComponentProps, IDashBo
       (err) => {
         this.setState({ loading: false, error: err.error });
       }
-    );
+    )
   }
 
   onExcludeDatafile(id: string){
@@ -91,8 +96,10 @@ class DatafilesDashboardComponent extends Component<RouteComponentProps, IDashBo
     this.setState({modalAddFileIsOpen: true});
   }
 
-  closeModal() {
+  closeModal(reload: boolean) {
     this.setState({modalAddFileIsOpen: false});
+    if(reload)
+      this.get();    
   }
 
   render() {
@@ -118,7 +125,7 @@ class DatafilesDashboardComponent extends Component<RouteComponentProps, IDashBo
         <HeaderComponent />
         <Modal 
           isOpen={this.state.modalAddFileIsOpen}
-          onRequestClose={this.closeModal}
+          onRequestClose={() => this.closeModal(false)}
           contentLabel="Modal Adicionar novo conjunto de dados"
           className={modalStyles.defaultModal}
           overlayClassName={modalStyles.overlayModal}

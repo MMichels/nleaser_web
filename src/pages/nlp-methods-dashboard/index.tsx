@@ -5,31 +5,34 @@ import { DataFileType } from '../../types/datafiles.types';
 import { BackgroundComponent } from '../../components/Background';
 import { HeaderComponent } from '../../components/Header';
 import { NLPCardComponent } from './components/NLPCard';
-import { WordCloudModal } from "./components/WordCloudModal";
+import { WordCloudModal } from "./components/modals/WordCloudModal";
 
 import WordcloudExampleImage from "../../assets/images/nlp-methods/wordcloud-background-default.png";
 
 import pagesStyles from "../pagesStyles.module.scss";
 import DataFilesService from '../../services/datafiles.service';
 import { LoadingSpinnerComponent } from '../../components/loading';
+import NLPMethodsService from '../../services/nlp_methods.service';
+import { NLPMethodType } from '../../types/nlp_method.type';
 
 interface INLPDashBoardState {
     datafile_id?: string;
     datafile?: DataFileType;
-    error: string | null;
+    error?: string;
     loading: boolean;
+    nlpModals?: Map<string, any>;
+    nlpMethods?: Array<NLPMethodType>;
 }
 
 class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>, INLPDashBoardState> {
     dataFilesService: DataFilesService;
+    nlpMethodsService: NLPMethodsService;
     
     constructor(props){
         super(props);
         this.dataFilesService = new DataFilesService();
+        this.nlpMethodsService = new NLPMethodsService();
         this.state = {
-            datafile_id: undefined,
-            datafile: undefined,
-            error: null,
             loading: false,        
         }
     }
@@ -37,9 +40,17 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
     async componentDidMount(){
         const datafile_id = this.props.match.params.datafile_id;
         this.setState({loading: true, datafile_id});
+
         
-        await this.dataFilesService.get(datafile_id).then((datafile) => {
-            this.setState({ loading: false, datafile});
+        await this.dataFilesService.get(datafile_id).then((datafile) => {            
+            this.setState({ loading: false, datafile});            
+
+            const nlpMethods = this.nlpMethodsService.get();
+            const nlpModals = new Map<string, any>();            
+            nlpModals["Wordcloud"] = <WordCloudModal datafile={this.state.datafile} />
+
+
+            this.setState({nlpModals, nlpMethods});
         }).catch((error) => {
             console.log(error);
             this.setState({ loading: false, error: error.error})
@@ -49,23 +60,27 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
 
 
     render() {
+        const nlpCards = new Array<any>();
 
-        const nlpMethods = new Array<any>();
-
-        if(!this.state.loading && !this.state.error && (this.state.datafile && this.state.datafile !== undefined)){
-            nlpMethods.push(
-                <NLPCardComponent 
-                    name={"WordCloud"}
-                    description={"Transforme seus dados em uma nuvem de palavras"} 
-                    imgSrc={WordcloudExampleImage}
-                    imgAlt={"Wordcloud do conjunto de dados"}
-                    contentLabel={"Modal wordclouds"}
-                    datafile={this.state.datafile}
-                    
-                >
-                    <WordCloudModal datafile={this.state.datafile}/>
-                </NLPCardComponent>
-            );
+        if( !this.state.loading && 
+            !this.state.error && 
+            this.state.datafile && 
+            this.state.nlpMethods
+        ){
+            this.state.nlpMethods.forEach(nlp_method => {
+                nlpCards.push(
+                    <NLPCardComponent 
+                        name={nlp_method.name}
+                        description={nlp_method.description} 
+                        imgSrc={nlp_method.backgroundImg}
+                        imgAlt={nlp_method.imgAlt}
+                        contentLabel={nlp_method.contentLabel}
+                        
+                    >
+                        {this.state.nlpModals.get(nlp_method.name)}
+                    </NLPCardComponent>
+                );
+            })
         }
 
         return (
@@ -100,7 +115,7 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
                         // Renderiza os cards de NLP
                         (!this.state.loading && (!this.state.error || this.state.error === undefined) && (this.state.datafile !== undefined)) &&
                         <ul className={pagesStyles.cardsList}>
-                            {nlpMethods}
+                            {nlpCards}
                         </ul>
                     }
                 </div>

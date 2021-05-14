@@ -56,7 +56,7 @@ export function TaskInfoComponent({task, title}: ITaskInfoProps) {
 
     return (
         <div className={styles.container}>
-            <p className={styles.title}>Status do ultimo processamento</p>
+            <p className={styles.title}>Status do processamento</p>
             <div className={styles.header}>                
                 <p>{title}:</p>
                 {renderTaskStatus()}
