@@ -47,9 +47,7 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
 
             const nlpMethods = this.nlpMethodsService.get();
             const nlpModals = new Map<string, any>();            
-            nlpModals["Wordcloud"] = <WordCloudModal datafile={this.state.datafile} />
-
-
+            nlpModals["Wordcloud"] = React.createElement(WordCloudModal, {datafile: this.state.datafile});
             this.setState({nlpModals, nlpMethods});
         }).catch((error) => {
             console.log(error);
@@ -77,7 +75,7 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
                         contentLabel={nlp_method.contentLabel}
                         
                     >
-                        {this.state.nlpModals.get(nlp_method.name)}
+                        {this.state.nlpModals["Wordcloud"]}
                     </NLPCardComponent>
                 );
             })
