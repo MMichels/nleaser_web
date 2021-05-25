@@ -14,13 +14,14 @@ import DataFilesService from '../../services/datafiles.service';
 import { LoadingSpinnerComponent } from '../../components/loading';
 import NLPMethodsService from '../../services/nlp_methods.service';
 import { NLPMethodType } from '../../types/nlp_method.type';
+import { NGramsModal } from './components/modals/NGramsModal';
 
 interface INLPDashBoardState {
     datafile_id?: string;
     datafile?: DataFileType;
     error?: string;
     loading: boolean;
-    nlpModals?: Map<string, any>;
+    nlpModals?: Map<string, Component>;
     nlpMethods?: Array<NLPMethodType>;
 }
 
@@ -46,8 +47,12 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
             this.setState({ loading: false, datafile});            
 
             const nlpMethods = this.nlpMethodsService.get();
-            const nlpModals = new Map<string, any>();            
-            nlpModals["Wordcloud"] = React.createElement(WordCloudModal, {datafile: this.state.datafile});
+            const nlpModals = new Map<string, Component>();            
+
+            nlpModals["Wordcloud"] = <WordCloudModal datafile={this.state.datafile} />;
+            nlpModals["NGrams"] = <NGramsModal datafile={this.state.datafile} />;
+
+
             this.setState({nlpModals, nlpMethods});
         }).catch((error) => {
             console.log(error);
@@ -75,7 +80,7 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
                         contentLabel={nlp_method.contentLabel}
                         
                     >
-                        {this.state.nlpModals["Wordcloud"]}
+                        {this.state.nlpModals[nlp_method.name]}
                     </NLPCardComponent>
                 );
             })

@@ -124,7 +124,7 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
             </button>
           </div>
           <p className={modalStyles.modalDescription}>
-            Escolha o arquivo e preencha as informações sobre ele para começar a extrair suas informações!
+            Escolha o arquivo e preencha os dados sobre ele para começar a extrair suas informações!
           </p>
           <hr />
           <form className={styles.uploadForm} onSubmit={this.handleUpload}>
@@ -166,7 +166,7 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
             <button className={formStyles.uploadButtonStyled} type="submit">
               {!this.state.loading && 
                 <>
-                  <p>Upload</p>
+                  <p>Enviar</p>
                   <FontAwesomeIcon icon={faUpload} />
                 </>
               }

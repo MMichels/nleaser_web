@@ -39,7 +39,7 @@ class LoginComponent extends Component<RouteComponentProps> {
     } 
     else 
     {
-      this.setState({ loading: true });
+      this.setState({ loading: true, error: null });
       await this.userService.login(email, password).then(
         (resp) => 
         {

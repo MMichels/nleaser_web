@@ -6,7 +6,7 @@ import ptBR from 'date-fns/locale/pt-BR';
 import styles from "./styles.module.scss";
 import modalStyles from "../../../../../styles/modalStyles.module.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faPlusCircle, faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { DataFileType } from '../../../../../types/datafiles.types';
 import { WordCloudService } from '../../../../../services/wordcloud.service';
 import { TasksType } from '../../../../../types/tasks.types';
@@ -19,10 +19,10 @@ interface IWordCloudModalProps {
 }
 
 interface IWordCloudModalState {
-    error: string;
+    error?: string;
     loading: boolean;
-    wordcloud: WordCloudType | null;
-    tasks: TasksType | null;
+    wordcloud?: WordCloudType;
+    tasks?: TasksType;
 }
 
 export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudModalState> {
@@ -88,12 +88,12 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
         e.preventDefault();
         this.setState({loading: true});
         Swal.fire({
-          title: "Novo wordcloud",
+          title: "Gerar WordCloud!",
           html: `
             <p>
                 Ao confirmar essa operação, a sua solicitação será colocada na nossa fila de processamento!
                 <br />
-                Assim que o wordcloud estiver pronto, ele ficará disponível para visualização e para download.
+                Assim que o wordcloud estiver pronto, ele ficará disponível para visualização.
             </p>
           `,
           icon: "info",
@@ -102,12 +102,19 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
           showCancelButton: true,
           cancelButtonText: "Cancelar",
           reverseButtons: true,
-          showLoaderOnConfirm: true
-        }).then((value) => {
-            if(value.isConfirmed){
-                this.wordcloudService.create(this.props.datafile.id).then(() => {
-                    this.monitoringWordcloudProcessing();
-                });
+          showLoaderOnConfirm: true,
+          preConfirm: () => this.wordcloudService.create(this.props.datafile.id)
+        }).then((response) => {
+            if(response.value.status === 'success'){                
+                this.monitoringWordcloudProcessing();
+                
+            } else 
+            {
+                Swal.fire(
+                    "Erro ao solicitar WordCloud",
+                    response.value.error,
+                    'error'
+                );
             }
         });        
         this.setState({loading: false});
@@ -131,26 +138,21 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
           showCancelButton: true,
           cancelButtonText: "Cancelar",
           reverseButtons: true,
-          showLoaderOnConfirm: true
-        }).then((value) => {
-            if(value.isConfirmed){
-                this.setState({wordcloud: null});
-                this.wordcloudService.delete(this.props.datafile.id).then(() => {                    
-                    Swal.fire(
-                        "Excluído!",
-                        "O wordcloud foi excluído com sucesso",
-                        "success"
-                    ).then(() => {                        
-                        this.getWordCloud();
-                    });
-                });
+          showLoaderOnConfirm: true,
+          preConfirm: () => this.wordcloudService.delete(this.props.datafile.id)
+        }).then((response) => {
+            if(response.value.status === 'success'){
+                this.setState({wordcloud: null}); 
+            }else {
+                Swal.fire(
+                    "Erro ao excluir Wordcloud",
+                    response.value.error,
+                    'error'
+                )
             }
         });        
         this.setState({loading: false});
-
     }
-
-
 
     render() {
         if(this.state.wordcloud)
@@ -176,10 +178,11 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                         <p>Novo</p>
                         <FontAwesomeIcon icon={faPlusCircle} />
                     </button>
-                    <button className={styles.actionButton + ' ' + styles.downloadButton}>
+                    {/*<button className={styles.actionButton + ' ' + styles.downloadButton}>
                         <p>Baixar</p>
                         <FontAwesomeIcon icon={faArrowCircleDown} />
                     </button>
+                    */}
                     <button className={styles.actionButton + ' ' + styles.deleteButton} onClick={this.handleOnClickExcluir}>
                         <p>Excluir</p>
                         <FontAwesomeIcon icon={faTimesCircle} />
@@ -187,9 +190,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                 </div>
                 {
                     // Renderiza a msg de erro retornada da api
-                    (
-                        this.state.error && this.state.error !== undefined
-                    ) && 
+                    this.state.error && 
                     <p className={"error " + styles.error}>{this.state.error}</p>
                 }
                 {   // Renderiza o gif de loading
@@ -211,7 +212,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                         (!this.state.error) &&
                         (!this.state.loading) &&
                         (this.state.tasks) &&
-                        (!["queued", "progress"].includes(this.state.tasks.tasks[0].status)) &&
+                        (!["queued", "in_progress"].includes(this.state.tasks.tasks[0].status)) &&
                         this.state.wordcloud
                     ) && 
                     <div className={styles.nlpImgResult}>

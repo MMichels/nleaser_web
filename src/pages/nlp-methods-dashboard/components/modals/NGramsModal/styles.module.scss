@@ -1,0 +1,78 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 1;
+
+    height: 45rem;
+
+    align-items: center;
+    margin: 2rem;
+
+    hr {
+        width: 100%;    
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        width: 95%;
+        height: 60px;
+
+        margin-top: 1rem;
+
+        .actionButton {
+            height: 46px;
+            width: 10rem;
+
+            margin: 0 1rem;
+
+            border: 1px solid black;
+            border-radius: 0.875rem;
+            background: rgb(219, 219, 219);
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+            font-size: 1.1rem;
+            font-weight: 500;
+
+            p {
+                margin: auto;
+                margin-right: 5px;
+                text-align: center;
+                
+            }
+
+            svg {
+                margin: auto;
+                margin-left: 5px;                
+            }
+
+            &:not([disabled]):hover {
+              box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+              padding: 0 2px 2px 0;
+            }
+        }
+
+        .createNewButton {
+  
+          &:not([disabled]):hover {   
+            border: 1px solid #25c913;
+            box-shadow: 2px 2px 4px #21af11;
+          }
+        }
+
+        .deleteButton {
+  
+          &:not([disabled]):hover {
+            border: 1px solid #cc1111 !important;
+            box-shadow: 2px 2px 4px #b60f0f;
+          }
+  
+        }
+    }    
+
+    p.error {
+        margin: 0;
+    }
+}
