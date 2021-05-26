@@ -137,7 +137,7 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
               onChange={(e) => this.setState({ file: e.target.files[0] })}
             />
 
-            <select className={formStyles.textInputStyled}
+            <select className={formStyles.selectInputStyled}
               id="format"
               name="format"
               style={{color: (this.state.format === "") ? '#969696':'black'}}

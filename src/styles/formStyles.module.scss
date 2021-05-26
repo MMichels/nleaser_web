@@ -38,10 +38,8 @@
 
 .descriptionStyled {
     color: #bbb;
-    text-align: center;
-
-    margin: 10px;
-    margin-bottom: 18px;
+    text-align: center;    
+    margin: 1rem auto;
 }
 
 .errorStyled {
@@ -90,6 +88,10 @@
 
 .selectInputStyled {
     @extend .inputStyled;
+
+    option {
+        color: black;
+    }
 
 }
 

@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import format from "date-fns/format"
 import ptBR from 'date-fns/locale/pt-BR';
 
-import styles from "./styles.module.scss";
+import nlpModalStyles from "../nlpModalStyles.module.scss";
 import modalStyles from "../../../../../styles/modalStyles.module.scss";
 
 import { NGramService } from "../../../../../services/ngrams.service";
@@ -30,6 +30,7 @@ interface INGramModalState {
 
 export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
     ngramsService: NGramService;
+    monitoringTimeout?: NodeJS.Timeout;
 
     constructor(props) {
         super(props);
@@ -45,16 +46,22 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
         this.getNgrams = this.getNgrams.bind(this);
         this.handleOnClickNovo = this.handleOnClickNovo.bind(this);
         this.handleOnClickExcluir = this.handleOnClickExcluir.bind(this);
+        this.monitoringNGramsProcessing = this.monitoringNGramsProcessing.bind(this);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.setState({loading: true});
 
         this.getNgrams();
-        this.getTasks();
+        this.monitoringTimeout = setTimeout(this.monitoringNGramsProcessing, 1000);
 
         this.setState({loading: false});
     }
+
+    componentWillUnmount() {
+        if(this.monitoringTimeout)
+            clearTimeout(this.monitoringTimeout);
+    }   
 
     async getTasks() {
         await this.ngramsService.getTasks(this.props.datafile.id).then((response) => {
@@ -76,7 +83,18 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
     }
 
     async monitoringNGramsProcessing() {
-        throw new Error("Method not implemented.");
+        await this.getTasks();
+
+        if(
+            ['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)
+        )
+        {
+            this.monitoringTimeout = setTimeout(this.monitoringNGramsProcessing, 1000);
+        }
+        else if(this.state.tasks.tasks[0].status === 'success')
+        {
+            this.getNgrams();
+        }
     }
 
     async handleOnClickNovo(e: React.MouseEvent) {
@@ -86,19 +104,19 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
             title: "Extrair NGrams!",
             html: `
                 <p>
-                    Selecione o numero de Grams (palavras consecutivas) que deseja analisar.                    
+                    Selecione o numero de palavras consecutivas para analisar
                     <br />
-                    Ao confirmar a operação ela sera colocada na fila de processamento.
                     <br />
                     Assim que a extração de Ngrams estiver pronta, ele ficará disponível para visualização.
                 </p>                
             `,
-            input: 'range',
-            inputLabel: 'Numero de palavras',
-            inputAttributes: {
-                'min': '1',
-                'max': '4',
-                'step': '1'
+            input: 'select',
+            inputPlaceholder: 'Numero de palavras',
+            inputOptions: {
+                1: '1 Palavra',
+                2: '2 Palavras (Bi-Gram)',
+                3: '3 Palavras (Tri-Gram)',
+                4: '4 Palavras (Quad-Gram)',
             },
             icon: "info",
             showConfirmButton: true,
@@ -107,19 +125,23 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
             confirmButtonText: "Extrair NGrams",
             cancelButtonText: "Cancelar",
             reverseButtons: true,
-            preConfirm: () => this.ngramsService.create(this.props.datafile.id)
-        }).then((response) => {
-            if(response.value.status === 'success')
-            {
-                this.monitoringNGramsProcessing();
+            preConfirm: (ngrams: number) => {
+                return this.ngramsService.create(this.props.datafile.id, ngrams).then(response => response).catch(err => err);
             }
-            else
-            {
-                Swal.fire(
-                    "Erro ao solicitar NGrams",
-                    response.value.error,
-                    'error'
-                );
+        }).then((response) => {
+            if(response.value) {
+                if(response.value.status === 'success')
+                {
+                    this.monitoringNGramsProcessing();
+                }
+                else
+                {
+                    Swal.fire(
+                        "Erro ao solicitar NGrams",
+                        response.value.error,
+                        'error'
+                    );
+                }
             }
         });
         
@@ -145,19 +167,22 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
             confirmButtonText: "Extrair NGrams",
             cancelButtonText: "Cancelar",
             reverseButtons: true,
-            preConfirm: () => this.ngramsService.delete(this.props.datafile.id)
+            preConfirm: () => this.ngramsService.delete(this.props.datafile.id).then(response => response).catch(err => err)
         }).then((response) => {
-            if(response.value.status === 'success')
-            {
-                this.setState({ngrams: null});
-            }
-            else
-            {
-                Swal.fire(
-                    "Erro ao excluir NGram",
-                    response.value.error,
-                    'error'
-                );
+            if(response.value){
+                if(response.value.status === 'success')
+                {
+                    this.setState({ngrams: null});
+                    this.getNgrams();
+                }
+                else
+                {
+                    Swal.fire(
+                        "Erro ao excluir NGram",
+                        response.value.error,
+                        'error'
+                    );
+                }
             }
         });       
         this.setState({loading: false});
@@ -181,7 +206,7 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
 
 
         return (
-            <div className={styles.container}>
+            <div className={nlpModalStyles.container}>
                 <div className={modalStyles.modalHeader}>
                     <p className={modalStyles.modalTitle}>
                         NGrams - Arquivo: {this.props.datafile.name}
@@ -191,24 +216,25 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                     </button>
                 </div>
                 <p className={modalStyles.modalDescription}>                    
-                    Tem como objetivo analisar quais palavras que ocorrem lado a lado com mais frequência dentro do seu conjunto de textos!
-                    <br />
-                    Por exemplo, uma sequência de duas palavras como “por favor” ou “bom dia”, ou 3 palavras como, "possui ótimo atendimento".
+                    Tem como objetivo analisar quais palavras que ocorrem lado a lado com mais frequência dentro do seu conjunto de textos! <br />
+                    Por exemplo, uma sequência de duas palavras (Bi-Gram) como “por favor” ou “bom dia”, ou 3 palavras (Tri-Gram) como, "possui ótimo atendimento".
                 </p>
                 <hr />
-                <div className={styles.actions}>
-                    <button className={styles.actionButton + ' ' + styles.createNewButton} onClick={this.handleOnClickNovo}>
+                <div className={nlpModalStyles.actions}>
+                    <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.createNewButton} onClick={this.handleOnClickNovo}>
                         <p>Novo</p>
                         <FontAwesomeIcon icon={faPlusCircle} />                        
                     </button>
-                    <button className={styles.actionButton + ' ' + styles.deleteButton} onClick={this.handleOnClickExcluir}>
+                    <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.deleteButton} onClick={this.handleOnClickExcluir}
+                        disabled={!this.state.ngrams}
+                    >
                         <p>Excluir</p>
                         <FontAwesomeIcon icon={faTimesCircle} />                        
                     </button>
                 </div>
                 {
                     this.state.error && 
-                    <p className={"error " + styles.error}>{this.state.error}</p>
+                    <p className={"error " + nlpModalStyles.error}>{this.state.error}</p>
                 }
                 {
                     this.state.loading && <LoadingSpinnerComponent />
@@ -228,7 +254,7 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                         (!["queued", "in_progress"].includes(this.state.tasks.tasks[0].status)) &&
                         this.state.ngrams
                     ) &&
-                    <div className={styles.NGramsResult}>
+                    <div className={nlpModalStyles.NGramsResult}>
                         <p>
                             Resultado da ultima extração com {this.state.ngrams.N} palavras (Grams)
                         </p>

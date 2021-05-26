@@ -4,8 +4,8 @@ import { TasksType } from "../types/tasks.types";
 import { BaseService } from "./base.service";
 
 export class NGramService extends BaseService {
-    create(datafile_id: string): Promise<BaseResponseType & {create_ngrams_task_id: string}>{
-        return this.api.post(`/ngrams/${datafile_id}`);
+    create(datafile_id: string, size: number): Promise<BaseResponseType & {create_ngrams_task_id: string}>{
+        return this.api.post(`/ngrams/${datafile_id}?size=${size}`);
     }
 
     get (datafile_id: string) : Promise<NGramsType> {

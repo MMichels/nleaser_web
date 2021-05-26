@@ -14,7 +14,9 @@
 
 .nlpModal {
   @extend .defaultModal;
-  top: 50%
+  top: 50%;
+  height: 80%;
+  width: 80%;  
 
 }
 
@@ -76,5 +78,6 @@
 .modalDescription {
   @extend .descriptionStyled;
   color: black;
+  text-align: justify;
   margin-bottom: 1rem;
 }
