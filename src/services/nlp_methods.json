@@ -9,7 +9,7 @@
         }, 
         {
             "name": "NGrams",
-            "description": "Analise as palavras que mais aparecem nos textos",
+            "description": "Analise as palavras com maior relevância no conjunto de dados",
             "backgroundImg": "ngrams-background-default.png",
             "imgAlt": "NGram do conjunto de dados",
             "contentLabel": "Modal NGrams"

@@ -9285,6 +9285,11 @@ react-modal@^3.13.1:
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
 
+react-paginated-list@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/react-paginated-list/-/react-paginated-list-1.1.5.tgz#cf1cbacf1975d0d9fd1a6373cc6698a6a196b8d9"
+  integrity sha512-tXPN+OYXtl8/lpauzxDSsazADBtU9JSgkiOXZU2kay5fbAgtcaxiflp7qUZ28tWrWz1jhLpENPy3EXuyo83JfA==
+
 react-refresh@^0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"

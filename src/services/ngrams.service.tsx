@@ -1,5 +1,5 @@
 import { BaseResponseType } from "../types/baseresponse.type";
-import { NGramsType } from "../types/ngrams.types";
+import { NGramsPaginationType, NGramsType } from "../types/ngrams.types";
 import { TasksType } from "../types/tasks.types";
 import { BaseService } from "./base.service";
 
@@ -8,8 +8,14 @@ export class NGramService extends BaseService {
         return this.api.post(`/ngrams/${datafile_id}?size=${size}`);
     }
 
-    get (datafile_id: string) : Promise<NGramsType> {
-        return this.api.get(`/ngrams/${datafile_id}`);        
+    get (datafile_id: string, pagination: NGramsPaginationType) : Promise<NGramsType> {
+        return this.api.get(
+            `/ngrams/${datafile_id}?` + 
+                `skip=${pagination.skip}&` + 
+                `limit=${pagination.limit}&` + 
+                `order_by=${pagination.orderBy}&` + 
+                `order_ascending=${pagination.orderAscending}`
+        );        
     }
 
     delete(datafile_id: string): Promise<BaseResponseType & {deleted: boolean}> {
