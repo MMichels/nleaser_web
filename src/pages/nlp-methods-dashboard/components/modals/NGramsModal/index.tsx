@@ -9,12 +9,13 @@ import modalStyles from "../../../../../styles/modalStyles.module.scss";
 
 import { NGramService } from "../../../../../services/ngrams.service";
 import { DataFileType } from "../../../../../types/datafiles.types";
-import { NGramsType } from "../../../../../types/ngrams.types";
+import { NGramsPaginationType, NGramsType, NGramType } from "../../../../../types/ngrams.types";
 import { TasksType } from "../../../../../types/tasks.types";
-import { faPlusCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faTimesCircle, faSort, faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoadingSpinnerComponent } from "../../../../../components/loading";
 import { TaskInfoComponent } from "../../../../../components/task-info";
+import { PaginatedList } from "react-paginated-list";
 
 
 interface INGramModalProps {
@@ -26,11 +27,14 @@ interface INGramModalState {
     loading: boolean;
     ngrams?: NGramsType;
     tasks?: TasksType;
+    page: number;
+    ngramsPagination: NGramsPaginationType;
 }
 
 export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
     ngramsService: NGramService;
     monitoringTimeout?: NodeJS.Timeout;
+    
 
     constructor(props) {
         super(props);
@@ -39,7 +43,9 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
             error: null,
             loading: false,
             ngrams: null,
-            tasks: null
+            tasks: null,
+            page: 1,
+            ngramsPagination: new NGramsPaginationType()
         }
 
         this.getTasks = this.getTasks.bind(this);
@@ -47,13 +53,16 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
         this.handleOnClickNovo = this.handleOnClickNovo.bind(this);
         this.handleOnClickExcluir = this.handleOnClickExcluir.bind(this);
         this.monitoringNGramsProcessing = this.monitoringNGramsProcessing.bind(this);
+        this.changePage = this.changePage.bind(this);
+        this.changeOrdenation = this.changeOrdenation.bind(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.setState({loading: true});
 
-        this.getNgrams();
-        this.monitoringTimeout = setTimeout(this.monitoringNGramsProcessing, 1000);
+        await this.getNgrams(this.state.page);
+        if(this.state.ngrams === null)
+            this.monitoringNGramsProcessing();
 
         this.setState({loading: false});
     }
@@ -73,13 +82,26 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
 
     }
 
-    async getNgrams() {
-        await this.ngramsService.get(this.props.datafile.id).then((response) => {
-            this.setState({ngrams : response, error: null});
-        }).catch((err) => {
-            this.setState({error: err.error});
-        })
+    async getNgrams(page: number) {
+        const ngramsPagination = this.state.ngramsPagination;
+        ngramsPagination.skip = (page - 1) * (ngramsPagination.limit);        
 
+        this.ngramsService.get(this.props.datafile.id, ngramsPagination).then((response) => {
+
+            const ngrams = response;
+            const arrayVazio = new Array<any>();
+
+            while(arrayVazio.length < ngramsPagination.skip)
+                arrayVazio.push({});
+
+            ngrams.ngrams = arrayVazio.concat(ngrams.ngrams);
+            while(ngrams.ngrams.length < ngrams.total)
+                ngrams.ngrams.push({'content': null, 'count': null, 'relevance': null});
+            
+            this.setState({ngrams, ngramsPagination, error: null});            
+        }).catch((err) => {
+            this.setState({error: err.error, ngrams: null});
+        });
     }
 
     async monitoringNGramsProcessing() {
@@ -93,8 +115,25 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
         }
         else if(this.state.tasks.tasks[0].status === 'success')
         {
-            this.getNgrams();
+            this.getNgrams(this.state.page);
         }
+    }
+
+    changePage(items: NGramType[], currentPage: number) {
+        
+        this.setState({page: currentPage, loading: true});
+        this.getNgrams(currentPage);
+        this.setState({loading: false});
+    }
+
+    changeOrdenation(order_by: "content" | "count" | "relevance", order_ascending: 1 | 0){
+        const ngramsPagination = this.state.ngramsPagination;
+        ngramsPagination.orderBy = order_by;
+        ngramsPagination.orderAscending = order_ascending;
+
+        this.setState({ngramsPagination});
+        this.changePage(new Array<NGramType>(), 1);
+        
     }
 
     async handleOnClickNovo(e: React.MouseEvent) {
@@ -173,7 +212,7 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                 if(response.value.status === 'success')
                 {
                     this.setState({ngrams: null});
-                    this.getNgrams();
+                    this.getNgrams(this.state.page);
                 }
                 else
                 {
@@ -189,22 +228,6 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
     }
 
     render() {
-        if(this.state.ngrams){
-            var formatedCreatedAtDate = format(new Date(this.state.ngrams.created_at),'dd MMMM yyyy - HH:MM', {locale: ptBR});
-
-            var ngrams = this.state.ngrams.content.map((ngram) => 
-                <tr>
-                    <td>
-                        {ngram.word}
-                    </td>
-                    <td>
-                        {ngram.count}
-                    </td>
-                </tr>                
-            )
-        }
-
-
         return (
             <div className={nlpModalStyles.container}>
                 <div className={modalStyles.modalHeader}>
@@ -254,25 +277,96 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                         (!["queued", "in_progress"].includes(this.state.tasks.tasks[0].status)) &&
                         this.state.ngrams
                     ) &&
-                    <div className={nlpModalStyles.NGramsResult}>
-                        <p>
-                            Resultado da ultima extração com {this.state.ngrams.N} palavras (Grams)
-                        </p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Palavra(s)
-                                    </th>
-                                    <th>
-                                        Quantidade
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {ngrams}
-                            </tbody>
-                        </table>
+                    <div className={nlpModalStyles.nlpResult}>
+                        <PaginatedList 
+                            list={this.state.ngrams.ngrams}
+                            itemsPerPage={this.state.ngramsPagination.limit}
+                            currentPage={this.state.page}
+                            onPageChange={this.changePage}
+                            isLoading={this.state.loading}
+                            loadingItem={LoadingSpinnerComponent}
+                            paginatedListContainerClass={nlpModalStyles.tableListResult}
+                            controlClass={nlpModalStyles.pagination}
+                            controlItemClass={nlpModalStyles.paginationItem}
+                            renderList={(list) => (
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div>
+                                                    <p>NGram</p>
+                                                    {
+                                                        this.state.ngramsPagination.orderBy !== 'content' &&
+                                                        <FontAwesomeIcon icon={faSort} onClick={() => this.changeOrdenation("content", 0)}/>
+                                                    }
+                                                    {
+                                                        this.state.ngramsPagination.orderBy === 'content' && this.state.ngramsPagination.orderAscending === 0 && 
+                                                        <FontAwesomeIcon icon={faSortDown}  onClick={() => this.changeOrdenation("content", 1)}/>
+                                                    }
+                                                    {
+                                                        this.state.ngramsPagination.orderBy === 'content' && this.state.ngramsPagination.orderAscending === 1 && 
+                                                        <FontAwesomeIcon icon={faSortUp}  onClick={() => this.changeOrdenation("content", 0)}/>
+                                                    }
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div>
+                                                    <p>Ocorrências</p>
+                                                    {
+                                                        this.state.ngramsPagination.orderBy !== 'count' &&
+                                                        <FontAwesomeIcon icon={faSort} onClick={() => this.changeOrdenation("count", 0)} />
+                                                    }
+                                                    {
+                                                        this.state.ngramsPagination.orderBy === 'count' && this.state.ngramsPagination.orderAscending === 0 && 
+                                                        <FontAwesomeIcon icon={faSortDown} onClick={() => this.changeOrdenation("count", 1)} />
+                                                    }
+                                                    {
+                                                        this.state.ngramsPagination.orderBy === 'count' && this.state.ngramsPagination.orderAscending === 1 && 
+                                                        <FontAwesomeIcon icon={faSortUp} onClick={() => this.changeOrdenation("count", 0)} />
+                                                    }
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div>
+                                                    <p>Relevância</p>
+                                                    {
+                                                        this.state.ngramsPagination.orderBy !== 'relevance' &&
+                                                        <FontAwesomeIcon icon={faSort} onClick={() => this.changeOrdenation("relevance", 0)}/>
+                                                    }
+                                                    {
+                                                        this.state.ngramsPagination.orderBy === 'relevance' && this.state.ngramsPagination.orderAscending === 0 && 
+                                                        <FontAwesomeIcon icon={faSortDown} onClick={() => this.changeOrdenation("relevance", 1)} />
+                                                    }
+                                                    {
+                                                        this.state.ngramsPagination.orderBy === 'relevance' && this.state.ngramsPagination.orderAscending === 1 && 
+                                                        <FontAwesomeIcon icon={faSortUp} onClick={() => this.changeOrdenation("relevance", 0)} />
+                                                    }
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>                                        
+                                        {
+                                            list.map((ngram, idx) => {
+                                                return (
+                                                    <tr key={idx}>
+                                                        <td className={nlpModalStyles.content}>
+                                                            <p>{ngram.content}</p>
+                                                        </td>                                                        
+                                                        <td className={nlpModalStyles.count}>
+                                                            <p>{ngram.count}</p>
+                                                        </td>                                                       
+                                                        <td className={nlpModalStyles.relevance}>
+                                                            <p>{Math.floor(ngram.relevance * 100)}%</p>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })
+                                        }
+                                    </tbody>
+                                </table>
+                            )}                        
+                        />
                     </div>
                 }
                 

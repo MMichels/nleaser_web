@@ -7,8 +7,6 @@ import { HeaderComponent } from '../../components/Header';
 import { NLPCardComponent } from './components/NLPCard';
 import { WordCloudModal } from "./components/modals/WordCloudModal";
 
-import WordcloudExampleImage from "../../assets/images/nlp-methods/wordcloud-background-default.png";
-
 import pagesStyles from "../pagesStyles.module.scss";
 import DataFilesService from '../../services/datafiles.service';
 import { LoadingSpinnerComponent } from '../../components/loading';
