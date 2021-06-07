@@ -1,0 +1,138 @@
+.accessFormStyled {   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 25rem;
+
+    background-color: rgba(0,0,0,0.9);  
+
+    margin: auto;
+    padding: 2rem;
+
+    hr {
+        margin: 10px 0;
+        border: none;
+        border-bottom: 1px solid #cdcdcd;
+        width: 100%;
+    }
+
+    a {
+        font-size: 16pt;
+        font-weight: bold;
+        color: #6868B7;
+        text-decoration: none;
+    }
+}
+
+.titleStyled {
+    color: #6868B7;
+    text-align: center;
+    text-shadow: 2px 2px #100;
+    font-size: 2rem;
+    font-weight: bold;
+    width: 95%;
+    margin: 10px;
+}
+
+.descriptionStyled {
+    color: #bbb;
+    text-align: center;    
+    margin: 1rem auto;
+}
+
+.errorStyled {
+    color: #f22;
+    font-size: 12pt;
+    text-align: center;
+    margin: 10px;
+}
+
+.inputStyled {
+    height: 46px;
+    width: 95%;
+    margin: 2px 10px;
+    padding: 0 10px;   
+
+    font-size: 1.05rem;
+    
+    border: 1px solid #ddd;
+
+    &:first-child {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    &:last-child {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+}
+
+.textInputStyled {
+    @extend .inputStyled;
+
+    color: black;
+
+    &::placeholder {
+        color: #555;
+    }
+}
+
+.fileInputStyled {
+    @extend .inputStyled;
+
+    padding: 10px;
+}
+
+.selectInputStyled {
+    @extend .inputStyled;
+
+    option {
+        color: black;
+    }
+
+}
+
+.submitButtonStyled {
+    color: #fff;
+    font-size: 1.5rem;
+    background: #6868B7;
+    
+    height: 46px;
+    width: 95%;
+    margin: auto;
+    margin-top: 18px;
+
+    border: none;
+    border-radius: 1px;
+
+    p {
+        margin: auto;
+    }
+}
+
+
+.uploadButtonStyled {
+    @extend .submitButtonStyled;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    color: black;
+    background: #6868B7 ;
+    margin-top: 10px;
+
+    p {
+        margin: auto;
+        margin-right: 2px;
+    }
+    svg {
+        margin: auto;
+        margin-left: 2px;
+    }    
+
+    &:not([disabled]):hover {
+        background: #3f3f8a !important;
+    }
+}

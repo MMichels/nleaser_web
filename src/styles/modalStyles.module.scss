@@ -1,0 +1,83 @@
+@import 'formStyles.module';
+
+.defaultModal {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 1px;
+}
+
+.nlpModal {
+  @extend .defaultModal;
+  top: 50%;
+  height: 80%;
+  width: 80%;  
+
+}
+
+
+.overlayModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.9);    
+  transition: all 300ms ease;
+}
+
+.modalHeader {
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+
+  width: 100%;
+  
+
+  .modalTitle {
+    @extend .titleStyled;
+
+    width: 100%;
+
+    color: black;
+    text-shadow: none;
+    
+    margin: 0 1rem 0 3.75rem;
+  }
+
+  .closeModalButton {
+    width: 3.75rem;
+
+    position: relative;
+    top: -2rem;
+    right: -2rem;
+
+    background: transparent;
+    color: #FF1111;
+    border: none;
+    height: 46px;
+
+    svg {
+      height: 90%;
+      width: 90%;
+    }    
+
+    &:not([disabled]):hover {
+      color: #cc1111 !important;
+    }
+  }
+
+}
+
+.modalDescription {
+  @extend .descriptionStyled;
+  color: black;
+  text-align: justify;
+  margin-bottom: 1rem;
+}

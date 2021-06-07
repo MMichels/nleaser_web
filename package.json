@@ -1,0 +1,63 @@
+{
+  "name": "nleaser_web",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@bumaga/tabs": "^0.2.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.1",
+    "date-fns": "^2.21.1",
+    "fontsource-roboto": "^4.0.0",
+    "infinite-react-carousel": "^1.2.11",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-elastic-carousel": "^0.11.5",
+    "react-icons": "^4.2.0",
+    "react-modal": "^3.13.1",
+    "react-paginated-list": "^1.1.5",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-social-icons": "^5.1.1",
+    "sass": "^1.32.11",
+    "styled-components": "^5.2.3",
+    "sweetalert2": "^11.0.11",
+    "sweetalert2-react-content": "^4.0.1",
+    "web-vitals": "^1.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^15.0.0",
+    "@types/react": "^17.0.4",
+    "@types/react-modal": "^3.12.0",
+    "@types/react-router-dom": "^5.1.7",
+    "typescript": "^4.2.4"
+  }
+}

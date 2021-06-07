@@ -1,0 +1,22 @@
+.backgroundStyled {
+    background-image: url('../../assets/images/home/bck.jpg');   
+    background-size: cover;   
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+h1 {
+    font-size: 2rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
