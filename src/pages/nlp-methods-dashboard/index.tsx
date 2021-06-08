@@ -7,6 +7,7 @@ import { HeaderComponent } from '../../components/Header';
 import { NLPCardComponent } from './components/NLPCard';
 import { WordCloudModal } from "./components/modals/WordCloudModal";
 
+import styles from "./styles.module.scss";
 import pagesStyles from "../pagesStyles.module.scss";
 import DataFilesService from '../../services/datafiles.service';
 import { LoadingSpinnerComponent } from '../../components/loading';
@@ -87,7 +88,7 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
         return (
             <BackgroundComponent>
                 <HeaderComponent />                
-                <div className={pagesStyles.dashBoard}>
+                <div className={pagesStyles.dashBoard + " " + styles.dashBoardPurple}>
                     <h1>
                         Métodos de NLP 
                         {

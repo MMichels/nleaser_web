@@ -55,8 +55,8 @@
         .createNewButton {
   
           &:not([disabled]):hover {   
-            border: 1px solid #25c913;
-            box-shadow: 2px 2px 4px #21af11;
+            border: 1px solid #673ab7;
+            box-shadow: 2px 2px 4px #673ab7;
           }
         }
 
@@ -81,9 +81,9 @@
       @extend .nlpImgResult;
 
       img {
-        width: 100%;
-        height: 95%;
-        border-radius: 10px;
+        width: 80%;
+        height: 70%;
+        border-radius: 1px;
 
         box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
       }
