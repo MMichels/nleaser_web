@@ -49,10 +49,9 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
     componentDidMount() {
         this.setState({loading: true});
 
-        this.getWordCloud();
-        this.monitoringWordcloudProcessing();
-
-        this.setState({loading: false});
+        this.getWordCloud().then(() => {
+            this.getTasks().then(() => this.setState({loading: false}));
+        });
     }
 
     componentWillUnmount() {
@@ -166,7 +165,23 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
 
     render() {
         if(this.state.wordcloud)
-            var formatedCreatedAtDate = format(new Date(this.state.wordcloud.created_at), 'dd MMMM yyyy - HH:MM', {locale: ptBR});    
+            var formatedCreatedAtDate = format(new Date(this.state.wordcloud.created_at), 'dd MMMM yyyy - HH:mm', {locale: ptBR});    
+
+        console.log(
+            "error: ", (!this.state.error),
+        );
+        console.log(
+            "loading: ", 
+            (!this.state.loading)
+        );
+        console.log(
+            "tasks: ", 
+            (this.state.tasks !== null)
+        );
+        console.log(
+            "wordcloud: ", 
+            (this.state.wordcloud !== null)
+        );
 
         return (
             <div className={nlpModalStyles.container}>
@@ -223,13 +238,15 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                     (
                         (!this.state.error) &&
                         (!this.state.loading) &&
-                        (this.state.tasks) &&
+                        (this.state.tasks !== null) &&
                         (!["queued", "in_progress"].includes(this.state.tasks.tasks[0].status)) &&
-                        this.state.wordcloud
+                        (this.state.wordcloud !== null)
                     ) && 
                     <div className={nlpModalStyles.nlpImgResult}>
                         <img src={"data:image/png;base64," + this.state.wordcloud.base64_image} alt="Wordcloud do dataset"/>
-                        <p>{formatedCreatedAtDate}</p>
+                        <p className={nlpModalStyles.createdDate}>
+                            {formatedCreatedAtDate}
+                        </p>
                     </div>    
                 }
                 

@@ -57,14 +57,12 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
         this.changeOrdenation = this.changeOrdenation.bind(this);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.setState({loading: true});
 
-        await this.getNgrams(this.state.page);
-        if(this.state.ngrams === null)
-            this.monitoringNGramsProcessing();
-
-        this.setState({loading: false});
+        this.getNgrams(this.state.page).then(() => {
+            this.getTasks().then(() => this.setState({loading: false}));
+        });
     }
 
     componentWillUnmount() {
@@ -228,6 +226,9 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
     }
 
     render() {
+        if(this.state.ngrams)
+            var formatedCreatedAtDate = format(new Date(this.state.ngrams.created_at), 'dd MMMM yyyy - HH:mm', {locale: ptBR});    
+
         return (
             <div className={nlpModalStyles.container}>
                 <div className={modalStyles.modalHeader}>
@@ -367,6 +368,9 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                                 </table>
                             )}                        
                         />
+                        <p className={nlpModalStyles.createdDate}>
+                            {formatedCreatedAtDate}
+                        </p>
                     </div>
                 }
                 

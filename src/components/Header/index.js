@@ -17,7 +17,6 @@ export const HeaderComponent=() => {
    * Caso contrario, coloca as opções de login e cadastro
    */
   const accessComponents = () => {
-    console.log("token: ", token);
     if(token && token !== undefined)
     {
       return (
