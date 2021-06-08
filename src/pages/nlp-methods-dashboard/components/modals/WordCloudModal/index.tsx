@@ -223,13 +223,15 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                     (
                         (!this.state.error) &&
                         (!this.state.loading) &&
-                        (this.state.tasks) &&
+                        (this.state.tasks !== null) &&
                         (!["queued", "in_progress"].includes(this.state.tasks.tasks[0].status)) &&
-                        this.state.wordcloud
+                        (this.state.wordcloud !== null)
                     ) && 
                     <div className={nlpModalStyles.nlpImgResult}>
                         <img src={"data:image/png;base64," + this.state.wordcloud.base64_image} alt="Wordcloud do dataset"/>
-                        <p>{formatedCreatedAtDate}</p>
+                        <p className={nlpModalStyles.createdDate}>
+                            {formatedCreatedAtDate}
+                        </p>
                     </div>    
                 }
                 

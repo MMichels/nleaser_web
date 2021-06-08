@@ -1,7 +1,9 @@
 @import 'formStyles.module';
 
 .defaultModal {
-  position: absolute;
+  position: relative;
+  display: flex;
+  overflow: scroll;
   top: 35%;
   left: 50%;
   right: auto;
@@ -15,9 +17,8 @@
 .nlpModal {
   @extend .defaultModal;
   top: 50%;
-  height: 80%;
-  width: 80%;  
-
+  width: 90%;
+  height: 90%;
 }
 
 
