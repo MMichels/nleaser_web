@@ -31,6 +31,7 @@ interface IDatafileCardState {
 
 export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafileCardState> {
   private _datafileService: DataFilesService;
+  monitoringTimeout?: NodeJS.Timeout;
 
   constructor(props) {
     super(props);    
@@ -43,6 +44,8 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
     }    
 
     this.getTasks = this.getTasks.bind(this);
+    this.monitoringDatafileProcessing = this.monitoringDatafileProcessing.bind(this);
+    this.handleExcludeDataFileClick = this.handleExcludeDataFileClick.bind(this);    
   }
 
   async componentDidMount() {
@@ -52,6 +55,11 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
 
     this.setState({loading: false});
   }
+
+  componentWillUnmount() {
+      if(this.monitoringTimeout)
+          clearTimeout(this.monitoringTimeout);
+  } 
 
   async getTasks() {
 
@@ -66,10 +74,8 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
   async monitoringDatafileProcessing() {
     await this.getTasks();
 
-    if(['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)){
-      setTimeout(() => {                
-          this.monitoringDatafileProcessing();
-      }, 1000);
+    if(this.state.tasks && ['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)){
+      this.monitoringTimeout = setTimeout(this.monitoringDatafileProcessing, 1000);
     }    
   }
 
@@ -89,7 +95,7 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
       position: 'top',
     }).then((response) => {
       if (response.value.deleted) {       
-        this.props.onExclude(this.props.id);   
+        this.props.onExclude(this.props.id);
         Swal.fire(
           "Excluído!",
           "O arquivo de dados foi excluído com sucesso",

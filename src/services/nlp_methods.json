@@ -13,6 +13,13 @@
             "backgroundImg": "ngrams-background-default.png",
             "imgAlt": "NGram do conjunto de dados",
             "contentLabel": "Modal NGrams"
+        }, 
+        {
+            "name": "NER",
+            "description": "Um resumo sobre as entidades mais encontradas no conjunto de dados",
+            "backgroundImg": "ner-background-default.png",
+            "imgAlt": "NER do conjunto de dados",
+            "contentLabel": "Modal Ner"
         }
     ]
 }

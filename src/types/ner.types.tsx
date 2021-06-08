@@ -1,26 +1,25 @@
 import { BaseResponseType } from "./baseresponse.type";
 
-export interface NGramType {
+export interface EntityType {
     content: string;
+    entity: string;
     count: number;
-    relevance: number;
 }
 
-export interface NGramsType extends BaseResponseType {
+export interface NerResumeType extends BaseResponseType {
     created_at: string;
-    ngrams: NGramType[];
+    extracted_entities: EntityType[];
     total: number;
-    size: number;
 }
 
-export class NGramsPaginationType {
+export class NerResumePaginationType {
     skip: number;
     limit: number;
-    orderBy: "content" | "count" | "relevance";
+    orderBy: "content" | "count" | "entity";
     orderAscending: 0 | 1;
 
     constructor(){
-        this.orderBy = "relevance";
+        this.orderBy = "count";
         this.orderAscending = 0;
         this.skip = 0;
         this.limit = 12;

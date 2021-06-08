@@ -50,7 +50,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
         this.setState({loading: true});
 
         this.getWordCloud().then(() => {
-            this.getTasks().then(() => this.setState({loading: false}));
+            this.monitoringWordcloudProcessing().then(() => this.setState({loading: false}));
         });
     }
 
@@ -81,9 +81,9 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
 
         // Se existir alguma tarefa na fila/processando, a cada segundo faz uma consulta na API,
         // Até qe a tarefa seja concluida ou aconteça algum erro
-        if(['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)){
+        if(this.state.tasks && ['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)){
             this.monitoringTimeout = setTimeout(this.monitoringWordcloudProcessing, 1000);
-        }else if(this.state.tasks.tasks[0].status === 'success'){
+        }else if(this.state.tasks && this.state.tasks.tasks[0].status === 'success'){
             this.getWordCloud();
         }
     }

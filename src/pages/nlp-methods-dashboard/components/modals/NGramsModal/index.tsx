@@ -19,7 +19,7 @@ import { PaginatedList } from "react-paginated-list";
 
 
 interface INGramModalProps {
-    datafile: DataFileType
+    datafile: DataFileType;
 }
 
 interface INGramModalState {
@@ -61,7 +61,7 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
         this.setState({loading: true});
 
         this.getNgrams(this.state.page).then(() => {
-            this.getTasks().then(() => this.setState({loading: false}));
+            this.monitoringNGramsProcessing().then(() => this.setState({loading: false}));
         });
     }
 
@@ -106,12 +106,12 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
         await this.getTasks();
 
         if(
-            ['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)
+            this.state.tasks && ['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)
         )
         {
             this.monitoringTimeout = setTimeout(this.monitoringNGramsProcessing, 1000);
         }
-        else if(this.state.tasks.tasks[0].status === 'success')
+        else if(this.state.tasks && this.state.tasks.tasks[0].status === 'success')
         {
             this.getNgrams(this.state.page);
         }
