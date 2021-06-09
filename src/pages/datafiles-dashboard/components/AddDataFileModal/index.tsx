@@ -40,7 +40,7 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
       format: "",
       text_column: "",
       language: "",
-      separador: ";",
+      separador: ",",
       error: "",
       loading: false
     };

@@ -26,7 +26,7 @@ export class NLPCardComponent extends Component<INLPCardComponentProps, INLPCard
         };
 
         this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);        
+        this.closeModal = this.closeModal.bind(this);       
     }
 
     openModal(e: React.MouseEvent){
