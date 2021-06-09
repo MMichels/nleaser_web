@@ -128,31 +128,33 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
         <div className={styles.dataFile}>
           <div className={styles.datafileHeader}>
             <h1>{this.props.name}</h1>
-            <span onClick={() => this.handleExcludeDataFileClick()}>
-              <FontAwesomeIcon icon={faTrashAlt} className="exclude" />
-            </span>
+              
           </div>
-          {
-            this.state.error && <p className="error">{this.state.error}</p>
-          }
-          {
-            this.state.loading && <LoadingSpinnerComponent />
-          }
-          {
-            (
-              this.state.tasks &&
-              this.state.tasks.tasks[0].status !== "success"
-            ) &&
-            <TaskInfoComponent task={this.state.tasks.tasks[0]} title="Importando arquivo" />
-          }
-          {
-            renderLink &&
-            <Link className="fill-div" to={`/dashboard/nlp/${this.props.id}`} />            
-          }          
-          <p className={styles.createdDate}>
+            {
+              this.state.error && <p className="error">{this.state.error}</p>
+            }
+            {
+              this.state.loading && <LoadingSpinnerComponent />
+            }
+            {
+              (
+                this.state.tasks &&
+                this.state.tasks.tasks[0].status !== "success"
+              ) &&
+              <TaskInfoComponent task={this.state.tasks.tasks[0]} title="Importando arquivo" />
+            }
+            {
+              renderLink &&
+              <Link className="fill-div" to={`/dashboard/nlp/${this.props.id}`} />            
+            }
+            <button onClick={() => this.handleExcludeDataFileClick()} className ={styles.excludeDatabase}>
+              Excluir
+              </button>
+            <p className={styles.createdDate}>
             {`Enviado em: ${formatedCreatedAtDate}`}
-          </p>
+            </p>
         </div>
+        
       </li>
     );
   }

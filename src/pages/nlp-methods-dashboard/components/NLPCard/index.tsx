@@ -45,13 +45,7 @@ export class NLPCardComponent extends Component<INLPCardComponentProps, INLPCard
                 <button className={"fill-div"} onClick={this.openModal}>
                     <h1 className={styles.title}>{this.props.name}</h1>
                     <hr />
-                    <img className={styles.background} 
-                            src={`/images/nlp-methods/${this.props.imgSrc}`}
-                            alt={this.props.imgAlt}
-                    />
-                    <p className={styles.description}>
-                        {this.props.description}
-                    </p>  
+                    
                 </button>
                 <Modal 
                     isOpen={this.state.modalIsOpen}
