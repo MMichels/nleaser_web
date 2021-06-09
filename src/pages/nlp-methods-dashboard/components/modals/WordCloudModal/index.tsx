@@ -162,11 +162,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
 
     render() {
         if(this.state.wordcloud)
-<<<<<<< HEAD
-            var formatedCreatedAtDate = format(new Date(this.state.wordcloud.created_at), 'dd MMMM yyyy - HH:MM', {locale: ptBR});    
-=======
             var formatedCreatedAtDate = format(new Date(this.state.wordcloud.created_at), 'dd MMMM yyyy - HH:mm', {locale: ptBR});    
->>>>>>> ner_resume
 
         return (
             <div className={nlpModalStyles.container}>
