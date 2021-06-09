@@ -14,6 +14,7 @@ import { LoadingSpinnerComponent } from '../../components/loading';
 import NLPMethodsService from '../../services/nlp_methods.service';
 import { NLPMethodType } from '../../types/nlp_method.type';
 import { NGramsModal } from './components/modals/NGramsModal';
+import NerResumeModal from './components/modals/NerResumeModal';
 
 interface INLPDashBoardState {
     datafile_id?: string;
@@ -50,6 +51,7 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
 
             nlpModals["Wordcloud"] = <WordCloudModal datafile={this.state.datafile} />;
             nlpModals["NGrams"] = <NGramsModal datafile={this.state.datafile} />;
+            nlpModals["NER"] = <NerResumeModal datafile={this.state.datafile} />;
 
 
             this.setState({nlpModals, nlpMethods});

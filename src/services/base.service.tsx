@@ -32,7 +32,7 @@ export class BaseService {
             if (error.response && error.response.data) {
                 console.log(error.response);
                 if (error.response.status === 403) {
-                    window.location.assign(`/login?error=${error.response.data.error}`);
+                    window.location.assign(`/login?logout=true&error=${error.response.data.error}`);
                     return;
                 }
                 else
