@@ -23,6 +23,6 @@ export class NGramsPaginationType {
         this.orderBy = "relevance";
         this.orderAscending = 0;
         this.skip = 0;
-        this.limit = 12;
+        this.limit = 10;
     }
 }
