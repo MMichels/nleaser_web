@@ -87,9 +87,9 @@ export class NerResumeModal extends Component<INerResumeModalProps, INerResumeMo
         this.nerResumeService.get(this.props.datafile.id, pagination).then(response => {
             const ner_resume = response;    
 
-            const emptyArray = new Array<any>();
+            const emptyArray = new Array<EntityType>();
             while(emptyArray.length < pagination.skip)
-                emptyArray.push({});
+                emptyArray.push({"content": null, "count": null, "entity": null});
 
             ner_resume.extracted_entities = emptyArray.concat(ner_resume.extracted_entities);
             while(ner_resume.extracted_entities.length < ner_resume.total)
