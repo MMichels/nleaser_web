@@ -44,9 +44,6 @@ export const HeaderComponent=() => {
         <LogoComponent/>
         <Menu >
             <ul>
-                <LayoutMenu><Links href="/">Home</Links></LayoutMenu>
-                <LayoutMenu><Links href="#">Sugestões</Links></LayoutMenu>
-                <LayoutMenu><Links href="#">Contatos</Links></LayoutMenu>
                 {accessComponents()}
             </ul>
         </Menu>

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container, TabsHeader, ButtonFerramenta, Box, ImgBox, TitleBox, TextBox } from "./styles";
+import { Container, TabsHeader, ButtonFerramenta, Box, ImgBox, TitleBox, TextBox,Item} from "./styles";
 import { Tabs, Tab, Panel } from '@bumaga/tabs'
+import Carousel from "react-elastic-carousel";
 
 // Importacao das imagens
 import WordCloudImg from "../../../../assets/images/home/WordCloud.png";
@@ -11,35 +12,12 @@ import TfIdfImg from "../../../../assets/images/home/TF_IDF.png"
 import Word2VecImg from "../../../../assets/images/home/word2vec.png"
 
 
-const BtnFerramenta = (props) => {
-    const [toggle, setToggle] = React.useState(true);
-
-    return (
-        <ButtonFerramenta
-            onClick={() => setToggle(!toggle)}
-            style={{ backgroundColor: toggle ? 'none' : '#446677' }}
-        >
-            {props.children}
-        </ButtonFerramenta>
-    )
-}
-
 
 export const CardsFerramentas = () => {
     return (
         <Container>
-            <Tabs>
-                <TabsHeader>
-                    <Tab><BtnFerramenta>
-                        Wordcloud
-            </BtnFerramenta></Tab>
-                    <Tab><BtnFerramenta>Frequência </BtnFerramenta></Tab>
-                    <Tab><BtnFerramenta>Ngrams</BtnFerramenta></Tab>
-                    <Tab><BtnFerramenta>Entidades</BtnFerramenta></Tab>
-                    <Tab><BtnFerramenta>Relevancia</BtnFerramenta></Tab>
-                    <Tab><BtnFerramenta>Similaridades</BtnFerramenta></Tab>
-                </TabsHeader>
-                <Panel>
+          <Carousel pagination = {false}>
+                <Item>
                     <Box>
                         <TitleBox>Wordcloud</TitleBox>
                         <TextBox>
@@ -49,9 +27,10 @@ export const CardsFerramentas = () => {
                         </TextBox>
                         <ImgBox src={WordCloudImg}></ImgBox>
                     </Box>
-                </Panel>
-                <Panel>
-                    <Box>
+
+                </Item>
+                <Item>
+                     <Box>
                         <TitleBox>Frequência</TitleBox>
                         <TextBox>
                             A método de frequência das palavras consiste em gerar um dicionário de palavras
@@ -62,8 +41,8 @@ export const CardsFerramentas = () => {
                         </TextBox>
                         <ImgBox src={FrequenciaImg}></ImgBox>
                     </Box>
-                </Panel>
-                <Panel>
+                </Item>
+                <Item>
                     <Box>
                         <TitleBox>Ngrams</TitleBox>
                         <TextBox>
@@ -77,8 +56,8 @@ export const CardsFerramentas = () => {
                             </TextBox>
                         <ImgBox src={NgramsImg}></ImgBox>
                     </Box>
-                </Panel>
-                <Panel>
+                </Item>
+                <Item>
                     <Box>
                         <TitleBox>Entidades</TitleBox>
                         <TextBox>
@@ -90,8 +69,8 @@ export const CardsFerramentas = () => {
                             </TextBox>
                         <ImgBox src={EntidadesImg}></ImgBox>
                     </Box>
-                </Panel>
-                <Panel>
+                </Item>
+                <Item>
                     <Box>
                         <TitleBox>Relevancia</TitleBox>
                         <TextBox>
@@ -105,8 +84,8 @@ export const CardsFerramentas = () => {
                             </TextBox>
                         <ImgBox src={TfIdfImg}></ImgBox>
                     </Box>
-                </Panel>
-                <Panel>
+                </Item>
+                <Item>
                     <Box>
                         <TitleBox>Similaridades</TitleBox>
                         <TextBox>
@@ -117,8 +96,9 @@ export const CardsFerramentas = () => {
                             </TextBox>
                         <ImgBox src={Word2VecImg}></ImgBox>
                     </Box>
-                </Panel>
-            </Tabs>
+                </Item>
+            </Carousel>
+
         </Container>
     )
 }

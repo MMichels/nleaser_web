@@ -5,7 +5,7 @@ import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import { isAuthenticated } from "./services/auth";
-import { Home } from "./pages/Home";
+import { Home } from "./pages/home";
 import { CadastroPage } from "./pages/acesso/cadastro";
 import { LoginPage } from "./pages/acesso/login";
 import { DataFilesDashboardRoutes } from "./pages/datafiles-dashboard/routes";

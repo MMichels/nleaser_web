@@ -34,10 +34,10 @@ export function Footer() {
             </User1rede>
             <User1But>
                 <SocialLink2>
-                    <SocialIcon url="https://www.linkedin.com/in/lucas-domiciano-1bb334124/" />
+                    <SocialIcon url="https://www.linkedin.com/in/lucas-domiciano-1bb334124/" style={{ height: 30, width: 30 }} />
                 </SocialLink2>
                 <SocialGit2>
-                    <SocialIcon url="https://github.com/Lucdk" />
+                    <SocialIcon url="https://github.com/Lucdk" style={{ height: 30, width: 30 }} />
                 </SocialGit2>
             </User1But>
 
@@ -55,10 +55,10 @@ export function Footer() {
             </User2rede>
             <User2But>
                 <SocialLink1>
-                    <SocialIcon url="https://www.linkedin.com/in/lucas-domiciano-1bb334124/" />
+                    <SocialIcon url="https://www.linkedin.com/in/lucas-domiciano-1bb334124/" style={{ height: 30, width: 30 }} />
                 </SocialLink1>
                 <SocialGit1>
-                    <SocialIcon url="https://github.com/Lucdk" />
+                    <SocialIcon url="https://github.com/Lucdk" style={{ height: 30, width: 30 }} />
                 </SocialGit1>
                 
             </User2But>
