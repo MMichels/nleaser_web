@@ -171,7 +171,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                         Wordcloud - Arquivo: {this.props.datafile.name}
                     </p>
                     <button className={modalStyles.closeModalButton}>
-                        <FontAwesomeIcon icon={faTimesCircle} />
+                        
                     </button>
                 </div>                
                 <p className={modalStyles.modalDescription}>
@@ -181,15 +181,14 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                 <hr />
                 <div className={nlpModalStyles.actions}>
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.createNewButton} onClick={this.handleOnClickNovo}>
-                        <p>Novo</p>
-                        <FontAwesomeIcon icon={faPlusCircle} />
+                        <p> Novo</p>
+                        
                     </button>
                     
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.deleteButton} onClick={this.handleOnClickExcluir}
                         disabled={!this.state.wordcloud}
                     >
                         <p>Excluir</p>
-                        <FontAwesomeIcon icon={faTimesCircle} />
                     </button>
                 </div>
                 {

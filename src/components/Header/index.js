@@ -21,6 +21,7 @@ export const HeaderComponent=() => {
     {
       return (
         <>
+          <LayoutMenu><Links href="/tutorial">Tutorial</Links></LayoutMenu>
           <LayoutMenu><Links href="/dashboard/datafiles">Dashboard</Links></LayoutMenu>
           <LayoutMenu><Links href="/login?logout=true">Logout</Links></LayoutMenu>        
         </>
