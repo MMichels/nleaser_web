@@ -26,7 +26,7 @@ export const ButtonFerramenta = styled.button`
 
 export const Box = styled.div`
     background-color: #ffffff;
-    font-size: 18px;
+    font-size: 34px;
     text-align: center;
     padding: 10px 10% 20px 10%;
    
@@ -36,8 +36,8 @@ export const ImgBox= styled.img`
     padding : 25px 15% 25px 15%;
     align-items: center;
     overflow: hidden;
-    width: 80%;
-    height: 80%;
+    width: auto;
+    height: 600px;
 
 `;
 
@@ -46,9 +46,31 @@ export const Box_Similaridades= styled.div`
 `;
 
 export const TitleBox= styled.h2`
-    padding: 15px ;
+    padding-top:10px;
+    color: black;
+    font-size:24px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 `;
 
 export const TextBox= styled.p`
     padding: 15px ;
+    color: black;
+    font-size:17px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding-left:20%;
+    padding-right:20%;
+`;
+export const Item = styled.div`
+  grid-area: carrosel;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin: 0 15px;
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 10px;
+  
+  
+
 `;

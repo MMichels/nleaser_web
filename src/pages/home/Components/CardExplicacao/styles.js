@@ -14,17 +14,20 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h2`
-    text-align: center;
-    font-size : 34px;
-    padding: 1% 1% 1.5% 1% 
-    
+    grid-area:titulo;
+    text-align:center;
+    font-size : 24px;
+    padding : 15px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 
 `;
 export const Text = styled.p`
     text-align: center;
-    font-size : 28px;
+    font-size : 17px;
     padding-left:20%;
     padding-right:20%;
+    padding-bottom:1%;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 `;
 
 

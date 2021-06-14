@@ -3,53 +3,68 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     grid-area: Card2;
-    width: 99.1vw;
-    height:350px;
+    width: auto;
+    height:280px;
     background-image: url("images/home/back.png");
     background-position: center;
     background-repeat: no-repeat; 
     background-size: cover;
     background-attachment: fixed;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 50px 300px;
-    grid-template-areas:
-    'title title title'
-    'card1 card2 card3'; 
     justify-items: center;
     align-items:center;
+    grid-template-areas:
+    'title'
+    'carrosel';
 
 `;
 
 
-export const BoxTitle = styled.div`
-    grid-area: title;
-    position:relative;
-    display:inline-block;
+export const Flex = styled.div`
+    width: 15px;
+    height: 15px;
+    background: #000;
+    padding-left: 10px;
+
     
 `;
-export const Title = styled.h2`
+export const Title = styled.div`
+    grid-area: title;
+    display: flex;
     font-size:24px;
     color:white;
-    text-align:center;
-    text-shadow:#000 1px -1px;
-
-`;
-export const Text = styled.p`
-    font-size:18px;
-    color:black;
-    text-align:center;
-`;
-
-export const TextBox = styled.div`
-    display:grid;
-    width: 300px;
-    height: 150px;
-    background-color:white;
-    text-align: center;
-    align-items: center;
+    height: 40px;
+    width: 400px;
+    border-radius: 1px;
+    background-color: rgba(104, 59, 183, 1);
     justify-content: center;
-    border-radius: 10px;
-    padding-left:5px;
-    padding-right:5px;
+    align-items: center;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+`;
+
+
+export const Square = styled.div`
+    
+    background: #000;
+
+`;
+
+export const Item = styled.div`
+  grid-area: carrosel;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 180px;
+  width: 100%;
+  border-radius: 1px;
+  color: white;
+  font-size: 17px;
+  margin-left:20% ;
+  margin-right:20% ;
+  text-align: center;
+  margin-bottom: 10px;
+  
+  
+  
+
 `;

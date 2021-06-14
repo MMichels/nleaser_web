@@ -271,7 +271,6 @@ export class NerResumeModal extends Component<INerResumeModalProps, INerResumeMo
                         NER - Arquivo: {this.props.datafile.name}
                     </p>
                     <button className={modalStyles.closeModalButton}>
-                        <FontAwesomeIcon icon={faTimesCircle} />
                     </button>
                 </div>
                 <p className={modalStyles.modalDescription}>
@@ -281,14 +280,12 @@ export class NerResumeModal extends Component<INerResumeModalProps, INerResumeMo
 
                 <div className={nlpModalStyles.actions}>
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.createNewButton} onClick={this.handleOnClickNovo}>
-                        <p>Novo</p>
-                        <FontAwesomeIcon icon={faPlusCircle} />                        
+                        <p>Novo</p>                      
                     </button>
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.deleteButton} onClick={this.handleOnClickExcluir}
                         disabled={!this.state.ner_resume}
                     >
-                        <p>Excluir</p>
-                        <FontAwesomeIcon icon={faTimesCircle} />                        
+                        <p>Excluir</p>                     
                     </button>                    
                 </div>
 

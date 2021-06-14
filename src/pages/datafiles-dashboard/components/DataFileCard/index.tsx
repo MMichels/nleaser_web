@@ -4,9 +4,6 @@ import format from "date-fns/format"
 import ptBR from 'date-fns/locale/pt-BR';
 
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-
 import styles from "./styles.module.scss";
 
 
@@ -31,7 +28,6 @@ interface IDatafileCardState {
 
 export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafileCardState> {
   private _datafileService: DataFilesService;
-  monitoringTimeout?: NodeJS.Timeout;
 
   constructor(props) {
     super(props);    
@@ -44,8 +40,6 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
     }    
 
     this.getTasks = this.getTasks.bind(this);
-    this.monitoringDatafileProcessing = this.monitoringDatafileProcessing.bind(this);
-    this.handleExcludeDataFileClick = this.handleExcludeDataFileClick.bind(this);    
   }
 
   async componentDidMount() {
@@ -55,11 +49,6 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
 
     this.setState({loading: false});
   }
-
-  componentWillUnmount() {
-      if(this.monitoringTimeout)
-          clearTimeout(this.monitoringTimeout);
-  } 
 
   async getTasks() {
 
@@ -74,8 +63,10 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
   async monitoringDatafileProcessing() {
     await this.getTasks();
 
-    if(this.state.tasks && ['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)){
-      this.monitoringTimeout = setTimeout(this.monitoringDatafileProcessing, 1000);
+    if(['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)){
+      setTimeout(() => {                
+          this.monitoringDatafileProcessing();
+      }, 1000);
     }    
   }
 
@@ -94,22 +85,20 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
       reverseButtons: true,
       position: 'top',
     }).then((response) => {
-      if(response.value){
-        if (response.value.deleted) {       
-          this.props.onExclude(this.props.id);
-          Swal.fire(
-            "Excluído!",
-            "O arquivo de dados foi excluído com sucesso",
-            "success"
-          ).then();
-        }
-        else { 
-          Swal.fire(
-            "Erro ao excluir!",
-            `Não foi possível excluir o arquivo <br />${response.value.error}`,
-            "error"
-          ).then();
-        }
+      if (response.value.deleted) {       
+        this.props.onExclude(this.props.id);   
+        Swal.fire(
+          "Excluído!",
+          "O arquivo de dados foi excluído com sucesso",
+          "success"
+        ).then();
+      }
+      else { 
+        Swal.fire(
+          "Erro ao excluir!",
+          `Não foi possível excluir o arquivo <br />${response.value.error}`,
+          "error"
+        ).then();
       }
     }, (err) => {
         Swal.fire(
@@ -136,31 +125,33 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
         <div className={styles.dataFile}>
           <div className={styles.datafileHeader}>
             <h1>{this.props.name}</h1>
-            <span onClick={() => this.handleExcludeDataFileClick()}>
-              <FontAwesomeIcon icon={faTrashAlt} className="exclude" />
-            </span>
+
           </div>
-          {
-            this.state.error && <p className="error">{this.state.error}</p>
-          }
-          {
-            this.state.loading && <LoadingSpinnerComponent />
-          }
-          {
-            (
-              this.state.tasks &&
-              this.state.tasks.tasks[0].status !== "success"
-            ) &&
-            <TaskInfoComponent task={this.state.tasks.tasks[0]} title="Importando arquivo" />
-          }
-          {
-            renderLink &&
-            <Link className="fill-div" to={`/dashboard/nlp/${this.props.id}`} />            
-          }          
-          <p className={styles.createdDate}>
+            {
+              this.state.error && <p className="error">{this.state.error}</p>
+            }
+            {
+              this.state.loading && <LoadingSpinnerComponent />
+            }
+            {
+              (
+                this.state.tasks &&
+                this.state.tasks.tasks[0].status !== "success"
+              ) &&
+              <TaskInfoComponent task={this.state.tasks.tasks[0]} title="Importando arquivo" />
+            }
+            {
+              renderLink &&
+              <Link className="fill-div" to={`/dashboard/nlp/${this.props.id}`} />            
+            }
+            <button onClick={() => this.handleExcludeDataFileClick()} className ={styles.excludeDatabase}>
+              Excluir
+              </button>
+            <p className={styles.createdDate}>
             {`Enviado em: ${formatedCreatedAtDate}`}
-          </p>
+            </p>
         </div>
+        
       </li>
     );
   }

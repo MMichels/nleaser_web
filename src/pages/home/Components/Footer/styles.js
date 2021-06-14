@@ -18,19 +18,21 @@ export const Container = styled.div`
 
 export const TituloNome = styled.h2`
     margin-top: 15px;
-    font-size:26px;
+    font-size:24px;
     text-align:center;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 `;
 
 export const TituloSe = styled.h3`
     margin-top:0px;
     text-align: center;
     font-size:15px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 `;
 
 export const Imgem = styled.img`
-    width: 84px;
-    height: 84px;
+    width: 60px;
+    height: 60px;
     align-self: center;
     border-radius: 100%;
     margin-top:15px;
@@ -43,7 +45,7 @@ export const Imgem = styled.img`
 export const MarginSup = styled.div`
     display: grid;
     grid-area: Margin_s;
-    background-color:#ff0000;
+    background-color:rgb(104, 59, 183);
     
 `;  
 
@@ -51,10 +53,11 @@ export const BoX = styled.div`
     display: grid;
     grid-area: BoX1;
     width: 100%;
-    height: 300px;
+    height: 220px;
     text-align: center;
-    padding-top:15%;
+    padding-top:12.2%;
     font-size: 24px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 `;
 
 export const MargemR = styled.div`
@@ -141,7 +144,7 @@ export const SocialLink1 = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-right: 15px;
+    padding-right: 10px;
 `;
 
 export const SocialGit1 = styled.div`
@@ -150,7 +153,7 @@ export const SocialGit1 = styled.div`
     display: flex;
     align-items: center;
     justify-content:flex-start;
-    padding-left: 15px;
+    padding-left: 10px;
 `;
 
 export const User1But = styled.div`
@@ -169,7 +172,7 @@ export const SocialLink2 = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-right: 15px;
+    padding-right: 10px;
 `;
 
 export const SocialGit2 = styled.div`
@@ -177,5 +180,5 @@ export const SocialGit2 = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding-left: 15px;
+    padding-left: 10px;
 `;

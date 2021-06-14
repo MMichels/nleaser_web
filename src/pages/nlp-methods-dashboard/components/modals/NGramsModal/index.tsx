@@ -230,7 +230,6 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                         NGrams - Arquivo: {this.props.datafile.name}
                     </p>
                     <button className={modalStyles.closeModalButton}>
-                        <FontAwesomeIcon icon={faTimesCircle} />
                     </button>
                 </div>
                 <p className={modalStyles.modalDescription}>                    
@@ -240,14 +239,12 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                 <hr />
                 <div className={nlpModalStyles.actions}>
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.createNewButton} onClick={this.handleOnClickNovo}>
-                        <p>Novo</p>
-                        <FontAwesomeIcon icon={faPlusCircle} />                        
+                        <p>Novo</p>                      
                     </button>
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.deleteButton} onClick={this.handleOnClickExcluir}
                         disabled={!this.state.ngrams}
                     >
-                        <p>Excluir</p>
-                        <FontAwesomeIcon icon={faTimesCircle} />                        
+                        <p>Excluir</p>                       
                     </button>
                 </div>
 
