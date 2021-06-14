@@ -2,16 +2,12 @@
 
 .defaultModal {
   position: relative;
-  display: flex;
-  overflow: scroll;
+  display: inline-block;
   top: 35%;
   left: 50%;
-  right: auto;
-  bottom: auto;
-  margin-right: -50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  border-radius: 5px;
+  border-radius: 1px;
 }
 
 .nlpModal {
@@ -80,4 +76,5 @@
   @extend .descriptionStyled;
   color: black;
   text-align: justify;
+  margin-bottom: 1rem;
 }

@@ -20,18 +20,17 @@
     a {
         font-size: 16pt;
         font-weight: bold;
-        color: #999;
+        color: #6868B7;
         text-decoration: none;
     }
 }
 
 .titleStyled {
-    color: #f00;
+    color: #6868B7;
     text-align: center;
     text-shadow: 2px 2px #100;
     font-size: 2rem;
     font-weight: bold;
-    
     width: 95%;
     margin: 10px;
 }
@@ -60,13 +59,13 @@
     border: 1px solid #ddd;
 
     &:first-child {
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
+        border-top-left-radius: 1px;
+        border-top-right-radius: 1px;
     }
 
     &:last-child {
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 1px;
+        border-bottom-right-radius: 1px;
     }
 }
 
@@ -98,7 +97,7 @@
 .submitButtonStyled {
     color: #fff;
     font-size: 1.5rem;
-    background: #ff0000;
+    background: #6868B7;
     
     height: 46px;
     width: 95%;
@@ -106,7 +105,7 @@
     margin-top: 18px;
 
     border: none;
-    border-radius: 5px;
+    border-radius: 1px;
 
     p {
         margin: auto;
@@ -121,7 +120,7 @@
     align-items: center;
     
     color: black;
-    background: #0b951a ;
+    background: #6868B7 ;
     margin-top: 10px;
 
     p {
@@ -134,6 +133,6 @@
     }    
 
     &:not([disabled]):hover {
-        background: #006200 !important;
+        background: #3f3f8a !important;
     }
 }

@@ -40,7 +40,7 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
       format: "",
       text_column: "",
       language: "",
-      separador: ";",
+      separador: ",",
       error: "",
       loading: false
     };
@@ -120,7 +120,7 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
               Enviar um novo arquivo
             </p>
             <button className={modalStyles.closeModalButton} onClick={(ev) => this.props.onRequestClose(false)}>
-              <FontAwesomeIcon icon={faTimesCircle} />
+              X
             </button>
           </div>
           <p className={modalStyles.modalDescription}>

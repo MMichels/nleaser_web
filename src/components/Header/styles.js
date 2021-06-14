@@ -12,19 +12,28 @@ export const Container = styled.div`
 
 export const Menu = styled.nav`
     text-decoration: none;
-    text-align: end;    
+    text-align:right;
     font-size:18px;
-
-    padding: 25px 0px;
-    margin 0px 25px;
+    padding-top:20px;
+    margin: 0px 25px 20px 20px;
 `;
-export const LayoutMenu = styled.li`
-    display: inline-block;
-    padding: 5px;
+export const LayoutMenu = styled.button`
+    text-align:center;
+    display: inline;
+    width:120px;
+    border-radius:01px;
+    background-color:rgba(104, 59, 183, 1);
+    padding:10px;
+    margin-left:10px;
+    font-size:16px;
+    font-weight:bolder;
+    border: none;
 `;
 
 export const Links = styled.a`
-    color: 	#FF0000;
+    color: white;
+    text-decoration:none;
+    
 `;
 
 export const Forma = styled.img`

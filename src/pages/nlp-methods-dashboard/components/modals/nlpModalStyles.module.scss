@@ -14,7 +14,6 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
-
         width: 95%;
         height: 60px;
 
@@ -26,9 +25,10 @@
 
             margin: 0 1rem;
 
-            border: 1px solid black;
-            border-radius: 0.875rem;
-            background: rgb(219, 219, 219);
+            border: none;
+            border-radius: 1px;
+            background: rgb(104, 59, 189);
+            color: white;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 
             font-size: 1.1rem;
@@ -55,16 +55,16 @@
         .createNewButton {
   
           &:not([disabled]):hover {   
-            border: 1px solid #25c913;
-            box-shadow: 2px 2px 4px #21af11;
+            border: 1px solid #673ab7;
+            box-shadow: 2px 2px 4px #673ab7;
           }
         }
 
         .deleteButton {
   
           &:not([disabled]):hover {
-            border: 1px solid #cc1111 !important;
-            box-shadow: 2px 2px 4px #b60f0f;
+            border: 1px solid #673ab7 !important;
+            box-shadow: 2px 2px 4px #673ab7;;
           }
   
         }
@@ -111,22 +111,22 @@
         flex: 1;
 
         background: #eee;
-        border-radius: 5px;
+        border-radius: 1px;
 
         thead {
           font-size: 1.2rem;
           font-weight: bold;
 
           th {            
-            background: rgba(255, 0, 0, 0.5);
+            background: rgba(104, 59, 189, 0.5);
             border-radius: 0;
 
             &:first-of-type {
-              border-top-left-radius: 5px;
+              border-top-left-radius: 1px;
             }
 
             &:last-of-type {
-              border-top-right-radius: 5px;
+              border-top-right-radius: 1px;
             }
 
             div {

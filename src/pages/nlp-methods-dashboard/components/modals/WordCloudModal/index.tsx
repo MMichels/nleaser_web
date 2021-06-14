@@ -50,7 +50,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
         this.setState({loading: true});
 
         this.getWordCloud().then(() => {
-            this.getTasks().then(() => this.setState({loading: false}));
+            this.monitoringWordcloudProcessing().then(() => this.setState({loading: false}));
         });
     }
 
@@ -81,23 +81,22 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
 
         // Se existir alguma tarefa na fila/processando, a cada segundo faz uma consulta na API,
         // Até qe a tarefa seja concluida ou aconteça algum erro
-        if(['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)){
+        if(this.state.tasks && ['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)){
             this.monitoringTimeout = setTimeout(this.monitoringWordcloudProcessing, 1000);
-        }else if(this.state.tasks.tasks[0].status === 'success'){
+        }else if(this.state.tasks && this.state.tasks.tasks[0].status === 'success'){
             this.getWordCloud();
         }
     }
 
     handleOnClickNovo(e: React.MouseEvent){
         e.preventDefault();
-        this.setState({loading: true});
         Swal.fire({
           title: "Gerar WordCloud!",
           html: `
             <p>
                 Ao confirmar essa operação, a sua solicitação será colocada na nossa fila de processamento!
                 <br />
-                Assim que o wordcloud estiver pronto, ele ficará disponível para visualização.
+                Assim que o wordcloud estiver pronto, ele ficará disponível.
             </p>
           `,
           icon: "info",
@@ -123,7 +122,6 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                 }
             }
         });        
-        this.setState({loading: false});
     }
 
     handleOnClickExcluir(e: React.MouseEvent){
@@ -147,41 +145,24 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
           showLoaderOnConfirm: true,
           preConfirm: () => this.wordcloudService.delete(this.props.datafile.id).then(response => response).catch(err => err)
         }).then((response) => {
+            this.setState({loading: false});
             if(response.value){
-                if(response.value.status === 'success'){
-                    this.setState({wordcloud: null});
-                    this.getWordCloud();
-                }else {
+                if(response.value.status !== 'success'){
                     Swal.fire(
                         "Erro ao excluir Wordcloud",
                         response.value.error,
                         'error'
                     )
                 }
+                this.setState({wordcloud: null});
+                this.getWordCloud();
             }
-        });        
-        this.setState({loading: false});
+        });       
     }
 
     render() {
         if(this.state.wordcloud)
             var formatedCreatedAtDate = format(new Date(this.state.wordcloud.created_at), 'dd MMMM yyyy - HH:mm', {locale: ptBR});    
-
-        console.log(
-            "error: ", (!this.state.error),
-        );
-        console.log(
-            "loading: ", 
-            (!this.state.loading)
-        );
-        console.log(
-            "tasks: ", 
-            (this.state.tasks !== null)
-        );
-        console.log(
-            "wordcloud: ", 
-            (this.state.wordcloud !== null)
-        );
 
         return (
             <div className={nlpModalStyles.container}>
@@ -190,7 +171,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                         Wordcloud - Arquivo: {this.props.datafile.name}
                     </p>
                     <button className={modalStyles.closeModalButton}>
-                        <FontAwesomeIcon icon={faTimesCircle} />
+                        
                     </button>
                 </div>                
                 <p className={modalStyles.modalDescription}>
@@ -200,19 +181,14 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                 <hr />
                 <div className={nlpModalStyles.actions}>
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.createNewButton} onClick={this.handleOnClickNovo}>
-                        <p>Novo</p>
-                        <FontAwesomeIcon icon={faPlusCircle} />
+                        <p> Novo</p>
+                        
                     </button>
-                    {/*<button className={styles.actionButton + ' ' + styles.downloadButton}>
-                        <p>Baixar</p>
-                        <FontAwesomeIcon icon={faArrowCircleDown} />
-                    </button>
-                    */}
+                    
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.deleteButton} onClick={this.handleOnClickExcluir}
                         disabled={!this.state.wordcloud}
                     >
                         <p>Excluir</p>
-                        <FontAwesomeIcon icon={faTimesCircle} />
                     </button>
                 </div>
                 {
@@ -236,11 +212,10 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                     // Se nao tem nenhuma tarefa em andamento,
                     // Exibe o wordcloud
                     (
-                        (!this.state.error) &&
-                        (!this.state.loading) &&
-                        (this.state.tasks !== null) &&
-                        (!["queued", "in_progress"].includes(this.state.tasks.tasks[0].status)) &&
-                        (this.state.wordcloud !== null)
+                        (!this.state.error && !this.state.loading) &&
+                        (this.state.tasks && 
+                            this.state.tasks.tasks[0].status === "success") &&
+                        (this.state.wordcloud)
                     ) && 
                     <div className={nlpModalStyles.nlpImgResult}>
                         <img src={"data:image/png;base64," + this.state.wordcloud.base64_image} alt="Wordcloud do dataset"/>

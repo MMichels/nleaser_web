@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 
 export const LogoContainerStyled = styled.div`
-    margin: 15px;
+    margin: 20px;
     width: 200px;
     heigth: 60px    
 `;

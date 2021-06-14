@@ -19,7 +19,7 @@ import { PaginatedList } from "react-paginated-list";
 
 
 interface INGramModalProps {
-    datafile: DataFileType
+    datafile: DataFileType;
 }
 
 interface INGramModalState {
@@ -28,7 +28,7 @@ interface INGramModalState {
     ngrams?: NGramsType;
     tasks?: TasksType;
     page: number;
-    ngramsPagination: NGramsPaginationType;
+    pagination: NGramsPaginationType;
 }
 
 export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
@@ -45,7 +45,7 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
             ngrams: null,
             tasks: null,
             page: 1,
-            ngramsPagination: new NGramsPaginationType()
+            pagination: new NGramsPaginationType()
         }
 
         this.getTasks = this.getTasks.bind(this);
@@ -57,11 +57,11 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
         this.changeOrdenation = this.changeOrdenation.bind(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.setState({loading: true});
 
         this.getNgrams(this.state.page).then(() => {
-            this.getTasks().then(() => this.setState({loading: false}));
+            this.monitoringNGramsProcessing().then(() => this.setState({loading: false}));
         });
     }
 
@@ -81,22 +81,22 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
     }
 
     async getNgrams(page: number) {
-        const ngramsPagination = this.state.ngramsPagination;
-        ngramsPagination.skip = (page - 1) * (ngramsPagination.limit);        
+        const pagination = this.state.pagination;
+        pagination.skip = (page - 1) * (pagination.limit);        
 
-        this.ngramsService.get(this.props.datafile.id, ngramsPagination).then((response) => {
+        this.ngramsService.get(this.props.datafile.id, pagination).then((response) => {
 
             const ngrams = response;
             const arrayVazio = new Array<any>();
 
-            while(arrayVazio.length < ngramsPagination.skip)
+            while(arrayVazio.length < pagination.skip)
                 arrayVazio.push({});
 
             ngrams.ngrams = arrayVazio.concat(ngrams.ngrams);
             while(ngrams.ngrams.length < ngrams.total)
                 ngrams.ngrams.push({'content': null, 'count': null, 'relevance': null});
             
-            this.setState({ngrams, ngramsPagination, error: null});            
+            this.setState({ngrams, pagination, error: null});            
         }).catch((err) => {
             this.setState({error: err.error, ngrams: null});
         });
@@ -105,13 +105,12 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
     async monitoringNGramsProcessing() {
         await this.getTasks();
 
-        if(
+        if(this.state.tasks && 
             ['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)
-        )
-        {
+        ){
             this.monitoringTimeout = setTimeout(this.monitoringNGramsProcessing, 1000);
         }
-        else if(this.state.tasks.tasks[0].status === 'success')
+        else if(this.state.tasks && this.state.tasks.tasks[0].status === 'success')
         {
             this.getNgrams(this.state.page);
         }
@@ -125,26 +124,24 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
     }
 
     changeOrdenation(order_by: "content" | "count" | "relevance", order_ascending: 1 | 0){
-        const ngramsPagination = this.state.ngramsPagination;
-        ngramsPagination.orderBy = order_by;
-        ngramsPagination.orderAscending = order_ascending;
+        const pagination = this.state.pagination;
+        pagination.orderBy = order_by;
+        pagination.orderAscending = order_ascending;
 
-        this.setState({ngramsPagination});
+        this.setState({pagination});
         this.changePage(new Array<NGramType>(), 1);
         
     }
 
     async handleOnClickNovo(e: React.MouseEvent) {
         e.preventDefault();
-        this.setState({loading: true});
         Swal.fire({
             title: "Extrair NGrams!",
             html: `
                 <p>
                     Selecione o numero de palavras consecutivas para analisar
                     <br />
-                    <br />
-                    Assim que a extração de Ngrams estiver pronta, ele ficará disponível para visualização.
+                    Assim que a extração de Ngrams for concluída, ela ficará disponível.
                 </p>                
             `,
             input: 'select',
@@ -182,7 +179,6 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
             }
         });
         
-        this.setState({loading: false});
     }
 
     async handleOnClickExcluir(e: React.MouseEvent) {
@@ -205,24 +201,22 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
             cancelButtonText: "Cancelar",
             reverseButtons: true,
             preConfirm: () => this.ngramsService.delete(this.props.datafile.id).then(response => response).catch(err => err)
-        }).then((response) => {
+        }).then((response) => {            
+            this.setState({loading: false});
             if(response.value){
-                if(response.value.status === 'success')
-                {
-                    this.setState({ngrams: null});
-                    this.getNgrams(this.state.page);
-                }
-                else
+                if(response.value.status !== 'success')
                 {
                     Swal.fire(
                         "Erro ao excluir NGram",
                         response.value.error,
                         'error'
                     );
-                }
+                }                
+                this.setState({ngrams: null, page: 1});
+                this.getNgrams(1);
             }
         });       
-        this.setState({loading: false});
+        
     }
 
     render() {
@@ -236,7 +230,6 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                         NGrams - Arquivo: {this.props.datafile.name}
                     </p>
                     <button className={modalStyles.closeModalButton}>
-                        <FontAwesomeIcon icon={faTimesCircle} />
                     </button>
                 </div>
                 <p className={modalStyles.modalDescription}>                    
@@ -246,42 +239,47 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                 <hr />
                 <div className={nlpModalStyles.actions}>
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.createNewButton} onClick={this.handleOnClickNovo}>
-                        <p>Novo</p>
-                        <FontAwesomeIcon icon={faPlusCircle} />                        
+                        <p>Novo</p>                      
                     </button>
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.deleteButton} onClick={this.handleOnClickExcluir}
                         disabled={!this.state.ngrams}
                     >
-                        <p>Excluir</p>
-                        <FontAwesomeIcon icon={faTimesCircle} />                        
+                        <p>Excluir</p>                       
                     </button>
                 </div>
-                {
+
+                {                    
+                    // Verifica se ocorreu algum erro nas requisições
                     this.state.error && 
                     <p className={"error " + nlpModalStyles.error}>{this.state.error}</p>
                 }
+
                 {
+                    // Verifica se esta carregando os dados
                     this.state.loading && <LoadingSpinnerComponent />
                 }
+                
                 {
+                    // Acompanha o processamento da task
                     (
                         this.state.tasks && 
                         this.state.tasks.tasks[0].status !== "success"
                     ) &&
                     <TaskInfoComponent task={this.state.tasks.tasks[0]} title="Extraindo NGrams" />
                 }
+                
                 {
+                    // Se estiver tudo ok, exibe a lista de NGrams
                     (
-                        (!this.state.error) &&
-                        (!this.state.loading) &&
-                        (this.state.tasks) &&
-                        (!["queued", "in_progress"].includes(this.state.tasks.tasks[0].status)) &&
+                        (!this.state.error && !this.state.loading) &&
+                        (this.state.tasks && 
+                            this.state.tasks.tasks[0].status === "success") &&
                         this.state.ngrams
                     ) &&
                     <div className={nlpModalStyles.nlpResult}>
                         <PaginatedList 
                             list={this.state.ngrams.ngrams}
-                            itemsPerPage={this.state.ngramsPagination.limit}
+                            itemsPerPage={this.state.pagination.limit}
                             currentPage={this.state.page}
                             onPageChange={this.changePage}
                             isLoading={this.state.loading}
@@ -297,15 +295,15 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                                                 <div>
                                                     <p>NGram</p>
                                                     {
-                                                        this.state.ngramsPagination.orderBy !== 'content' &&
+                                                        this.state.pagination.orderBy !== 'content' &&
                                                         <FontAwesomeIcon icon={faSort} onClick={() => this.changeOrdenation("content", 0)}/>
                                                     }
                                                     {
-                                                        this.state.ngramsPagination.orderBy === 'content' && this.state.ngramsPagination.orderAscending === 0 && 
+                                                        this.state.pagination.orderBy === 'content' && this.state.pagination.orderAscending === 0 && 
                                                         <FontAwesomeIcon icon={faSortDown}  onClick={() => this.changeOrdenation("content", 1)}/>
                                                     }
                                                     {
-                                                        this.state.ngramsPagination.orderBy === 'content' && this.state.ngramsPagination.orderAscending === 1 && 
+                                                        this.state.pagination.orderBy === 'content' && this.state.pagination.orderAscending === 1 && 
                                                         <FontAwesomeIcon icon={faSortUp}  onClick={() => this.changeOrdenation("content", 0)}/>
                                                     }
                                                 </div>
@@ -314,15 +312,15 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                                                 <div>
                                                     <p>Ocorrências</p>
                                                     {
-                                                        this.state.ngramsPagination.orderBy !== 'count' &&
+                                                        this.state.pagination.orderBy !== 'count' &&
                                                         <FontAwesomeIcon icon={faSort} onClick={() => this.changeOrdenation("count", 0)} />
                                                     }
                                                     {
-                                                        this.state.ngramsPagination.orderBy === 'count' && this.state.ngramsPagination.orderAscending === 0 && 
+                                                        this.state.pagination.orderBy === 'count' && this.state.pagination.orderAscending === 0 && 
                                                         <FontAwesomeIcon icon={faSortDown} onClick={() => this.changeOrdenation("count", 1)} />
                                                     }
                                                     {
-                                                        this.state.ngramsPagination.orderBy === 'count' && this.state.ngramsPagination.orderAscending === 1 && 
+                                                        this.state.pagination.orderBy === 'count' && this.state.pagination.orderAscending === 1 && 
                                                         <FontAwesomeIcon icon={faSortUp} onClick={() => this.changeOrdenation("count", 0)} />
                                                     }
                                                 </div>
@@ -331,15 +329,15 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                                                 <div>
                                                     <p>Relevância</p>
                                                     {
-                                                        this.state.ngramsPagination.orderBy !== 'relevance' &&
+                                                        this.state.pagination.orderBy !== 'relevance' &&
                                                         <FontAwesomeIcon icon={faSort} onClick={() => this.changeOrdenation("relevance", 0)}/>
                                                     }
                                                     {
-                                                        this.state.ngramsPagination.orderBy === 'relevance' && this.state.ngramsPagination.orderAscending === 0 && 
+                                                        this.state.pagination.orderBy === 'relevance' && this.state.pagination.orderAscending === 0 && 
                                                         <FontAwesomeIcon icon={faSortDown} onClick={() => this.changeOrdenation("relevance", 1)} />
                                                     }
                                                     {
-                                                        this.state.ngramsPagination.orderBy === 'relevance' && this.state.ngramsPagination.orderAscending === 1 && 
+                                                        this.state.pagination.orderBy === 'relevance' && this.state.pagination.orderAscending === 1 && 
                                                         <FontAwesomeIcon icon={faSortUp} onClick={() => this.changeOrdenation("relevance", 0)} />
                                                     }
                                                 </div>

@@ -21,6 +21,7 @@ export const HeaderComponent=() => {
     {
       return (
         <>
+          <LayoutMenu><Links href="/tutorial">Tutorial</Links></LayoutMenu>
           <LayoutMenu><Links href="/dashboard/datafiles">Dashboard</Links></LayoutMenu>
           <LayoutMenu><Links href="/login?logout=true">Logout</Links></LayoutMenu>        
         </>
@@ -44,9 +45,6 @@ export const HeaderComponent=() => {
         <LogoComponent/>
         <Menu >
             <ul>
-                <LayoutMenu><Links href="/">Home</Links></LayoutMenu>
-                <LayoutMenu><Links href="#">Sugestões</Links></LayoutMenu>
-                <LayoutMenu><Links href="#">Contatos</Links></LayoutMenu>
                 {accessComponents()}
             </ul>
         </Menu>
