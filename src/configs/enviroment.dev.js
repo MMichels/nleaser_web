@@ -1,5 +1,5 @@
 const environment = {
-    "api_url": "http://localhost:5000"
+    "api_url": "http://51.79.63.5:5000"
 }
 
 export default environment;
