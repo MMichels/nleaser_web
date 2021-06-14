@@ -5,8 +5,6 @@ import ptBR from 'date-fns/locale/pt-BR';
 
 import nlpModalStyles from "../nlpModalStyles.module.scss";
 import modalStyles from "../../../../../styles/modalStyles.module.scss";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { DataFileType } from '../../../../../types/datafiles.types';
 import { WordCloudService } from '../../../../../services/wordcloud.service';
 import { TasksType } from '../../../../../types/tasks.types';

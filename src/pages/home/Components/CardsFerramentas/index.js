@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container, TabsHeader, ButtonFerramenta, Box, ImgBox, TitleBox, TextBox,Item} from "./styles";
-import { Tabs, Tab, Panel } from '@bumaga/tabs'
+import { Container, Box, ImgBox, TitleBox, TextBox,Item} from "./styles";
 import Carousel from "react-elastic-carousel";
 
 // Importacao das imagens

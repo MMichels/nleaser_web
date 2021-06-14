@@ -11,7 +11,7 @@ import { NGramService } from "../../../../../services/ngrams.service";
 import { DataFileType } from "../../../../../types/datafiles.types";
 import { NGramsPaginationType, NGramsType, NGramType } from "../../../../../types/ngrams.types";
 import { TasksType } from "../../../../../types/tasks.types";
-import { faPlusCircle, faTimesCircle, faSort, faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
+import { faSort, faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoadingSpinnerComponent } from "../../../../../components/loading";
 import { TaskInfoComponent } from "../../../../../components/task-info";

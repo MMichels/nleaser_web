@@ -1,5 +1,5 @@
-import React, { useState  } from 'react';
-import {Container,Title,Item,ImgFundo} from "./styles";
+import React from 'react';
+import {Container,Title,Item} from "./styles";
 import "./styles.css"
 import Carousel from "react-elastic-carousel";
 

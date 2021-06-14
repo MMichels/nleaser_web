@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Swal from "sweetalert2";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
 
 import styles from "./styles.module.scss";

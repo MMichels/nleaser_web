@@ -9,7 +9,7 @@ import { DataFileType } from '../../../../../types/datafiles.types';
 import { NerResumePaginationType, NerResumeType, EntityType } from '../../../../../types/ner.types';
 import { TasksType } from '../../../../../types/tasks.types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faSort, faSortDown, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSort, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { LoadingSpinnerComponent } from '../../../../../components/loading';
 import { TaskInfoComponent } from '../../../../../components/task-info';
 import Swal from 'sweetalert2';
@@ -115,7 +115,7 @@ export class NerResumeModal extends Component<INerResumeModalProps, INerResumeMo
 
     }
 
-    changePage(items: EntityType[], currentPage: number) {
+    changePage(items: Array<any>, currentPage: number) {
         this.setState({page: currentPage});
         this.getNerResume(currentPage);
     }
@@ -126,7 +126,7 @@ export class NerResumeModal extends Component<INerResumeModalProps, INerResumeMo
         pagination.orderAscending = orderAscending;
 
         this.setState({pagination});
-        this.changePage(new Array<EntityType>(), 1);
+        this.changePage([], 1);
     }
 
     labelToEntitie(label) {
