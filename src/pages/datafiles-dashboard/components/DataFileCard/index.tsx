@@ -85,20 +85,22 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
       reverseButtons: true,
       position: 'top',
     }).then((response) => {
-      if (response.value.deleted) {       
-        this.props.onExclude(this.props.id);   
-        Swal.fire(
-          "Excluído!",
-          "O arquivo de dados foi excluído com sucesso",
-          "success"
-        ).then();
-      }
-      else { 
-        Swal.fire(
-          "Erro ao excluir!",
-          `Não foi possível excluir o arquivo <br />${response.value.error}`,
-          "error"
-        ).then();
+      if(response.isConfirmed){
+        if (response.value.deleted) {       
+          this.props.onExclude(this.props.id);   
+          Swal.fire(
+            "Excluído!",
+            "O arquivo de dados foi excluído com sucesso",
+            "success"
+          );
+        }
+        else { 
+          Swal.fire(
+            "Erro ao excluir!",
+            `Não foi possível excluir o arquivo <br />${response.value.error}`,
+            "error"
+          );
+        }
       }
     }, (err) => {
         Swal.fire(
