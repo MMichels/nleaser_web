@@ -142,14 +142,22 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
             }
             {
               renderLink &&
-              <Link className="fill-div" to={`/dashboard/nlp/${this.props.id}`} />            
+              <div className={styles.datafileBody}>
+                <Link className="fill-div flex-column" to={`/dashboard/nlp/${this.props.id}`}>              
+                  <h2>Importado com sucesso</h2>
+                  <p>Acessar métodos de nlp</p>
+                </Link>
+              </div>
             }
-            <button onClick={() => this.handleExcludeDataFileClick()} className ={styles.excludeDatabase}>
-              Excluir
-              </button>
-            <p className={styles.createdDate}>
-            {`Enviado em: ${formatedCreatedAtDate}`}
-            </p>
+            <div className={styles.datafileFooter}>
+              <hr />
+              <button onClick={() => this.handleExcludeDataFileClick()} className ={styles.excludeDatafile}>
+                Excluir
+                </button>
+              <p className={styles.createdDate}>
+              {`Enviado em: ${formatedCreatedAtDate}`}
+              </p>
+            </div>
         </div>
         
       </li>

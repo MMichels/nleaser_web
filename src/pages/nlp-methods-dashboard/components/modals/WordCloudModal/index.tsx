@@ -164,13 +164,10 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
 
         return (
             <div className={nlpModalStyles.container}>
-                <div className={modalStyles.modalHeader}>
-                    <p className={modalStyles.modalTitle}>
-                        Wordcloud - Arquivo: {this.props.datafile.name}
-                    </p>
-                    <button className={modalStyles.closeModalButton}>
-                        
-                    </button>
+                <div className={nlpModalStyles.header}>
+                    <h1 className={nlpModalStyles.title}>
+                        Wordcloud
+                    </h1>
                 </div>                
                 <p className={modalStyles.modalDescription}>
                     Método de análise desenvolvido para gerar uma representação visual de dados de textuais, 
@@ -179,15 +176,16 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                 <hr />
                 <div className={nlpModalStyles.actions}>
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.createNewButton} onClick={this.handleOnClickNovo}>
-                        <p> Novo</p>
-                        
+                        <p>Novo Wordcloud</p>                        
                     </button>
-                    
-                    <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.deleteButton} onClick={this.handleOnClickExcluir}
-                        disabled={!this.state.wordcloud}
-                    >
-                        <p>Excluir</p>
-                    </button>
+                    {
+                        this.state.wordcloud &&
+                        <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.deleteButton} onClick={this.handleOnClickExcluir}
+                            disabled={!this.state.wordcloud}
+                        >
+                            <p>Excluir</p>
+                        </button>
+                    }
                 </div>
                 {
                     // Renderiza a msg de erro retornada da api
@@ -218,7 +216,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
                     <div className={nlpModalStyles.nlpImgResult}>
                         <img src={"data:image/png;base64," + this.state.wordcloud.base64_image} alt="Wordcloud do dataset"/>
                         <p className={nlpModalStyles.createdDate}>
-                            {formatedCreatedAtDate}
+                            Processado em: {formatedCreatedAtDate}
                         </p>
                     </div>    
                 }

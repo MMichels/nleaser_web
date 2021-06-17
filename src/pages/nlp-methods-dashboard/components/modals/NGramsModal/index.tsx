@@ -225,12 +225,10 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
 
         return (
             <div className={nlpModalStyles.container}>
-                <div className={modalStyles.modalHeader}>
-                    <p className={modalStyles.modalTitle}>
-                        NGrams - Arquivo: {this.props.datafile.name}
-                    </p>
-                    <button className={modalStyles.closeModalButton}>
-                    </button>
+                <div className={nlpModalStyles.header}>
+                    <h1 className={nlpModalStyles.title}>
+                        NGrams
+                    </h1>
                 </div>
                 <p className={modalStyles.modalDescription}>                    
                     Tem como objetivo analisar quais palavras que ocorrem lado a lado com mais frequência dentro do seu conjunto de textos! <br />
@@ -239,13 +237,16 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                 <hr />
                 <div className={nlpModalStyles.actions}>
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.createNewButton} onClick={this.handleOnClickNovo}>
-                        <p>Novo</p>                      
+                        <p>Extrair NGrams</p>                      
                     </button>
-                    <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.deleteButton} onClick={this.handleOnClickExcluir}
-                        disabled={!this.state.ngrams}
-                    >
-                        <p>Excluir</p>                       
-                    </button>
+                    {
+                        this.state.ngrams &&
+                        <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.deleteButton} onClick={this.handleOnClickExcluir}
+                            disabled={!this.state.ngrams}
+                        >
+                            <p>Excluir</p>                     
+                        </button>
+                    }  
                 </div>
 
                 {                    
@@ -367,7 +368,7 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
                             )}                        
                         />
                         <p className={nlpModalStyles.createdDate}>
-                            {formatedCreatedAtDate}
+                            Processado em: {formatedCreatedAtDate}
                         </p>
                     </div>
                 }

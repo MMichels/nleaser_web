@@ -29,6 +29,15 @@ button {
   text-decoration: none;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.exclude {
+  color: rgb(104,59,189);
+}
+
 p.error {
     color: #F11;
     font-weight: 600;
@@ -39,10 +48,6 @@ p.error {
     margin: 1rem;
     padding: 1rem;
     width: 100%;
-}
-
-.exclude {
-  color: rgb(104,59,189);
 }
 
 // SWEET ALERT

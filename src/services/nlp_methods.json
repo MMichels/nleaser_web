@@ -1,18 +1,18 @@
 {
     "nlp_methods": [
         {
-            "name": "Wordcloud",
-            "description": "Transforme seus dados em uma nuvem de palavras",
-            "backgroundImg": "wordcloud-background-default.png",
-            "imgAlt": "Wordcloud do conjunto de dados",
-            "contentLabel": "Modal wordclouds"
-        }, 
-        {
             "name": "NGrams",
             "description": "Analise as palavras com maior relevância no conjunto de dados",
             "backgroundImg": "ngrams-background-default.png",
             "imgAlt": "NGram do conjunto de dados",
             "contentLabel": "Modal NGrams"
+        }, 
+        {
+            "name": "Wordcloud",
+            "description": "Transforme seus dados em uma nuvem de palavras",
+            "backgroundImg": "wordcloud-background-default.png",
+            "imgAlt": "Wordcloud do conjunto de dados",
+            "contentLabel": "Modal wordclouds"
         }, 
         {
             "name": "NER",
