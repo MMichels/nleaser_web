@@ -1,6 +1,28 @@
-.dashBoardPurple {
+@import '../pagesStyles.module.scss';
 
+.dashBoardPurple {
     h1 {
         color: rgb(109, 59, 182);
+    }
+
+    h2 {
+        @extend .descriptionStyled;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);        
+        text-align: center;
+
+        color: white;
+
+        margin: 1rem auto;
+        margin-top: 2.5rem;
+
+    }
+
+    h3 {
+        text-align: right;
+        color: whitesmoke;
+        margin: 1rem;
+        margin-top: 1rem;
+        margin-right: 2rem;
+        text-decoration: underline;
     }
 }

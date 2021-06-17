@@ -84,14 +84,18 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
     const renderTextColumnInput = () => {
       if (this.state.format !== "txt") {
         return (
+          <>
+          <label htmlFor="text_column">Coluna dos dados</label>
           <input className={formStyles.textInputStyled}
             id="text_column"
             name="text_column"
             type="text"
-            placeholder="Coluna dos textos"
+            placeholder="Coluna com as sentenças"
+            title="Coluna do arquivo (excel ou csv) com as sentenças que serão analisadas"
             value={this.state.text_column}
             onChange={(e) => this.setState({ text_column: e.target.value })}
           ></input>
+          </>
         );
       } else {
         return null;
@@ -101,14 +105,18 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
     const renderSeparatorInput = () => {
       if (this.state.format === "csv") {
         return (
+          <>
+          <label htmlFor="separador">Separador</label>
           <input className={formStyles.textInputStyled}
             type="text"
             id="separador"
             name="separador"
-            placeholder="Caractere CSV(Separador)"
+            placeholder="Caractere CSV(Separador de colunas)"
+            title="Caractere especial utilizado para delimitar as colunas (, ; tab)"
             value={this.state.separador}
             onChange={(e) => this.setState({ separador: e.target.value })}
           ></input>
+          </>
         );
       }
     };
@@ -130,6 +138,7 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
           <form className={styles.uploadForm} onSubmit={this.handleUpload}>
             {this.state.error && <p className="error">{this.state.error}</p>}
 
+            <label htmlFor="file">Selecione o arquivo</label>
             <input className={formStyles.fileInputStyled}
               id="file"
               name="file"
@@ -137,21 +146,25 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
               onChange={(e) => this.setState({ file: e.target.files[0] })}
             />
 
+            <label htmlFor="format">Formato</label>
             <select className={formStyles.selectInputStyled}
               id="format"
               name="format"
               style={{color: (this.state.format === "") ? '#969696':'black'}}
               onChange={(e) => this.setState({ format: e.target.value })}
+              title="Selecione o formato do arquivo"
             >
-              <option value="" style={{color: '#555'}}>Formato do arquivo</option>
-              <option value="xlsx">Excel (xlsx)</option>
-              <option value="csv">Arquivo CSV</option>
-              <option value="txt">Lista de sentenças (txt)</option>
+              <option value="" style={{color: '#555'}}>Selecione o formato do arquivo</option>
+              <option value="xlsx" title="Arquivo do Excel">Excel (xlsx)</option>
+              <option value="csv" title="Arquivo separado por caracteres">Arquivo CSV</option>
+              <option value="txt" title="Um arquivo txt, cada linha é uma sentença">Lista de sentenças (txt)</option>
             </select>
 
             {renderTextColumnInput()}
             {renderSeparatorInput()}
 
+
+            <label htmlFor="language">Idioma</label>
             <select className={formStyles.selectInputStyled}
               id="language"
               name="language"

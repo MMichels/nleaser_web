@@ -266,27 +266,27 @@ export class NerResumeModal extends Component<INerResumeModalProps, INerResumeMo
         return (
             <div className={nlpModalStyles.container}>
 
-                <div className={modalStyles.modalHeader}>
-                    <p className={modalStyles.modalTitle}>
-                        NER - Arquivo: {this.props.datafile.name}
-                    </p>
-                    <button className={modalStyles.closeModalButton}>
-                    </button>
+                <div className={nlpModalStyles.header}>
+                    <h1 className={nlpModalStyles.title}>
+                        NER
+                    </h1>
                 </div>
                 <p className={modalStyles.modalDescription}>
                     Identifica quais são as entidades, ou seja, nomes de pessoas, de lugares, empresas, dentre outros, que aparecem com maior frequência no conjunto de textos!
                 </p>
                 <hr />
-
                 <div className={nlpModalStyles.actions}>
                     <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.createNewButton} onClick={this.handleOnClickNovo}>
-                        <p>Novo</p>                      
+                        <p>Extrair NER</p>                      
                     </button>
-                    <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.deleteButton} onClick={this.handleOnClickExcluir}
-                        disabled={!this.state.ner_resume}
-                    >
-                        <p>Excluir</p>                     
-                    </button>                    
+                    {
+                        this.state.ner_resume &&
+                        <button className={nlpModalStyles.actionButton + ' ' + nlpModalStyles.deleteButton} onClick={this.handleOnClickExcluir}
+                            disabled={!this.state.ner_resume}
+                        >
+                            <p>Excluir</p>                     
+                        </button>
+                    }                 
                 </div>
 
                 
@@ -409,7 +409,7 @@ export class NerResumeModal extends Component<INerResumeModalProps, INerResumeMo
                             )}
                         />
                         <p className={nlpModalStyles.createdDate}>
-                            {formatedCreatedAtDate}
+                            Processado em: {formatedCreatedAtDate}
                         </p>
                     </div>
                 }

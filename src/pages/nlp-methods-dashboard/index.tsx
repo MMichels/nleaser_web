@@ -91,19 +91,21 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
             <BackgroundComponent>
                 <HeaderComponent />                
                 <div className={pagesStyles.dashBoard + " " + styles.dashBoardPurple}>
-                    <h1>
-                        Métodos de NLP 
+                    <div className={styles.dashHeader}>
+                        <h1>
+                            Métodos de NLP 
+                        </h1> 
+                        <h2 className={pagesStyles.descriptionStyled}>
+                            Cada um dos métodos abaixo transformam os dados de texto do seu arquivo em informações que podem ser 
+                            facilmente interpretadas e utilizadas em analises e tomadas de decisões
+                        </h2>                                               
                         {
                             (this.state.datafile) && 
-                            <>
-                              - Arquivo: {this.state.datafile.name} 
-                            </>
+                            <h3>
+                                Arquivo: {this.state.datafile.name} 
+                            </h3>
                         }
-                    </h1>
-                    <p className={pagesStyles.descriptionStyled}>
-                        Cada um dos métodos abaixo transformam os dados de texto do seu arquivo em informações que podem ser 
-                        facilmente interpretadas e utilizadas em analises e tomadas de decisões
-                    </p>
+                    </div>
                     {
                         // Renderiza o gif de Loading (aguarda pela consulta do arquivo na api)
                         this.state.loading && <LoadingSpinnerComponent />                        

@@ -1,9 +1,5 @@
 .backgroundStyled {
-    background-image: url('../../assets/images/home/bck.jpg');   
-    background-size: cover;   
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
+    background: rgba(0, 0, 0, 0.5) url('../../assets/images/home/bck.jpg') no-repeat right top fixed;
     display: flex;
     flex-direction: column;
     height: 100vh;
