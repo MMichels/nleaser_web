@@ -8,6 +8,7 @@ import { BackgroundComponent } from '../../../components/Background';
 import { HeaderComponent } from "../../../components/Header";
 import { LoadingSpinnerComponent } from "../../../components/loading";
 import formStyles from "../../../styles/formStyles.module.scss";
+import Swal from "sweetalert2";
 
 
 
@@ -44,8 +45,31 @@ class LoginComponent extends Component<RouteComponentProps> {
         (resp) => 
         {
           this.setState({ loading: false });
-          login(resp.access_token);
-          this.props.history.push("/dashboard/datafiles");
+          Swal.fire({
+            title: "Leia com atenção!",
+            html: `<div>
+                      <p>O NLEaser é uma ferramenta de analise de dados em fase Alpha de desenvolvimento</p><br />
+                      <p>No momento, ainda não temos uma politica de <b>LGPD</b>, tampouco um termo de <b>politica de proteção de dados</b></p><br />
+                      <p>A pesar disso, garantimos que todos os DADOS DE TEXTO que são ENVIADOS pelo usuário são protegidos com criptografia em um banco de dados MongoDB</p><br />
+                      <p><b>NÃO</b> recomendamos que envie DADOS SENSÍVEIS para analise na ferramenta, POR ENQUANTO</p><br />
+                      <p>Todos os dados enviados a plataforma podem ser excluídos a qualquer momento, e serão excluídos antes do lançamento oficial da ferramenta</p><br />                                  
+                    </div>`,
+            icon: "warning",
+            showConfirmButton: true,
+            confirmButtonText: "Estou ciente, Continuar",
+            showCancelButton: true,
+            cancelButtonText: "Voltar",
+            showLoaderOnConfirm: true,            
+            reverseButtons: true,
+            position: 'top'
+          }).then(result => {
+            if(result.isConfirmed){              
+              login(resp.access_token);
+              this.props.history.push("/dashboard/datafiles");
+            }else{
+              this.props.history.push("/");
+            }
+          })
         },
         (err) => 
         {
