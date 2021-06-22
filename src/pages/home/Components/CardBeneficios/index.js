@@ -13,8 +13,8 @@ export function CardBeneficios() {
                 Por que utilizar a Nleaser?
             </Title>
             <Carousel pagination = {false}>
-                <Item>Para utiliza-la de forma rapida e simples basta criar uma conta, carregar os seus dados e pronto, como um passo de magica todo o poder da NLP estara na sua mão.</Item>
-                <Item>NLeaser lhe proporciona acesso a uma serie de metodos de NLP</Item>
+                <Item>Para utiliza-la de forma rápida e simples basta criar uma conta, carregar os seus dados e pronto, como um passe de magica todo o poder da NLP estará na sua mão.</Item>
+                <Item>NLeaser lhe proporciona acesso a uma serie de métodos de NLP</Item>
                 <Item>NLeaser é uma API Open source, que pode ser facilmente integrado ao seu projeto, facilitando seu trabalho e lhe garantindo manter seus dados seguros.</Item>
             </Carousel>
         </Container>

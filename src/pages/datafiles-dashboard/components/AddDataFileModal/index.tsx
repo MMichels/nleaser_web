@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Swal from "sweetalert2";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import { faUpload, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 
 
 import styles from "./styles.module.scss";
@@ -82,10 +82,17 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
 
   render() {
     const renderTextColumnInput = () => {
-      if (this.state.format !== "txt") {
+      if (["csv", "xlsx"].includes(this.state.format)) {
         return (
           <>
-          <label htmlFor="text_column">Coluna dos dados</label>
+          <label htmlFor="text_column">
+            Coluna dos dados
+            <FontAwesomeIcon 
+              icon={faQuestionCircle} 
+              size="xs"              
+              title="Coluna do arquivo (excel ou csv) que contém os textos que você deseja analisar"
+            />
+          </label>
           <input className={formStyles.textInputStyled}
             id="text_column"
             name="text_column"
@@ -106,7 +113,14 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
       if (this.state.format === "csv") {
         return (
           <>
-          <label htmlFor="separador">Separador</label>
+          <label htmlFor="separador">
+            Separador
+            <FontAwesomeIcon 
+              icon={faQuestionCircle} 
+              size="xs"              
+              title="Caractere especial utilizado para delimitar as colunas (, ; tab)"
+            />
+          </label>
           <input className={formStyles.textInputStyled}
             type="text"
             id="separador"
@@ -138,7 +152,14 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
           <form className={styles.uploadForm} onSubmit={this.handleUpload}>
             {this.state.error && <p className="error">{this.state.error}</p>}
 
-            <label htmlFor="file">Selecione o arquivo</label>
+            <label htmlFor="file">
+              Selecione o arquivo
+              <FontAwesomeIcon 
+                icon={faQuestionCircle} 
+                size="xs"              
+                title="Procure pelo arquivo que você deseja enviar para a analise"
+              />
+            </label>
             <input className={formStyles.fileInputStyled}
               id="file"
               name="file"
@@ -146,7 +167,14 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
               onChange={(e) => this.setState({ file: e.target.files[0] })}
             />
 
-            <label htmlFor="format">Formato</label>
+            <label htmlFor="format">
+              Formato
+              <FontAwesomeIcon 
+                icon={faQuestionCircle} 
+                size="xs"              
+                title="Selecione o formato do arquivo que você está enviando (csv, excel, txt)"
+              />
+            </label>
             <select className={formStyles.selectInputStyled}
               id="format"
               name="format"
@@ -164,7 +192,14 @@ export class AddDataFileModalComponent extends Component<IAddDataFileFormProps, 
             {renderSeparatorInput()}
 
 
-            <label htmlFor="language">Idioma</label>
+            <label htmlFor="language">
+              Idioma
+              <FontAwesomeIcon 
+                icon={faQuestionCircle} 
+                size="xs"              
+                title="Selecione o idioma dos textos do arquivo"
+              />
+            </label>
             <select className={formStyles.selectInputStyled}
               id="language"
               name="language"

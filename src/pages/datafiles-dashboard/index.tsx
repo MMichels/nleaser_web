@@ -8,6 +8,7 @@ import styles from "./styles.module.scss";
 import dataFileCardStyles from "./components/DataFileCard/styles.module.scss";
 import pagesStyles from "../pagesStyles.module.scss";
 import modalStyles from "../../styles/modalStyles.module.scss";
+import addDatafileStyles from "./components/AddDataFileModal/styles.module.scss";
 
 import { BackgroundComponent } from "../../components/Background";
 import { HeaderComponent } from "../../components/Header";
@@ -127,7 +128,7 @@ class DatafilesDashboardComponent extends Component<RouteComponentProps, IDashBo
           isOpen={this.state.modalAddFileIsOpen}
           onRequestClose={() => this.closeModal(false)}
           contentLabel="Modal Adicionar novo conjunto de dados"
-          className={modalStyles.defaultModal}
+          className={addDatafileStyles.addFileModal}
           overlayClassName={modalStyles.overlayModal}
           closeTimeoutMS={500}
         >

@@ -11,7 +11,7 @@ export function CardIntroducao() {
             <Card>
                 <ExpCard>
                     <Card1 />
-                    <Text>NLeaser é a forma mais facil de seus dados virarem soluções</Text>
+                    <Text>NLeaser é a forma mais fácil de seus dados virarem soluções</Text>
                 </ExpCard>
             </Card>
 

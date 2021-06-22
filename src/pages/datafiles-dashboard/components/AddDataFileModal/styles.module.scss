@@ -1,7 +1,18 @@
+@import "../../../../styles/modalStyles.module.scss";
+
+.addFileModal {
+  @extend .defaultModal;
+
+  top: 45%;
+}
+
+
 .container {  
   display: flex;
   flex-direction: column;
   flex-basis: 1;
+
+  height: 630px;
 
   align-items: center;
 
@@ -35,6 +46,10 @@
     text-align: left;
     font-size: 1.2rem;
     text-decoration: underline 2px;
+
+    svg {
+      margin-left: 0.25rem;
+    }
   }
 }
 
