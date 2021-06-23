@@ -89,7 +89,7 @@ export const Slide = styled.div`
   align-items: center;
   height: 500px;
   width: 80%;
-  background-color: rgba(103,58,183,0.4) ;
+  background-color: rgba(103,58,183,0.8) ;
   color: black;
   margin-bottom:2%;
   margin-top:2%;
