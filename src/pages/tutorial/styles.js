@@ -12,6 +12,11 @@ export const HeadArea = styled.div`
     grid-area: Head;
 `;
 
+export const AreaVideo = styled.div`
+    
+    width:800px;
+    
+`;
 
 export const BodyArea = styled.div`
     grid-area: Body;
@@ -91,15 +96,12 @@ export const Slide = styled.div`
   width: 80%;
   background-color: rgba(103,58,183,0.8) ;
   color: black;
-  margin-bottom:2%;
-  margin-top:2%;
+  margin-bottom:1%;
+  margin-top:1%;
   font-size: 27px;
   font-weight: bold;
   text-align: center;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  grid-template-rows: 1fr 3fr;
-  grid-template-areas:
-    'Topo'
-    'Corpo';
+  
 `;
 
