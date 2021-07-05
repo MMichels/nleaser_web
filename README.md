@@ -2,6 +2,8 @@
 
 Aplicação web para analise de texto utilizando tecnicas de NLP, com foco em resultado e praticidade.
 
+- Disponível em: [nleaser.com](https://nleaser.com)
+
 
 ## Sobre a aplicação
 
