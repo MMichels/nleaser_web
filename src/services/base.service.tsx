@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { getToken } from './auth';
-import environment from '../configs/enviroment.dev';
+import environment from '../configs/enviroment';
 
 
 export class BaseService {
