@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { LayoutHome} from "./styles";
 import { HeaderComponent } from "../../components/Header";
 import { CardIntroducao } from './Components/CardIntroducao';
