@@ -7,7 +7,8 @@ export const LogoComponent = function (props) {
     return (
         <LogoContainerStyled>
             <Link to="/">
-                <LogoImgStyled className="logo-img" src={LogoImg} alt="Logo da aplicação NLEaser" />
+                <LogoImgStyled 
+                    className="logo-img" src={LogoImg} alt="Logo da aplicação NLEaser" />
             </Link>
             <p><b>Alpha</b></p>
             {props.children}

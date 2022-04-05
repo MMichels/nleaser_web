@@ -6,8 +6,9 @@ import { CardBeneficios } from './Components/CardBeneficios';
 import { CardMetodos } from './Components/CardMetodosHeader';
 import { CardsFerramentas } from './Components/CardsFerramentas';
 import { Footer } from "./Components/Footer";
+import { Container } from "react-bootstrap";
 
-export const Home = function(props) {
+export const OldHome = function(props) {
     return (
         <LayoutHome>
             <HeaderComponent/>
@@ -20,3 +21,16 @@ export const Home = function(props) {
         </LayoutHome>
     )
 }
+
+
+export const Home = function (props) {
+    return (
+        <Container>
+            <HeaderComponent />
+
+        </Container>
+    )
+}
+
+
+
