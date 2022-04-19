@@ -25,9 +25,9 @@ export const OldHome = function(props) {
 
 export const Home = function (props) {
     return (
-        <Container>
-            <HeaderComponent />
-
+        <Container fluid>
+            <CardIntroducao/>
+            <CardExplicacao />
         </Container>
     )
 }
