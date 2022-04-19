@@ -90,8 +90,7 @@ class LoginComponent extends Component<RouteComponentProps> {
 
   render() {
     return (
-      <BackgroundComponent>
-        <HeaderComponent />
+      <>
         <form className={formStyles.accessFormStyled} onSubmit={(e) => this.handleSigIn(e)}>
           <p className={formStyles.titleStyled}>
             Realizar Login
@@ -122,7 +121,7 @@ class LoginComponent extends Component<RouteComponentProps> {
           <hr />
           <Link to="/cadastro">Cadastre-se</Link>
         </form>
-      </BackgroundComponent>
+      </>
     );
   }
 }
