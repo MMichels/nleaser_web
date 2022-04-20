@@ -1,0 +1,29 @@
+.cardBeneficios { 
+    background-image: url("../../../../assets/images/home/back.png");
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: cover;
+    background-attachment: fixed;
+
+    display: flex;
+    flex-direction:column;
+}
+
+.max1024 {
+    max-width: 1024px;
+}
+
+.benfTitle {
+    font-size:24px;
+    color:white;
+    background-color: rgba(104, 59, 183, 1);
+    width: 75vw;
+}
+
+.benfItem {
+  width: 100%;
+  color: white;
+  font-size: 17px;
+  text-align: center;
+  margin-bottom: 10px;
+}

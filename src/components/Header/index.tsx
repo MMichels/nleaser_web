@@ -49,7 +49,7 @@ export const HeaderComponent=() => {
   }
   
   return (
-    <Navbar expand="md" bg="primary" variant="dark" className="p-0 m-0">      
+    <Navbar expand="md" bg="primary" variant="dark" className="p-0 m-0 fixed-top position-relative">      
       <Container fluid className="justify-content-start p-1">          
           <Navbar.Toggle/>
           <Navbar.Brand href="/">

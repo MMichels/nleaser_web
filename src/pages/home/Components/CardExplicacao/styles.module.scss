@@ -8,8 +8,6 @@
     grid-area:titulo;
     text-align:center;
     font-size : 24px;
-    padding : 15px;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .expText {
@@ -17,7 +15,6 @@
     font-size : 17px;
     padding-left:20%;
     padding-right:20%;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 
     @media (max-width: 760px) {
         padding: 0 10%;
