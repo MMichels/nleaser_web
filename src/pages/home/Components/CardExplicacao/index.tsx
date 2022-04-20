@@ -5,7 +5,7 @@ export function CardExplicacao() {
 
     return (
         <Col className={styles.expCard}>
-            <h1 className={styles.expTitle}>
+            <h1 className={styles.expTitle + " pb-4"}>
                 O que é a NLeaser ? 
             </h1>
             <p className={styles.expText}>

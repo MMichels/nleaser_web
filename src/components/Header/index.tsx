@@ -49,7 +49,7 @@ export const HeaderComponent=() => {
   }
   
   return (
-    <Navbar expand="md" bg="primary" variant="dark" className="p-0 m-0">      
+    <Navbar expand="md" bg="primary" variant="dark" className="p-0 m-0 fixed-top position-relative">      
       <Container fluid className="justify-content-start p-1">          
           <Navbar.Toggle/>
           <Navbar.Brand href="/">
@@ -60,7 +60,7 @@ export const HeaderComponent=() => {
             >            
             </img>
           </Navbar.Brand>          
-          <p className="text-light position-absolute top-0 end-0 p-1"><b>Alpha</b></p>
+          <p className="text-light position-absolute top-0 end-0 p-1 p-sm-2 p-lg-3"><b>Alpha</b></p>
           <Navbar.Collapse>
             <Nav className={styles.menu}>
               {accessComponents()}

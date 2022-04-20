@@ -26,15 +26,15 @@ export const OldHome = function(props) {
 
 export const Home = function (props) {
     return (
-        <Container fluid>
-            <Row className="vh-100 align-items-center">
+        <Container fluid className={styles.home + " position-absolute"}>
+            <Row className="vh-100 align-items-center justify-content-center">
                 <CardIntroducao/>
             </Row>
-            <Row className={styles.row50 + " align-items-center"}>
+            <Row className={styles.row50 + " align-items-center justify-content-center"}>
                 <CardExplicacao />
             </Row>
-            <Row className={styles.row50 + " align-items-center"}>
-                <></>
+            <Row className={styles.row50 + " align-items-center justify-content-center"}>
+                <CardBeneficios></CardBeneficios>
             </Row>
         </Container>
     )
