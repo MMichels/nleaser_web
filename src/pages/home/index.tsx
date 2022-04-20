@@ -1,4 +1,3 @@
-import { LayoutHome} from "./styles";
 import { HeaderComponent } from "../../components/Header";
 import { CardIntroducao } from './Components/CardIntroducao';
 import { CardExplicacao } from './Components/CardExplicacao';
@@ -6,11 +5,13 @@ import { CardBeneficios } from './Components/CardBeneficios';
 import { CardMetodos } from './Components/CardMetodosHeader';
 import { CardsFerramentas } from './Components/CardsFerramentas';
 import { Footer } from "./Components/Footer";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
+
+import styles from "./styles.module.scss";
 
 export const OldHome = function(props) {
     return (
-        <LayoutHome>
+        <>
             <HeaderComponent/>
             <CardIntroducao/>
             <CardExplicacao/>
@@ -18,7 +19,7 @@ export const OldHome = function(props) {
             <CardMetodos/>
             <CardsFerramentas/>
             <Footer/>
-        </LayoutHome>
+        </>
     )
 }
 
@@ -26,8 +27,15 @@ export const OldHome = function(props) {
 export const Home = function (props) {
     return (
         <Container fluid>
-            <CardIntroducao/>
-            <CardExplicacao />
+            <Row className="vh-100 align-items-center">
+                <CardIntroducao/>
+            </Row>
+            <Row className={styles.row50 + " align-items-center"}>
+                <CardExplicacao />
+            </Row>
+            <Row className={styles.row50 + " align-items-center"}>
+                <></>
+            </Row>
         </Container>
     )
 }
