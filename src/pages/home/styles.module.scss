@@ -1,4 +1,5 @@
 .row50 {
+    overflow: hidden;
     height: 50vh !important;    
 }
 
@@ -10,3 +11,17 @@
         font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     }
 }
+
+.p20Text {
+    padding-left:20%;
+    padding-right:20%;
+
+    @media (max-width: 760px) {
+        padding: 0 10%;
+    }
+}
+
+.max1024 {
+    max-width: 1024px;
+}
+
