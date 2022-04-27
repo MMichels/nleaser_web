@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Container, Image, Col, Carousel, Popover, OverlayTrigger } from 'react-bootstrap';
 import homeStyles from "../../styles.module.scss";
 
@@ -8,14 +8,12 @@ import FrequenciaImg from "../../../../assets/images/home/frequencia.png";
 import NgramsImg from "../../../../assets/images/home/Ngrams.png"
 import EntidadesImg from "../../../../assets/images/home/entidade.jpeg"
 import TfIdfImg from "../../../../assets/images/home/TF_IDF.png"
-import Word2VecImg from "../../../../assets/images/home/word2vec.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 
 export const CardsFerramentas = () => {
-    const [showPopOver, setShowPopOver] = useState(false);
     const ref=useRef(null);
 
 
@@ -29,25 +27,25 @@ export const CardsFerramentas = () => {
             "img": WordCloudImg
         }, 
         {
-            "title": "Frequencia (TF)",
+            "title": "Frequência (TF)",
             "desc": "Consiste em identificar e contar quantas vezes cada palavra isolada aparece em um conjunto de dados "
-                + "Util para identificar quais pontos mais são abordados por seus clientes em avaliações de produtos / serviços",
+                + "Util para identificar quais pontos mais são abordados por seus clientes em avaliações de produtos / serviços.",
             "img": FrequenciaImg
         }, 
         {
             "title": "NGrams",
             "desc": "Com NGrams você pode analisar quais conjuntos de palavras (1, 2 ou 3 palavras) mais ocorrem de maneira sequencial, "
-            + "facilitando a identificação dos elogios/reclamações que mais ocorrem com produtos/serviços",
+            + "facilitando a identificação dos elogios/reclamações que mais ocorrem com produtos/serviços.",
             "img": NgramsImg
         }, 
         {
             "title": "Extração de Entidades (NER)",
-            "desc": "A extração de entidades serve para identificar quais nomes de pessoas, lugares, instituições e momentos históricos aparecem em um conjuto de textos",
+            "desc": "A extração de entidades serve para identificar quais nomes de pessoas, lugares, instituições e momentos históricos aparecem em um conjuto de textos.",
             "img": EntidadesImg
         }, 
         {
             "title": "Relevância (TF-IDF)",
-            "desc": "Com esse método você não apenas identifica quais palavras que mais aparece no conjunto de dados, mas também a relevância de cada uma",
+            "desc": "Com esse método você não apenas identifica quais palavras que mais aparecem no conjunto de dados, mas também a relevância de cada uma.",
             "img": TfIdfImg
         }
     ]
@@ -79,7 +77,7 @@ export const CardsFerramentas = () => {
                                             rootClose={true}
                                             overlay={
                                                 <Popover>
-                                                    <Popover.Header className="bg-secondary" as="h3">
+                                                    <Popover.Header className="text-white fs-3 bg-secondary" as="h3">
                                                         {metodo.title}
                                                     </Popover.Header>
                                                     <Popover.Body>
