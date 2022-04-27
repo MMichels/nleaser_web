@@ -11,10 +11,10 @@ export function CardBeneficios() {
     return (
         
         <Col className={styles.cardBeneficios + " h-100"}>
-            <h1 className={homeStyles.max1024 + " text-center text-white m-auto my-4 py-2 px-5 bg-secondary"}>
+            <h1 className={homeStyles.maxW720 + " text-center text-white m-auto my-4 py-2 px-5 bg-secondary"}>
                 Por que utilizar o NLeaser?
             </h1>
-            <Carousel className={homeStyles.max1024 + " m-auto"} isRTL={false}>
+            <Carousel className={homeStyles.maxW720 + " m-auto"} isRTL={false} pagination={false}>
                 <div className="text-white text-center fs-5 mb-2 w-100">                    
                     <p>
                         Para utiliza-la de forma rápida e simples basta criar uma conta, carregar os seus dados e pronto, 

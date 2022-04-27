@@ -5,7 +5,7 @@ import homeStyles from "../../styles.module.scss";
 export function CardExplicacao() {
 
     return (
-        <Col className={homeStyles.max1024}>
+        <Col className={homeStyles.maxW720}>
             <h1 className="text-center mb-4">
                 O que é o NLeaser ? 
             </h1>

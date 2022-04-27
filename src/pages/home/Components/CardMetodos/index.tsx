@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Container, Image, Row, Col, Carousel, Popover, OverlayTrigger, Button } from 'react-bootstrap';
+import { Container, Image, Col, Carousel, Popover, OverlayTrigger } from 'react-bootstrap';
 import homeStyles from "../../styles.module.scss";
 
 // Importacao das imagens
@@ -47,7 +47,7 @@ export const CardsFerramentas = () => {
         }, 
         {
             "title": "Relevância (TF-IDF)",
-            "desc": "Com esse método você não apenas irá identificar quais palavras que mais aparece no conjunto de dados, mas também a relevância de cada uma",
+            "desc": "Com esse método você não apenas identifica quais palavras que mais aparece no conjunto de dados, mas também a relevância de cada uma",
             "img": TfIdfImg
         }
     ]
@@ -60,7 +60,9 @@ export const CardsFerramentas = () => {
             <p className="text-center fs-5">
                 Atualmente NLEaser detem de {Metodos.length} ferramentas para facilitar o seu trabalho.
             </p>       
-            <Carousel id="carrouselMetodos" indicators={false} variant="dark" interval={null} className={homeStyles.max1024 + " m-auto"}>        
+            <Carousel className={`${homeStyles.maxW720} m-auto`}
+                id="carrouselMetodos" indicators={false} variant="dark" interval={null}
+            >        
                 {
                     Metodos.map(metodo => {
                         return (
@@ -74,9 +76,10 @@ export const CardsFerramentas = () => {
                                             trigger="click"
                                             key={metodo.title}
                                             placement="top"
+                                            rootClose={true}
                                             overlay={
                                                 <Popover>
-                                                    <Popover.Header as="h3">
+                                                    <Popover.Header className="bg-secondary" as="h3">
                                                         {metodo.title}
                                                     </Popover.Header>
                                                     <Popover.Body>
@@ -85,7 +88,7 @@ export const CardsFerramentas = () => {
                                                 </Popover>
                                             }                                            
                                         >
-                                            <button className="mx-1" style={{backgroundColor: "transparent", border: "none"}}>
+                                            <button className="mx-1 text-secondary" style={{backgroundColor: "transparent", border: "none"}}>
                                                 <FontAwesomeIcon size="sm" fixedWidth={false} icon={faQuestionCircle} />
                                             </button>
 
