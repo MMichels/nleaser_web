@@ -11,7 +11,7 @@ export function CardBeneficios() {
     return (
         
         <Col className={styles.cardBeneficios + " h-100"}>
-            <h1 className={homeStyles.maxW720 + " text-center text-white m-auto my-4 py-2 px-5 bg-secondary"}>
+            <h1 className={homeStyles.maxW720 + " text-center text-white m-auto my-4 py-2 px-5 bg-secondary bg-gradient bg-opacity-75"}>
                 Por que utilizar o NLeaser?
             </h1>
             <Carousel className={homeStyles.maxW720 + " m-auto"} isRTL={false} pagination={false}>
