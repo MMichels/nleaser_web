@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
-import { Container, Image, Col, Carousel, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Container, Image, Col, Popover, OverlayTrigger } from 'react-bootstrap';
+import Carousel from 'react-elastic-carousel';
 import homeStyles from "../../styles.module.scss";
+import styles from "./styles.module.scss";
 
 // Importacao das imagens
 import WordCloudImg from "../../../../assets/images/home/WordCloud.png";
@@ -12,8 +14,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 
+export const CardMetodosHeader = () => {
+    
+    return (
+        <Col className={homeStyles.maxW720}>
+            <h1 className="text-center mb-4">
+                Quais métodos o NLEaser oferece?
+            </h1>
+            <p className="fs-5 text-center">
+                Atualmente o NLEaser disponibiliza de 5 ferramentas para facilitar o seu trabalho.
+            </p>
+        </Col>
+    )
+}
 
-export const CardsFerramentas = () => {
+
+export const CardMetodos = () => {
     const ref=useRef(null);
 
 
@@ -51,21 +67,15 @@ export const CardsFerramentas = () => {
     ]
 
     return (
-        <Col className="m-auto w-100 h-100" ref={ref}>
-            <h1 className="text-center mb-4">
-                Quais metodos o NLEaser oferece?
-            </h1>
-            <p className="text-center fs-5">
-                Atualmente NLEaser detem de {Metodos.length} ferramentas para facilitar o seu trabalho.
-            </p>       
+        <Col className={`${styles.cardMetodos} p-2 h-100`}>            
             <Carousel className={`${homeStyles.maxW720} m-auto`}
-                id="carrouselMetodos" indicators={false} variant="dark" interval={null}
+               isRTL={false} pagination={false} ref={ref}
             >        
                 {
                     Metodos.map(metodo => {
                         return (
-                            <Carousel.Item className="bg-white text-center p-0 p-sm-1 p-md-2 pb-sm-2 pb-md-3">
-                                <Container className="d-flex justify-content-center">
+                            <Container className={`bg-white bg-opacity-75 text-black text-center p-0 p-sm-1 p-md-2 pb-sm-2 pb-md-3`}>
+                                <Container className="d-flex justify-content-center p-2 p-md-0">
                                     <h2>
                                         {metodo.title}
                                     </h2>
@@ -97,7 +107,7 @@ export const CardsFerramentas = () => {
                                     {metodo.desc}
                                 </p>
                                 <Image className="w-100" src={metodo.img}></Image>
-                            </Carousel.Item>   
+                            </Container>   
                         )
                     })
                 }  
