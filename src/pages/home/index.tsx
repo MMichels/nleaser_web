@@ -40,6 +40,9 @@ export const Home = function (props) {
             <Row className={"align-items-center justify-content-center"}>
                 <CardMetodos/>
             </Row>
+            <Container>
+                <Footer />
+            </Container>
         </Container>
     )
 }
