@@ -4,6 +4,7 @@ import { getToken } from "../../services/auth";
 import { Container, Nav, Navbar } from 'react-bootstrap';
 
 import styles from "./styles.module.scss";
+import { Link } from "react-router-dom";
 
 
 
@@ -21,13 +22,13 @@ export const HeaderComponent=() => {
       return (
         <>
           <Nav.Item>
-            <Nav.Link href="/tutorial" eventKey="1" >Tutorial</Nav.Link>
+            <Link className="nav-link" to="/tutorial">Tutorial</Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link  href="/dashboard/datafiles" eventKey="2">Dashboard</Nav.Link>
+            <Link className="nav-link" to="/dashboard/datafiles">Dashboard</Link>
           </Nav.Item>          
           <Nav.Item>
-            <Nav.Link href="/login?logout=true" eventKey="3">Logout</Nav.Link>                
+            <Link className="nav-link" to="/login?logout=true">Logout</Link>                
           </Nav.Item>
         </>
       )
@@ -37,10 +38,10 @@ export const HeaderComponent=() => {
       return (
         <>
           <Nav.Item>            
-            <Nav.Link className="link-light" href="/login" eventKey="1">Login</Nav.Link>
+            <Link className="nav-link" to="/login">Login</Link>
           </Nav.Item>          
           <Nav.Item>            
-            <Nav.Link href="/cadastro" eventKey="2">Cadastre-se</Nav.Link>
+            <Link className="nav-link" to="/cadastro">Cadastre-se</Link>
           </Nav.Item>
         </>
       )
@@ -52,14 +53,14 @@ export const HeaderComponent=() => {
     <Navbar expand="md" bg="primary" variant="dark" className="p-0 m-0 fixed-top position-relative">      
       <Container fluid className="justify-content-start p-1">          
           <Navbar.Toggle/>
-          <Navbar.Brand href="/">
+          <Link className="nav-brand" to="/">
             <img 
               src={LogoImg} 
               alt="Logo da aplicação NLEaser" 
 
             >            
             </img>
-          </Navbar.Brand>          
+          </Link>          
           <p className="text-light position-absolute top-0 end-0 p-1 p-sm-2 p-lg-3"><b>Alpha</b></p>
           <Navbar.Collapse>
             <Nav className={styles.menu}>

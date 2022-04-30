@@ -39,7 +39,7 @@
     "startprod": "cross-env REACT_APP_ENV=prod react-scripts start",
     "build": "cross-env REACT_APP_ENV=local react-scripts build",
     "builddev": "cross-env REACT_APP_ENV=dev react-scripts build",
-    "buildprod": "rcross-env REACT_APP_ENV=prod eact-scripts build",
+    "buildprod": "cross-env REACT_APP_ENV=prod react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
