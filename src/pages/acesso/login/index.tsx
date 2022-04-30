@@ -4,11 +4,10 @@ import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import UserService from "../../../services/user.service";
 import { login, logout } from "../../../services/auth";
 
-import { BackgroundComponent } from '../../../components/Background';
-import { HeaderComponent } from "../../../components/Header";
 import { LoadingSpinnerComponent } from "../../../components/loading";
 import formStyles from "../../../styles/formStyles.module.scss";
 import Swal from "sweetalert2";
+import { Button, Container, Form } from "react-bootstrap";
 
 
 
@@ -90,38 +89,51 @@ class LoginComponent extends Component<RouteComponentProps> {
 
   render() {
     return (
-      <>
-        <form className={formStyles.accessFormStyled} onSubmit={(e) => this.handleSigIn(e)}>
-          <p className={formStyles.titleStyled}>
-            Realizar Login
+      <Container className={        
+        `${formStyles.accessFormStyled} 
+        d-flex flex-column 
+        justify-content-center align-items-center 
+        bg-black bg-opacity-75
+        m-auto`
+      }
+      >
+        <p className={`${formStyles.textFormTitle} text-center fs-4 fw-bold m-2`}>
+          Realizar Login
+        </p>
+        <p className={formStyles.descriptionStyled + " text-center my-3 mx-auto "}>
+          Preencha seu usuário e senha para acessar seu dashboard
+        </p>
+        {
+          this.state.error &&
+          <p className="text-danger text-center m-2">
+            {this.state.error}
           </p>
-          <p className={formStyles.descriptionStyled}>
-            Preencha seu usuário e senha para acessar seu dashboard
-          </p>
-          {
-            this.state.error &&
-            <p className={formStyles.errorStyled}>
-              {this.state.error}
-            </p>
-          }
-          <input className={formStyles.textInputStyled}
-            type="email"
-            placeholder="Email do usuário"
-            onChange={(e) => this.setState({ email: e.target.value })}
-          />
-          <input className={formStyles.textInputStyled}
-            type="password"
-            placeholder="Senha"
-            onChange={(e) => this.setState({ password: e.target.value })}
-          />
-          <button className={formStyles.submitButtonStyled} type="submit">
+        }
+        <hr />
+        <Form  
+          className="w-100 d-flex flex-column"
+          onSubmit={this.handleSigIn}
+        >  
+          <Form.Group>
+            <Form.Control className={formStyles.textInputStyled + " text-center my-1 mx-auto p-0 px-2"}
+              type="email"
+              placeholder="Email do usuário"
+              onChange={(e) => this.setState({ email: e.target.value })}
+            />
+            <Form.Control className={formStyles.textInputStyled + " text-center my-1 mx-auto p-0 px-2"}
+              type="password"
+              placeholder="Senha"
+              onChange={(e) => this.setState({ password: e.target.value })}
+            />
+          </Form.Group>        
+          <Button className={formStyles.submitButtonStyled + " text-white fs-5 mt-3 m-auto"} type="submit">
             {!this.state.loading && <p>Entrar</p>}
             {this.state.loading && <LoadingSpinnerComponent />}
-          </button>
-          <hr />
-          <Link to="/cadastro">Cadastre-se</Link>
-        </form>
-      </>
+          </Button>
+        </Form>
+        <hr />        
+        <Link to="/cadastro">Cadastre-se</Link>
+      </Container>
     );
   }
 }

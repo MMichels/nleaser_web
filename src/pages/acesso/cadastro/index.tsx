@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import UserService from "../../../services/user.service";
 
-import { BackgroundComponent } from '../../../components/Background';
-import { HeaderComponent } from "../../../components/Header";
+
 import { LoadingSpinnerComponent } from "../../../components/loading";
 import formStyles from "../../../styles/formStyles.module.scss";
+import { Button, Container, Form } from "react-bootstrap";
 
 class CadastroComponent extends Component<RouteComponentProps> {
     userService = new UserService();
@@ -38,44 +38,56 @@ class CadastroComponent extends Component<RouteComponentProps> {
 
     render() {
         return (
-            <BackgroundComponent>
-                <HeaderComponent />
-                <form className={formStyles.accessFormStyled} onSubmit={this.handleCadastro}>
-                    <p className={formStyles.titleStyled}>
-                        Realizar Cadastro
+            <Container className={        
+                `${formStyles.accessFormStyled} 
+                d-flex flex-column 
+                justify-content-center align-items-center 
+                bg-black bg-opacity-75
+                m-auto`
+              }
+            >             
+                <p className={`${formStyles.textFormTitle} text-center fs-4 fw-bold m-2`}>
+                    Realizar Cadastro
+                </p>
+                <p className={formStyles.descriptionStyled + " text-center my-3 mx-auto "}>
+                    Preencha todas as informações abaixo para realizar seu cadastro na plataforma
+                </p>
+                {
+                    this.state.error &&
+                    <p className="text-danger text-center m-2">
+                        {this.state.error}
                     </p>
-                    <p className={formStyles.descriptionStyled}>
-                        Preencha todas as informações abaixo para realizar seu cadastro na plataforma
-                    </p>
-                    {
-                        this.state.error &&
-                        <p className={formStyles.errorStyled}>
-                            {this.state.error}
-                        </p>
-                    }
-                    <input className={formStyles.textInputStyled}
-                        type="text"
-                        placeholder="Nome"
-                        onChange={e => this.setState({ name: e.target.value })}
-                    />
-                    <input className={formStyles.textInputStyled}
-                        type="text"
-                        placeholder="Email"
-                        onChange={e => this.setState({ email: e.target.value })}
-                    />
-                    <input className={formStyles.textInputStyled}
-                        type="password"
-                        placeholder="Senha"
-                        onChange={e => this.setState({ password: e.target.value })}
-                    />
-                    <button className={formStyles.submitButtonStyled} type="submit">
+                }
+                <hr />
+                <Form 
+                  className="w-100 d-flex flex-column"
+                  onSubmit={this.handleCadastro}
+                >
+                    <Form.Group>
+                        <Form.Control className={formStyles.textInputStyled + " text-center my-1 mx-auto p-0 px-2"}
+                            type="text"
+                            placeholder="Nome"
+                            onChange={e => this.setState({ name: e.target.value })}
+                        />
+                        <Form.Control className={formStyles.textInputStyled + " text-center my-1 mx-auto p-0 px-2"}
+                            type="text"
+                            placeholder="Email"
+                            onChange={e => this.setState({ email: e.target.value })}
+                        />
+                        <Form.Control className={formStyles.textInputStyled + " text-center my-1 mx-auto p-0 px-2"}
+                            type="password"
+                            placeholder="Senha"
+                            onChange={e => this.setState({ password: e.target.value })}
+                        />
+                    </Form.Group>                    
+                    <Button className={formStyles.submitButtonStyled + " text-white fs-5 mt-3 m-auto"} type="submit">
                         {!this.state.loading && <p>Inscrever-se</p>}
                         {this.state.loading && <LoadingSpinnerComponent />}
-                    </button>
-                    <hr />
-                    <Link to="/login">Fazer login</Link>
-                </form>
-            </BackgroundComponent>
+                    </Button>
+                </Form>
+                <hr />
+                <Link to="/login">Fazer login</Link>
+            </Container>
         )
     }
 }
