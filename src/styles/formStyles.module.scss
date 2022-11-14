@@ -12,14 +12,21 @@
     a {
         font-size: 16pt;
         font-weight: bold;
-        color: #6868B7;
+        
+        color: rgb(104, 59, 183);
         text-decoration: none;
+        text-shadow: 2px 2px 5px black;
+
+        &:hover {
+            color: #6868B7;
+
+        }
     }
 }
 
 .textFormTitle {
     color: #6868B7;
-    text-shadow: 2px 2px #100;
+    text-shadow: 2px 2px 5px #100;
 }
 
 .descriptionStyled {
@@ -70,12 +77,18 @@
 .submitButtonStyled {
     height: 46px;
     width: 95%;    
-    
-    background: #6868B7;        
+             
+    background-color: rgb(104, 59, 183);
 
     p {
         margin: auto;
     }
+
+    &:hover {
+        background: #6868B7;  
+    }
+
+    
 }
 
 

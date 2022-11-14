@@ -126,7 +126,7 @@ class LoginComponent extends Component<RouteComponentProps> {
               onChange={(e) => this.setState({ password: e.target.value })}
             />
           </Form.Group>        
-          <Button className={formStyles.submitButtonStyled + " text-white fs-5 mt-3 m-auto"} type="submit">
+          <Button className={formStyles.submitButtonStyled + " text-white fs-5 mt-3 m-auto "} type="submit">
             {!this.state.loading && <p>Entrar</p>}
             {this.state.loading && <LoadingSpinnerComponent />}
           </Button>
