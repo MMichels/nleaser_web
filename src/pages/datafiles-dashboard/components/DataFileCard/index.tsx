@@ -63,7 +63,7 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
   async monitoringDatafileProcessing() {
     await this.getTasks();
 
-    if(['queued', 'in_progress'].includes(this.state.tasks.tasks[0].status)){
+    if(['queued', 'in_progress'].includes(this.state.tasks?.tasks[0].status)){
       setTimeout(() => {                
           this.monitoringDatafileProcessing();
       }, 1000);
@@ -123,7 +123,7 @@ export class DataFileCardComponent extends Component<IDataFileCardProps, IDatafi
   
 
     return (
-      <li className={styles.fileCard} key={this.props.id}>
+      <li className={styles.fileCard + " "} key={this.props.id}>
         <div className={styles.dataFile}>
           <div className={styles.datafileHeader}>
             <h1>{this.props.name}</h1>

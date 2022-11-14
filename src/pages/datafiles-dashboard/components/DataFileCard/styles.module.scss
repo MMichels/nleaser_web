@@ -1,17 +1,13 @@
-.fileCard {
-  display: flex;
-  flex-direction: row;
-  width: 33%;
-  height: 40vh;
-  margin: 1rem auto;
-
-  box-sizing: border-box;
-  
+.fileCard {  
   background: rgba(0, 0, 0, 0.8);
 
   border-radius: 1px;  
   border: 2px solid #333;
   box-shadow: 2px 2px 5px black; 
+
+  flex: 0 0 30%;
+  margin: auto;
+  height: 365px;
 
 }
 

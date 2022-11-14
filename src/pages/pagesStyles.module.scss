@@ -1,41 +1,33 @@
 @import '../styles/formStyles.module';
 
 .dashBoard {
-    overflow: scroll;
-    display: flex;
-    flex-direction: column;        
-    height: 100vh;  
-    margin: 1rem;
-    
-  
-  
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 650;
-      color:white;
-      text-shadow: 2px 2px 5px black;
-  
-      text-align: center;
-      width: 100%;
-    }
+  display: flex;
+  flex-direction: column;        
+  height: 100vh;  
+  margin: 1rem;
 
-
-    .descriptionStyled {
-        @extend .descriptionStyled;
-        color: whitesmoke;
-    }
-
-    p.error {
-      text-align: center;
-    }
-
-    .cardsList {
-      justify-content: center;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: row;
-      list-style: none;
-      
-      height: 100%;
-    }
+  .descriptionStyled {
+      @extend .descriptionStyled;
+      color: whitesmoke;
   }
+
+  p.error {
+    text-align: center;
+  }
+
+  .cardsList {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    list-style: none;
+    
+    height: 100%;
+  }
+}
+
+  
+.dashBoardTitle {
+  font-weight: 650;
+  text-shadow: 2px 2px 5px black;
+}

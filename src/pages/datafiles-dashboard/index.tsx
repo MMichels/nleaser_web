@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -10,20 +10,22 @@ import pagesStyles from "../pagesStyles.module.scss";
 import modalStyles from "../../styles/modalStyles.module.scss";
 import addDatafileStyles from "./components/AddDataFileModal/styles.module.scss";
 
-import { BackgroundComponent } from "../../components/Background";
-import { HeaderComponent } from "../../components/Header";
 import { LoadingSpinnerComponent } from "../../components/loading";
 import { DataFileCardComponent } from "./components/DataFileCard";
 import { AddDataFileModalComponent } from "./components/AddDataFileModal";
 
 import DataFilesService from "../../services/datafiles.service";
 import { DataFileType } from "../../types/datafiles.types";
+import { Container } from "react-bootstrap";
 
+interface IAddCardProps {
+  id: number;
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
 
-
-function AddCard(id: number, onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void ) {
+function AddCard({id, onClick} : IAddCardProps) {
   return (
-    <div className={dataFileCardStyles.fileCard} key="add_datafile">
+    <div className={dataFileCardStyles.fileCard + " mt-5"} key="add_datafile">
       <button className={styles.addButton} onClick={onClick}>          
           <FontAwesomeIcon icon={faPlusCircle} size="4x" />
       </button>
@@ -31,119 +33,108 @@ function AddCard(id: number, onClick: (event: React.MouseEvent<HTMLButtonElement
   );
 }
 
-interface IDashBoardState {
-  datafiles: Array<DataFileType>,
-  total: number,
-  error: string,
-  loading: boolean,
-  modalAddFileIsOpen: boolean
-}
+const DatafilesDashboardComponent = () => {
+  const dataFilesService = useRef(new DataFilesService());
+  const [dataFiles, setDataFiles] = useState(new Array<DataFileType>());
+  const [total, setTotal] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [modalAddFileIsOpen, setModalAddFileOpen] = useState(false);
 
-class DatafilesDashboardComponent extends Component<RouteComponentProps, IDashBoardState> {
-  dataFilesService: DataFilesService;
+  useEffect(() => {
+    get();
+  }, []);
 
-  constructor(props) {
-    super(props);
-    this.dataFilesService = new DataFilesService();
-    this.state = {
-      datafiles: new Array<DataFileType>(),
-      total: 0,
-      error: "",
-      loading: false,
-      modalAddFileIsOpen: false
-    };
-    this.get = this.get.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.onExcludeDatafile = this.onExcludeDatafile.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({loading: true});
-    this.get();  
-  }
-
-  async get(){
-    await this.dataFilesService.list("created_at", false).then(
+  const get = async () => {
+    setLoading(true);
+    await dataFilesService.current.list("created_at", false).then(
       (response) => {
-        this.setState({
-          loading: false,
-          total: response.total,
-          datafiles: response.documents,
-        });
+        setLoading(false);
+        setTotal(response.total);
+        setDataFiles(response.documents);
       },
       (err) => {
-        this.setState({ loading: false, error: err.error });
+        setLoading(false);
+        setError(err.error);
       }
     )
   }
 
-  onExcludeDatafile(id: string){
-    let datafiles = this.state.datafiles;
-    let rmIndex = datafiles.findIndex(df => df.id === id);
+  const onExcludeDatafile = (id: string) => {
+    let _dataFiles = {...dataFiles};
+    let rmIndex = _dataFiles.findIndex(df => df.id === id);
     
     if(rmIndex > -1){      
       if(rmIndex === 0)
-        datafiles.shift();
+        _dataFiles.shift();
       else
-        datafiles.splice(rmIndex, 1);
+        _dataFiles.splice(rmIndex, 1);
         
-      this.setState({datafiles: datafiles});
+      setDataFiles(_dataFiles);
     }
   }
 
-  openModal(e: React.MouseEvent) {
+  const openModal = (e: React.MouseEvent) => {
     e.preventDefault();
-    this.setState({modalAddFileIsOpen: true});
+    setModalAddFileOpen(true);
   }
 
-  closeModal(reload: boolean) {
-    this.setState({modalAddFileIsOpen: false});
+  const closeModal = (reload: boolean) => {
+    setModalAddFileOpen(false);
     if(reload)
-      this.get();    
+      get();    
   }
 
-  render() {
-    const cards = this.state.datafiles.map((d) =>
-      <DataFileCardComponent id={d.id} name={d.name} createdAt={d.created_at.toString()} onExclude={this.onExcludeDatafile}/>
+  const cards = dataFiles.map((d) =>
+      <DataFileCardComponent id={d.id} name={d.name} createdAt={d.created_at.toString()} onExclude={onExcludeDatafile}/>
     );
-    cards.push(AddCard(cards.length, this.openModal));
+  cards.push();
 
-    const renderElements = () => {
-      if(this.state.loading){
-        return <LoadingSpinnerComponent />
-      }else{
-        return (
-          <ul className={pagesStyles.cardsList}>
-            {cards}
-          </ul>
-        )
-      }
+  const renderElements = () => {
+    if(loading){
+      return <LoadingSpinnerComponent />
+    }else{
+      return (
+        <ul className={pagesStyles.cardsList}>
+          {cards}
+        </ul>
+      )
     }
+  } 
 
-    return (
-      <BackgroundComponent>
-        <HeaderComponent />
-        <Modal 
-          isOpen={this.state.modalAddFileIsOpen}
-          onRequestClose={() => this.closeModal(false)}
-          contentLabel="Modal Adicionar novo conjunto de dados"
-          className={addDatafileStyles.addFileModal}
-          overlayClassName={modalStyles.overlayModal}
-          closeTimeoutMS={500}
-        >
-          <AddDataFileModalComponent onRequestClose={this.closeModal}/>
-        </Modal>
-        <div className={pagesStyles.dashBoard}>
-          <h1>Seus conjuntos de dados</h1>
-          {this.state.error && <p className="error">{this.state.error}</p>}
-          
-          {renderElements()}
-          
-        </div>
-      </BackgroundComponent>
-    );
-  }
+  return (
+    <div className="w-100 h-100 overflow-scroll">
+      <Modal 
+        isOpen={modalAddFileIsOpen}
+        onRequestClose={() => closeModal(false)}
+        contentLabel="Modal Adicionar novo conjunto de dados"
+        className={addDatafileStyles.addFileModal}
+        overlayClassName={modalStyles.overlayModal}
+        closeTimeoutMS={500}
+      >
+        <AddDataFileModalComponent onRequestClose={closeModal}/>
+      </Modal>
+      <div className="w-100 h-100">
+        <h1 className={"text-center text-white fs-1 " + pagesStyles.dashBoardTitle}>Seus conjuntos de dados</h1>
+        {error && <p className="error">{error}</p>}
+        {
+          loading ? <LoadingSpinnerComponent /> : (
+            <ul className="row p-0 m-0">
+              {
+                dataFiles.map(
+                  (d, idx) => 
+                    <DataFileCardComponent key={idx} id={d.id} name={d.name} createdAt={d.created_at.toString()} onExclude={onExcludeDatafile}/>
+                )
+              }
+              <AddCard id={total + 1} onClick={openModal} />
+
+            </ul>
+          )
+        }
+        
+      </div>
+    </div>
+  );
 }
 
 export const DataFilesDashboardPage = withRouter(DatafilesDashboardComponent);

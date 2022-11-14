@@ -9,7 +9,8 @@ import { Card } from "../../components/DataFile/Card/styles";
 import { DashBoard, AddButton } from "./styles";
 
 
-import DataFilesService from "../../services/datafiles";
+import DataFilesService from "../../services/datafiles.service";
+import { DataFileType } from "../../types/datafiles.types";
 
 
 
@@ -29,14 +30,25 @@ function AddCard(id) {
   );
 }
 
-class DashboardComponent extends Component {
+interface IDashboardState {
+  dataFiles: DataFileType[],
+  total: number,
+  error: string | null
+}
+
+
+class DashboardComponent extends Component<{},IDashboardState> {
+  dataFilesService: DataFilesService;
+
+
+
   constructor(props) {
     super(props);
     this.dataFilesService = new DataFilesService();
     this.state = {
-      datafiles: [],
+      dataFiles: new Array<DataFileType>(),
       total: 0,
-      error: "",
+      error: null,
     };
   }
 
@@ -45,7 +57,7 @@ class DashboardComponent extends Component {
       (response) => {
         this.setState({
           total: response.total,
-          datafiles: response.documents,
+          dataFiles: response.documents,
         });
       },
       (err) => {
@@ -55,7 +67,7 @@ class DashboardComponent extends Component {
   }
 
   render() {
-    const cards = this.state.datafiles.map((d) =>
+    const cards = this.state.dataFiles.map((d) =>
       <DataFileCard id={d.id} name={d.name} createdAt={d.created_at} />
     );
     cards.push(AddCard(cards.length));
