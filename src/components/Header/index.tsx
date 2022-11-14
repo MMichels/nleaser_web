@@ -5,19 +5,21 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 
 import styles from "./styles.module.scss";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthenticationContext";
 
 
 
 
 export const HeaderComponent=() => {
-  const token = getToken();
+  const {isAuthenticated} = useAuth();
 
   /**
    * Se o usuario estiver logado, coloca as opções de logout e de acessar o dashboard no Header
    * Caso contrario, coloca as opções de login e cadastro
    */
   const accessComponents = () => {
-    if(token && token !== undefined)
+    debugger;
+    if(isAuthenticated)
     {
       return (
         <>

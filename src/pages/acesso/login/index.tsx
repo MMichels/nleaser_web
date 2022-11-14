@@ -1,49 +1,53 @@
-import React, { Component } from "react";
-import { Link, withRouter, RouteComponentProps } from "react-router-dom";
-
-import UserService from "../../../services/user.service";
-import { login, logout } from "../../../services/auth";
+import { useEffect, useState } from "react";
+import { Link, withRouter } from "react-router-dom";
 
 import { LoadingSpinnerComponent } from "../../../components/loading";
 import formStyles from "../../../styles/formStyles.module.scss";
 import Swal from "sweetalert2";
 import { Button, Container, Form } from "react-bootstrap";
+import { useAuth } from "../../../contexts/AuthenticationContext";
 
 
 
-class LoginComponent extends Component<RouteComponentProps> {
-  userService = new UserService();
-  state = {
-    email: "",
-    password: "",
-    error: "",
-    loading: false
-  };
+const LoginComponent = ({location, history}) => {
+  const [email, setEmail] = useState<string | null>(null);
+  const [password, setPassword] =  useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  
+  const {
+    login,
+    logout,
+    setToken
+  } = useAuth();
 
-  componentDidMount() {
-    const query = new URLSearchParams(this.props.location.search);
+
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
     if(query.get("logout")){
       logout();
     }
     if(query.get("error")){
-      this.setState({error: query.get("error")});
-    }
-  }
 
-  handleSigIn = async (e) => {
+      setError(query.get("error"));
+    }
+  }, []
+) 
+
+  const handleSigIn = async (e) => {
     e.preventDefault();
-    const { email, password } = this.state;
-    if (!email || !password) 
+    if (email == null || password == null)
     {
-      this.setState({ error: "Todos os campos precisam ser preenchidos" });
+      setError("Todos os campos precisam ser preenchidos");
     } 
     else 
     {
-      this.setState({ loading: true, error: null });
-      await this.userService.login(email, password).then(
+      setLoading(true);
+      setError(null);
+      await login(email, password).then(
         (resp) => 
         {
-          this.setState({ loading: false });
+          setLoading(false);
           Swal.fire({
             title: "Leia com atenção!",
             html: `<div>
@@ -63,79 +67,74 @@ class LoginComponent extends Component<RouteComponentProps> {
             position: 'top'
           }).then(result => {
             if(result.isConfirmed){              
-              login(resp.access_token);
-              this.props.history.push("/dashboard/datafiles");
+              setToken(resp.access_token);
+              history.push("/dashboard/datafiles");
             }else{
-              this.props.history.push("/");
+              history.push("/");
             }
           })
         },
         (err) => 
         {
-          this.setState({ loading: false });
-          if (err.error) this.setState({ error: err.error });
+          setLoading(false);
+          if (err.error) setError(err.error);
           else 
           {
             console.log("Erro ao realizar o login: ", err);
-            this.setState({
-              error:
-                "Houve um problema ao realizar o login, tente novamente mais tarde.",
-            });
+            setError(
+                "Houve um problema ao realizar o login, tente novamente mais tarde."
+            );
           }
         }
       );
     }
   };
-
-  render() {
-    return (
-      <Container className={        
-        `${formStyles.accessFormStyled} 
-        d-flex flex-column 
-        justify-content-center align-items-center 
-        bg-black bg-opacity-75
-        m-auto`
+  return (
+    <Container className={        
+      `${formStyles.accessFormStyled} 
+      d-flex flex-column 
+      justify-content-center align-items-center 
+      bg-black bg-opacity-75
+      m-auto`
+    }
+    >
+      <p className={`${formStyles.textFormTitle} text-center fs-4 fw-bold m-2`}>
+        Realizar Login
+      </p>
+      <p className={formStyles.descriptionStyled + " text-center my-3 mx-auto "}>
+        Preencha seu usuário e senha para acessar seu dashboard
+      </p>
+      {
+        error &&
+        <p className="text-danger text-center m-2">
+          {error}
+        </p>
       }
-      >
-        <p className={`${formStyles.textFormTitle} text-center fs-4 fw-bold m-2`}>
-          Realizar Login
-        </p>
-        <p className={formStyles.descriptionStyled + " text-center my-3 mx-auto "}>
-          Preencha seu usuário e senha para acessar seu dashboard
-        </p>
-        {
-          this.state.error &&
-          <p className="text-danger text-center m-2">
-            {this.state.error}
-          </p>
-        }
-        <hr />
-        <Form  
-          className="w-100 d-flex flex-column"
-          onSubmit={this.handleSigIn}
-        >  
-          <Form.Group>
-            <Form.Control className={formStyles.textInputStyled + " text-center my-1 mx-auto p-0 px-2"}
-              type="email"
-              placeholder="Email do usuário"
-              onChange={(e) => this.setState({ email: e.target.value })}
-            />
-            <Form.Control className={formStyles.textInputStyled + " text-center my-1 mx-auto p-0 px-2"}
-              type="password"
-              placeholder="Senha"
-              onChange={(e) => this.setState({ password: e.target.value })}
-            />
-          </Form.Group>        
-          <Button className={formStyles.submitButtonStyled + " text-white fs-5 mt-3 m-auto "} type="submit">
-            {!this.state.loading && <p>Entrar</p>}
-            {this.state.loading && <LoadingSpinnerComponent />}
-          </Button>
-        </Form>
-        <hr />        
-        <Link to="/cadastro">Cadastre-se</Link>
-      </Container>
-    );
-  }
+      <hr />
+      <Form  
+        className="w-100 d-flex flex-column"
+        onSubmit={handleSigIn}
+      >  
+        <Form.Group>
+          <Form.Control className={formStyles.textInputStyled + " text-center my-1 mx-auto p-0 px-2"}
+            type="email"
+            placeholder="Email do usuário"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Form.Control className={formStyles.textInputStyled + " text-center my-1 mx-auto p-0 px-2"}
+            type="password"
+            placeholder="Senha"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>        
+        <Button className={formStyles.submitButtonStyled + " text-white fs-5 mt-3 m-auto "} type="submit">
+          {loading ? <LoadingSpinnerComponent /> : <p>Entrar</p> }
+        </Button>
+      </Form>
+      <hr />        
+      <Link to="/cadastro">Cadastre-se</Link>
+    </Container>
+  );
 }
 
 export const LoginPage = withRouter(LoginComponent);
