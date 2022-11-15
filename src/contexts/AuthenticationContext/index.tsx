@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useRef, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useRef, useState } from "react";
 import UserService from "../../services/user.service";
 
 import {
@@ -51,6 +51,10 @@ export function AuthenticationContextProvider ({children}: IAuthenticationContex
     setAuthenticated(false);
     removeTokenLocalStorage();
   };
+
+  useEffect(()=> {
+    setAuthenticated(getToken() != null);
+  },[])
 
   return (
     <AuthenticationContext.Provider
