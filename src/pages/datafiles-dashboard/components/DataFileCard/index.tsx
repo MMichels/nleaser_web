@@ -39,8 +39,8 @@ export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
     await getTasks();
 
     if(['queued', 'in_progress'].includes(tasks?.tasks[0].status)){
-      setTimeout(() => {                
-          monitoringDatafileProcessing();
+      setTimeout(async () => {                
+          await monitoringDatafileProcessing();
       }, 1000);
     }    
   }  
@@ -121,19 +121,19 @@ export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
           }
           {
             renderLink &&
-            <div className={styles.datafileBody}>
-              <Link className="fill-div flex-column" to={`/dashboard/nlp/${props.id}`}>              
-                <h2>Importado com sucesso</h2>
-                <p>Acessar métodos de nlp</p>
+            <div>
+              <Link className="d-flex row text-decoration-none text-light text-center align-items-center h-100" to={`/dashboard/nlp/${props.id}`}>              
+                <h2 className="text-success">Importado com sucesso</h2>
+                <p className={styles.accessNlpLink}>Acessar métodos de NLP!!</p>
               </Link>
             </div>
           }
       </Card.Body>
       <Card.Footer className="d-flex column align-items-end justify-content-between">
-        <p className={styles.createdDate + " text-white-50 text-end p-0 m-0"}>
+        <p className={"text-white-50 text-end p-0 m-0"}>
           {`Enviado em: ${formatedCreatedAtDate}`}
         </p>
-        <Button variant="danger" onClick={() => handleExcludeDataFileClick()} className ={styles.excludeDatafile}>
+        <Button variant="danger" onClick={() => handleExcludeDataFileClick()}>
           Excluir
         </Button>
       </Card.Footer>

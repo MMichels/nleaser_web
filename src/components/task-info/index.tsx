@@ -17,14 +17,14 @@ export function TaskInfoComponent({task, title}: ITaskInfoProps) {
         switch(task.status){
             case "success":
                 return (
-                    <p className='fs-5 text-capitalize mx-auto my-1 p-0 border-0 text-end'>
+                    <p className='fs-5 text-capitalize mx-auto my-1 p-0 border-0'>
                         Concluído!
                     </p>
                 );
             case "queued":
                 return (
                     <>
-                        <p className='fs-5 text-capitalize mx-auto my-1 p-0 border-0 text-end'>
+                        <p className='fs-5 text-capitalize mx-auto my-1 p-0 border-0'>
                             Na fila
                         </p>                        
                         <WaitingSpinnerComponent />
@@ -33,7 +33,7 @@ export function TaskInfoComponent({task, title}: ITaskInfoProps) {
             case "in_progress":
                 return (
                     <>
-                        <p className='fs-5 text-capitalize mx-auto my-1 p-0 border-0 text-end'>
+                        <p className='fs-5 text-capitalize mx-auto my-1 p-0 border-0 '>
                             Processando
                         </p>
                         <LoadingSpinnerComponent />
@@ -41,13 +41,13 @@ export function TaskInfoComponent({task, title}: ITaskInfoProps) {
                 );
             case "error":
                 return (
-                    <p className='fs-5 text-capitalize mx-auto my-1 p-0 border-0 text-end text-danger'>
+                    <p className='fs-5 text-capitalize mx-auto my-1 p-0 border-0 text-danger'>
                         Ocorreu um erro!
                     </p>
                 );
             default: 
             return (
-                <p className='fs-5 text-capitalize mx-auto my-1 p-0 border-0 text-end text-danger'>
+                <p className='fs-5 text-capitalize mx-auto my-1 p-0 border-0 text-danger'>
                     Status inesperado!
                 </p>
             );
@@ -56,13 +56,13 @@ export function TaskInfoComponent({task, title}: ITaskInfoProps) {
 
     return (
         <div className="d-flex row w-100 m-0 mt-4 p-4 text-light">
-            <div className="d-flex column">                
-                <p className='fs-5 text-capitalize mx-auto my-1 p-0 border-0'>{title}:</p>
+            <p className='fs-5 text-capitalize text-center mx-auto my-1 p-0 border-0'>{title}</p>
+            <div className="d-flex align-items-center">                
                 {renderTaskStatus()}
             </div>
             {
                 (task.status === 'in_progress') &&
-                <p className='fs-6 text-capitalize mx-auto my-1 p-0 border-0'>Progresso: {task.progress}/{task.total}</p>
+                <p className='fs-6 text-capitalize text-center mx-auto my-1 p-0 border-0'>Progresso: {task.progress}/{task.total}</p>
             }
             {task.error && <p className="text-danger">{task.error}</p>}            
         </div>
