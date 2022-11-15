@@ -5,6 +5,6 @@ import LoadingGif from "../../assets/gifs/loading.gif"
 
 export function LoadingSpinnerComponent() {
     return (
-        <LoadingSpinnerStyled src={LoadingGif} />
+        <LoadingSpinnerStyled className="m-auto" src={LoadingGif} />
     )
 }

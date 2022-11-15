@@ -104,12 +104,13 @@ export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
       <Card.Header className={styles.header + " p-0 m-0 py-2 text-white text-capitalize text-center text-nowrap fs-4 overflow-hidden"}>
           {props.name}
         </Card.Header>
-      <Card.Body>
+      <Card.Body className="d-flex">
           {
             error && <Card.Text className="text-danger">{error}</Card.Text>
           }
           {
-            loading && <LoadingSpinnerComponent />
+            loading &&
+              <LoadingSpinnerComponent />
           }
           {
             (
