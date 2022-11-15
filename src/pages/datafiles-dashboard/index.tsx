@@ -5,7 +5,6 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 
 import styles from "./styles.module.scss";
-import dataFileCardStyles from "./components/DataFileCard/styles.module.scss";
 import pagesStyles from "../pagesStyles.module.scss";
 
 import { LoadingSpinnerComponent } from "../../components/loading";
@@ -14,6 +13,7 @@ import { AddDataFileModalComponent } from "./components/AddDataFileModal";
 
 import DataFilesService from "../../services/datafiles.service";
 import { DataFileType } from "../../types/datafiles.types";
+import { Card } from "react-bootstrap";
 
 interface IAddCardProps {
   id: number;
@@ -22,11 +22,13 @@ interface IAddCardProps {
 
 function AddCard({id, onClick} : IAddCardProps) {
   return (
-    <div className={dataFileCardStyles.fileCard + " mt-5 d-flex"} key="add_datafile" style={{height: '140px'}}>
-      <button className={styles.addButton} onClick={onClick}>          
-          <FontAwesomeIcon icon={faPlusCircle} size="4x" />
-      </button>
-    </div>
+    <Card bg="dark" key="add_datafile" style={{width: '33%', margin: "8px 2px"}}>
+      <Card.Body className="d-flex align-items-center">
+        <button className={styles.addButton} onClick={onClick}>          
+            <FontAwesomeIcon icon={faPlusCircle} size="4x" />
+        </button>
+      </Card.Body>
+    </Card>
   );
 }
 
