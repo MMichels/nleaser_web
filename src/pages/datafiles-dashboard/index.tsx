@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import Modal from "react-modal";
 import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
+
 import styles from "./styles.module.scss";
 import dataFileCardStyles from "./components/DataFileCard/styles.module.scss";
 import pagesStyles from "../pagesStyles.module.scss";
-import modalStyles from "../../styles/modalStyles.module.scss";
-import addDatafileStyles from "./components/AddDataFileModal/styles.module.scss";
 
 import { LoadingSpinnerComponent } from "../../components/loading";
 import { DataFileCardComponent } from "./components/DataFileCard";
@@ -16,7 +14,6 @@ import { AddDataFileModalComponent } from "./components/AddDataFileModal";
 
 import DataFilesService from "../../services/datafiles.service";
 import { DataFileType } from "../../types/datafiles.types";
-import { Container } from "react-bootstrap";
 
 interface IAddCardProps {
   id: number;
@@ -25,7 +22,7 @@ interface IAddCardProps {
 
 function AddCard({id, onClick} : IAddCardProps) {
   return (
-    <div className={dataFileCardStyles.fileCard + " mt-5"} key="add_datafile">
+    <div className={dataFileCardStyles.fileCard + " mt-5 d-flex"} key="add_datafile" style={{height: '140px'}}>
       <button className={styles.addButton} onClick={onClick}>          
           <FontAwesomeIcon icon={faPlusCircle} size="4x" />
       </button>
@@ -104,16 +101,8 @@ const DatafilesDashboardComponent = () => {
 
   return (
     <div className="w-100 h-100 overflow-scroll">
-      <Modal 
-        isOpen={modalAddFileIsOpen}
-        onRequestClose={() => closeModal(false)}
-        contentLabel="Modal Adicionar novo conjunto de dados"
-        className={addDatafileStyles.addFileModal}
-        overlayClassName={modalStyles.overlayModal}
-        closeTimeoutMS={500}
-      >
-        <AddDataFileModalComponent onRequestClose={closeModal}/>
-      </Modal>
+      <AddDataFileModalComponent show={modalAddFileIsOpen} onRequestClose={closeModal}/>
+
       <div className="w-100 h-100">
         <h1 className={"text-center text-white fs-1 " + pagesStyles.dashBoardTitle}>Seus conjuntos de dados</h1>
         {error && <p className="error">{error}</p>}

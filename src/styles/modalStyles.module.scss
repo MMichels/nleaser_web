@@ -3,7 +3,7 @@
 .defaultModal {
   position: relative;
   display: inline-block;
-  top: 35%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
@@ -24,7 +24,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1000;
+  z-index: 1055;
   background-color: rgba(0, 0, 0, 0.9);    
   transition: all 300ms ease;
 }
@@ -33,6 +33,7 @@
   display: flex;
   flex-direction: row; 
   align-items: center;
+  position: relative;
 
   width: 100%;
   
@@ -49,24 +50,21 @@
   }
 
   .closeModalButton {
-    width: 3.75rem;
-
-    position: relative;
-    top: -2rem;
+    position: absolute;
+    top: -2.5rem;
     right: -2rem;
+    width: 32px;
+    height: 32px;
 
     background: transparent;
     color: #FF1111;
     border: none;
-    height: 46px;
 
-    svg {
-      height: 90%;
-      width: 90%;
-    }    
-
+    transition: all 150ms ease;
+   
     &:not([disabled]):hover {
       color: #cc1111 !important;
+      transform: rotate(90deg);
     }
   }
 
