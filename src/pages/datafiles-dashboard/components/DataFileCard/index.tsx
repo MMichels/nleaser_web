@@ -22,9 +22,11 @@ interface IDataFileCardProps {
 }
 export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
   const _datafileService = useRef( new DataFilesService());
+  const _timerConsulta = useRef(null);
   const [error, setError] = useState<string|null>(null);
   const [loading, setLoading] = useState(true);
   const [tasks, setTasks] = useState<TasksType|null>(null);
+  
 
   const getTasks = async () =>{
     await _datafileService.current.getTasks(props.id).then((response) => {
@@ -37,16 +39,19 @@ export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
 
   const monitoringDatafileProcessing = async () => {
     await getTasks();
-
-    if(['queued', 'in_progress'].includes(tasks?.tasks[0].status)){
-      setTimeout(async () => {                
+    if(['queued', 'in_progress'].includes(tasks?.tasks[0].status)){      
+      _timerConsulta.current = setTimeout(async () => {                
           await monitoringDatafileProcessing();
       }, 1000);
     }    
   }  
 
   useEffect(() => {
+    debugger;
     monitoringDatafileProcessing().then(() => setLoading(false));
+    return () => {
+      clearTimeout(_timerConsulta.current)
+    };
   },[])
 
   const handleExcludeDataFileClick = () => {
