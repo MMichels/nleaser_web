@@ -18,7 +18,8 @@ const LoginComponent = ({location, history}) => {
   const {
     login,
     logout,
-    setToken
+    setToken,
+    isAuthenticated
   } = useAuth();
 
 
@@ -31,7 +32,10 @@ const LoginComponent = ({location, history}) => {
 
       setError(query.get("error"));
     }
-  }, []
+    if(isAuthenticated) {      
+      history.push("/dashboard/datafiles");
+    }
+  }, [isAuthenticated]
 ) 
 
   const handleSigIn = async (e) => {

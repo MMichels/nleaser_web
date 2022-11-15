@@ -18,7 +18,6 @@ export const HeaderComponent=() => {
    * Caso contrario, coloca as opções de login e cadastro
    */
   const accessComponents = () => {
-    debugger;
     if(isAuthenticated)
     {
       return (
