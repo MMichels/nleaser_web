@@ -1,5 +1,4 @@
-import { Col, Container } from 'react-bootstrap';
-import styles from "./styles.module.scss";
+import { Col } from 'react-bootstrap';
 
 export function CardIntroducao() {
 

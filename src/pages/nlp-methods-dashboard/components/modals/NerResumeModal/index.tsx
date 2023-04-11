@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-
-import { NerResumeService } from '../../../../../services/ner_resume.service';
-
-import nlpModalStyles from "../nlpModalStyles.module.scss";
-import modalStyles from "../../../../../styles/modalStyles.module.scss";
-
-import { DataFileType } from '../../../../../types/datafiles.types';
-import { NerResumePaginationType, NerResumeType, EntityType } from '../../../../../types/ner.types';
-import { TasksType } from '../../../../../types/tasks.types';
+import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortDown } from '@fortawesome/free-solid-svg-icons';
-import { LoadingSpinnerComponent } from '../../../../../components/loading';
-import { TaskInfoComponent } from '../../../../../components/task-info';
-import Swal from 'sweetalert2';
 import { PaginatedList } from 'react-paginated-list';
 import { ptBR } from 'date-fns/locale';
 import format from 'date-fns/format';
 
+import { NerResumeService } from '../../../../../services/ner_resume.service';
+
+import { DataFileType } from '../../../../../types/datafiles.types';
+import { NerResumePaginationType, NerResumeType } from '../../../../../types/ner.types';
+import { TasksType } from '../../../../../types/tasks.types';
+import { LoadingSpinnerComponent } from '../../../../../components/loading';
+import { TaskInfoComponent } from '../../../../../components/task-info';
+
+import nlpModalStyles from "../nlpModalStyles.module.scss";
+import modalStyles from "../../../../../styles/modalStyles.module.scss";
 
 interface INerResumeModalProps {
     datafile: DataFileType;

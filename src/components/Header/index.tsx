@@ -1,14 +1,10 @@
 import LogoImg from "../../assets/logo.png"
 
-import { getToken } from "../../services/auth";
 import { Container, Nav, Navbar } from 'react-bootstrap';
 
 import styles from "./styles.module.scss";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthenticationContext";
-
-
-
 
 export const HeaderComponent=() => {
   const {isAuthenticated} = useAuth();

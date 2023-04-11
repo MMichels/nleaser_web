@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { HeaderComponent } from '../../components/Header';
 import { Player } from 'video-react';
 import '../../../node_modules/video-react/dist/video-react.css';
-import { HeadArea,BodyArea,Slide,AreaCarosel,TitleCarosel,AreaVideo,TutorialElement,TutorialTexto,TutorialTitle,TutorialTitletext,TutorialTextotext, Area} from './styles';
+import { HeadArea,BodyArea,Slide,AreaCarosel,TitleCarosel,AreaVideo} from './styles';
 import Carousel from "react-elastic-carousel"
 
 

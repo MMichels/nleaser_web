@@ -1,7 +1,6 @@
 import React from 'react';
 import { TaskType } from '../../types/tasks.types';
 
-import styles from "./styles.module.scss";
 import { WaitingSpinnerComponent } from '../waiting';
 import { LoadingSpinnerComponent } from '../loading';
 

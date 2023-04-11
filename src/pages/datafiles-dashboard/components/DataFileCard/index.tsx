@@ -1,17 +1,17 @@
-import React, { Component, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { Button, Card } from "react-bootstrap";
+
 import Swal from 'sweetalert2'
 import format from "date-fns/format"
 import ptBR from 'date-fns/locale/pt-BR';
 
-import { Link } from "react-router-dom";
 import styles from "./styles.module.scss";
-
 
 import DataFilesService from "../../../../services/datafiles.service";
 import { TasksType } from "../../../../types/tasks.types";
 import { LoadingSpinnerComponent } from "../../../../components/loading";
 import { TaskInfoComponent } from "../../../../components/task-info";
-import { Button, Card } from "react-bootstrap";
 
 
 interface IDataFileCardProps {

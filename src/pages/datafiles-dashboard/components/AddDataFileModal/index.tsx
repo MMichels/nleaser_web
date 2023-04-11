@@ -1,18 +1,16 @@
 import React, { memo, useRef, useState } from "react";
 import Swal from "sweetalert2";
 
+import { Button, Form, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload, faQuestionCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { faUpload, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 
-import modalStyles from "../../../../styles/modalStyles.module.scss";
 import formStyles from "../../../../styles/formStyles.module.scss";
 
 import DataFilesService from "../../../../services/datafiles.service";
 
 import { LoadingSpinnerComponent } from "../../../../components/loading";
 import { Tooltip } from "../../../../components/Tooltip";
-import { Button, Form, Modal } from "react-bootstrap";
-
 
 interface IAddDataFileFormProps {
   onRequestClose?: (reload?: boolean) => void
@@ -184,7 +182,7 @@ export const AddDataFileModalComponent = memo(({onRequestClose, show}: IAddDataF
                 <Form.Select
                   id="format"
                   name="format"
-                  style={{color: (format == "") ? '#969696':'black'}}
+                  style={{color: (format === "") ? '#969696':'black'}}
                   onChange={(e) => setFormat(e.target.value)}
                   title="Selecione o formato do arquivo"
                 >
@@ -216,7 +214,7 @@ export const AddDataFileModalComponent = memo(({onRequestClose, show}: IAddDataF
                 <Form.Select
                   id="language"
                   name="language"
-                  style={{color: (language == "") ? '#969696':'black'}}
+                  style={{color: (language === "") ? '#969696':'black'}}
                   onChange={(e) => setLanguage(e.target.value)}
                 >
                   <option style={{color: '#555'}}>Idioma do arquivo</option>

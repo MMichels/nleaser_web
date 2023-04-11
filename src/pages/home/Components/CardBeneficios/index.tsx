@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import Carousel from 'react-elastic-carousel';
 
 import styles from "./styles.module.scss";
