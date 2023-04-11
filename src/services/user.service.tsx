@@ -1,7 +1,7 @@
-import { BaseService } from "./base.service";
 import { ILoginInterface } from "../types/user.types";
+import api from "./api";
 
-export default class UserService extends BaseService{
+export default class UserService {
 
     /**
      * Realiza o request para criar um novo usuário no backend
@@ -9,8 +9,8 @@ export default class UserService extends BaseService{
      * @param {string} password Senha
      * @param {string} name Nome do usuário
      */
-    create(email: string, password: string, name: string) {
-        return this.api.post("/user", {
+    static async create(email: string, password: string, name: string) {
+        return await api.post("/user", {
             email,
             password,
             name
@@ -22,8 +22,8 @@ export default class UserService extends BaseService{
      * @param {string} email Email do usuário
      * @param {string} password senha do usuário
      */
-    login(email: string, password: string): Promise<ILoginInterface> {
-        return this.api.post("/login", {
+     static async login(email: string, password: string): Promise<ILoginInterface> {
+        return await api.post("/login", {
             email, password
         });
     }

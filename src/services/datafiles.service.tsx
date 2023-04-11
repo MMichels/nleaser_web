@@ -1,20 +1,19 @@
-import {BaseService} from "./base.service";
 import { DataFileType } from "../types/datafiles.types";
 import { TasksType } from "../types/tasks.types";
 import { BaseResponseType } from "../types/baseresponse.type";
+import api from "./api";
 
 
-export default class DataFilesService extends BaseService{
+export default class DataFilesService {
 
-
-  get(datafile_id: string) : Promise<DataFileType> 
+  static async get(datafile_id: string) : Promise<DataFileType> 
   {
-    return this.api.get(`/datafile/${datafile_id}`);
+    return await api.get(`/datafile/${datafile_id}`);
   }
 
-  list(orderBy: string, orderAscending: boolean): Promise<BaseResponseType & {total: number, documents: DataFileType[]}> 
+  static async list(orderBy: string, orderAscending: boolean): Promise<BaseResponseType & {total: number, documents: DataFileType[]}> 
   {
-    return this.api.get("/datafile", {
+    return await api.get("/datafile", {
       params: {
         orderby: orderBy,
         order_ascending: orderAscending,
@@ -22,18 +21,18 @@ export default class DataFilesService extends BaseService{
     });
   }
 
-  delete(id: string) : Promise<BaseResponseType & {deleted: boolean}>
+  static async delete(id: string) : Promise<BaseResponseType & {deleted: boolean}>
   {
-    return this.api.delete(`/datafile/${id}`);
+    return await api.delete(`/datafile/${id}`);
   }
 
-  upload(file: string | Blob, format: string, textColumn: string, 
+  static async upload(file: string | Blob, format: string, textColumn: string, 
     language: string, separador: string) : Promise<BaseResponseType & {id: string }>  
   {
     const formData = new FormData();
     formData.append("file", file);
 
-    return this.api.post("/datafile", formData, {
+    return await api.post("/datafile", formData, {
       params: {
         format,
         language,
@@ -43,9 +42,9 @@ export default class DataFilesService extends BaseService{
     });
   }
 
-  getTasks(id: string): Promise<TasksType> 
+  static async getTasks(id: string): Promise<TasksType> 
   {
-    return this.api.get(`/datafile/${id}/tasks`)
+    return await api.get(`/datafile/${id}/tasks`)
   }
   
 }

@@ -32,13 +32,11 @@ interface INGramModalState {
 }
 
 export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
-    ngramsService: NGramService;
     monitoringTimeout?: NodeJS.Timeout;
     
 
     constructor(props) {
         super(props);
-        this.ngramsService = new NGramService();
         this.state = {
             error: null,
             loading: false,
@@ -71,7 +69,7 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
     }   
 
     async getTasks() {
-        await this.ngramsService.getTasks(this.props.datafile.id).then((response) => {
+        await NGramService.getTasks(this.props.datafile.id).then((response) => {
             this.setState({tasks : response});
         }).catch((err) => {
             if(!this.state.error)
@@ -84,7 +82,7 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
         const pagination = this.state.pagination;
         pagination.skip = (page - 1) * (pagination.limit);        
 
-        this.ngramsService.get(this.props.datafile.id, pagination).then((response) => {
+        NGramService.get(this.props.datafile.id, pagination).then((response) => {
 
             const ngrams = response;
             const arrayVazio = new Array<any>();
@@ -160,7 +158,7 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
             cancelButtonText: "Cancelar",
             reverseButtons: true,
             preConfirm: (ngrams: number) => {
-                return this.ngramsService.create(this.props.datafile.id, ngrams).then(response => response).catch(err => err);
+                return NGramService.create(this.props.datafile.id, ngrams).then(response => response).catch(err => err);
             }
         }).then((response) => {
             if(response.value) {
@@ -200,7 +198,7 @@ export class NGramsModal extends Component<INGramModalProps, INGramModalState> {
             confirmButtonText: "Extrair NGrams",
             cancelButtonText: "Cancelar",
             reverseButtons: true,
-            preConfirm: () => this.ngramsService.delete(this.props.datafile.id).then(response => response).catch(err => err)
+            preConfirm: () => NGramService.delete(this.props.datafile.id).then(response => response).catch(err => err)
         }).then((response) => {            
             this.setState({loading: false});
             if(response.value){

@@ -33,10 +33,10 @@ export function useAuth(): IAuthenticationContext {
 export function AuthenticationContextProvider ({children}: IAuthenticationContextProviderProps) : JSX.Element{
   const [_token, _setToken] = useState<string | null>(null);
   const [isAuthenticated, setAuthenticated] = useState(false);
-  const userService = useRef(new UserService());
+  
 
   const login = async (email: string, password: string) => {    
-    return await userService.current.login(email, password);
+    return await UserService.login(email, password);
   }
 
   const getToken = () => getLocalStorageToken();

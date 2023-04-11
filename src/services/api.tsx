@@ -26,7 +26,7 @@ api.interceptors.response.use(response => {
     if (error.response && error.response.data) {
         console.log(error.response);
         if (error.response.status === 403) {
-            window.location.assign("/login");
+            window.location.assign(`/login?logout=true&error=${error.response.data.error}`);
             return;
         }
         else

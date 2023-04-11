@@ -21,7 +21,7 @@ interface IDataFileCardProps {
   onExclude: (id: string) => void;
 }
 export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
-  const _datafileService = useRef( new DataFilesService());
+  
   const _timerConsulta = useRef(null);
   const [error, setError] = useState<string|null>(null);
   const [loading, setLoading] = useState(true);
@@ -29,7 +29,7 @@ export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
   
 
   const getTasks = async () =>{
-    await _datafileService.current.getTasks(props.id).then((response) => {
+    await DataFilesService.getTasks(props.id).then((response) => {
       setTasks(response);
       setError(null);
     }).catch((error) => {
@@ -64,7 +64,7 @@ export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
       showCancelButton: true,
       cancelButtonText: "Não, deixe como esta",
       showLoaderOnConfirm: true,
-      preConfirm: () => _datafileService.current.delete(props.id),
+      preConfirm: () => DataFilesService.delete(props.id),
       reverseButtons: true,
       position: 'top',
     }).then((response) => {

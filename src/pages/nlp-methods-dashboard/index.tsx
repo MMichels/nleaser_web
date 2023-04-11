@@ -26,13 +26,8 @@ interface INLPDashBoardState {
 }
 
 class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>, INLPDashBoardState> {
-    dataFilesService: DataFilesService;
-    nlpMethodsService: NLPMethodsService;
-    
     constructor(props){
         super(props);
-        this.dataFilesService = new DataFilesService();
-        this.nlpMethodsService = new NLPMethodsService();
         this.state = {
             loading: false,        
         }
@@ -43,10 +38,10 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
         this.setState({loading: true, datafile_id});
 
         
-        await this.dataFilesService.get(datafile_id).then((datafile) => {            
+        await DataFilesService.get(datafile_id).then( async (datafile) => {            
             this.setState({ loading: false, datafile});            
 
-            const nlpMethods = this.nlpMethodsService.get();
+            const nlpMethods = await NLPMethodsService.get();
             const nlpModals = new Map<string, Component>();            
 
             nlpModals["Wordcloud"] = <WordCloudModal datafile={this.state.datafile} />;

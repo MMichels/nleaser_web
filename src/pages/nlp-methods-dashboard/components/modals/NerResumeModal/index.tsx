@@ -31,13 +31,11 @@ interface INerResumeModalState {
 }
 
 
-export class NerResumeModal extends Component<INerResumeModalProps, INerResumeModalState> {
-    nerResumeService: NerResumeService;
+export class NerResumeModal extends Component<INerResumeModalProps, INerResumeModalState> {    
     monitoringTimeout?: NodeJS.Timeout;
     
     constructor(props){
         super(props);
-        this.nerResumeService = new NerResumeService();
         this.state = {
             error: null,
             loading: false, 
@@ -70,7 +68,7 @@ export class NerResumeModal extends Component<INerResumeModalProps, INerResumeMo
     }
 
     async getTasks() {
-        await this.nerResumeService.getTasks(this.props.datafile.id).then((response) => {
+        await NerResumeService.getTasks(this.props.datafile.id).then((response) => {
             this.setState({tasks: response});
         }).catch((err) => {
             if(!this.state.error)
@@ -83,7 +81,7 @@ export class NerResumeModal extends Component<INerResumeModalProps, INerResumeMo
         const pagination = this.state.pagination;
         pagination.skip = (page - 1) * (pagination.limit);
 
-        this.nerResumeService.get(this.props.datafile.id, pagination).then(response => {
+        NerResumeService.get(this.props.datafile.id, pagination).then(response => {
             const ner_resume = response;    
 
             const emptyArray = new Array<any>();
@@ -199,7 +197,7 @@ export class NerResumeModal extends Component<INerResumeModalProps, INerResumeMo
           cancelButtonText: "Cancelar",
           reverseButtons: true,
           showLoaderOnConfirm: true,
-          preConfirm: () => this.nerResumeService.create(this.props.datafile.id)
+          preConfirm: () => NerResumeService.create(this.props.datafile.id)
             .then(response => response)
             .catch(err => err)
         }).then((response) => {
@@ -237,7 +235,7 @@ export class NerResumeModal extends Component<INerResumeModalProps, INerResumeMo
           cancelButtonText: "Cancelar",
           reverseButtons: true,
           showLoaderOnConfirm: true,
-          preConfirm: () => this.nerResumeService.delete(this.props.datafile.id)
+          preConfirm: () => NerResumeService.delete(this.props.datafile.id)
             .then(response => response)
             .catch(err => err)
         }).then((response) => {

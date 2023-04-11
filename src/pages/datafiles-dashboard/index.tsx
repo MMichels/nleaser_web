@@ -33,7 +33,6 @@ function AddCard({id, onClick} : IAddCardProps) {
 }
 
 const DatafilesDashboardComponent = () => {
-  const dataFilesService = useRef(new DataFilesService());
   const [dataFiles, setDataFiles] = useState(new Array<DataFileType>());
   const [total, setTotal] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -46,7 +45,7 @@ const DatafilesDashboardComponent = () => {
 
   const get = async () => {
     setLoading(true);
-    await dataFilesService.current.list("created_at", false).then(
+    await DataFilesService.list("created_at", false).then(
       (response) => {
         setLoading(false);
         setTotal(response.total);
@@ -88,18 +87,6 @@ const DatafilesDashboardComponent = () => {
       <DataFileCardComponent id={d.id} name={d.name} createdAt={d.created_at.toString()} onExclude={onExcludeDatafile}/>
     );
   cards.push();
-
-  const renderElements = () => {
-    if(loading){
-      return <LoadingSpinnerComponent />
-    }else{
-      return (
-        <ul className={pagesStyles.cardsList}>
-          {cards}
-        </ul>
-      )
-    }
-  } 
 
   return (
     <div className="w-100 h-100 overflow-scroll">

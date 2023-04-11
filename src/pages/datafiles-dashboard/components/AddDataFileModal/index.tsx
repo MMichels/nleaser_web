@@ -18,7 +18,7 @@ interface IAddDataFileFormProps {
 }
 
 export const AddDataFileModalComponent = memo(({onRequestClose, show}: IAddDataFileFormProps) => {
-  const datafilesService = useRef(new DataFilesService());
+  
   const [file, setFile] = useState<File|null>(null);
   const [format, setFormat] = useState<string|null>("");
   const [textColumn, setTextColumn] = useState<string|null>(null);
@@ -40,7 +40,7 @@ export const AddDataFileModalComponent = memo(({onRequestClose, show}: IAddDataF
 
     setLoading(true);
 
-    datafilesService.current
+    DataFilesService
       .upload(file, format, textColumn, language, separator)
       .then(
         (response) => {          

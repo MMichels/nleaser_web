@@ -24,12 +24,10 @@ interface IWordCloudModalState {
 }
 
 export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudModalState> {
-    wordcloudService: WordCloudService;
     monitoringTimeout?: NodeJS.Timeout;
 
     constructor(props){
         super(props);
-        this.wordcloudService = new WordCloudService();
         this.state = {
             error: null,
             loading: false, 
@@ -58,7 +56,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
     }
 
     async getTasks(){
-        await this.wordcloudService.getTasks(this.props.datafile.id).then((response) => {
+        await WordCloudService.getTasks(this.props.datafile.id).then((response) => {
             this.setState({tasks : response});
         }).catch((err) => {
             if(!this.state.error)
@@ -67,7 +65,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
     }
 
     async getWordCloud() {
-        await this.wordcloudService.get(this.props.datafile.id).then((response) =>{            
+        await WordCloudService.get(this.props.datafile.id).then((response) =>{            
             this.setState({wordcloud: response, error: null});            
         }).catch((err) => {
             this.setState({error: err.error});
@@ -104,7 +102,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
           cancelButtonText: "Cancelar",
           reverseButtons: true,
           showLoaderOnConfirm: true,
-          preConfirm: () => this.wordcloudService.create(this.props.datafile.id).then(response => response).catch(err => err)
+          preConfirm: () => WordCloudService.create(this.props.datafile.id).then(response => response).catch(err => err)
         }).then((response) => {
             if(response.value){
                 if(response.value.status === 'success'){                
@@ -141,7 +139,7 @@ export class WordCloudModal extends Component<IWordCloudModalProps, IWordCloudMo
           cancelButtonText: "Cancelar",
           reverseButtons: true,
           showLoaderOnConfirm: true,
-          preConfirm: () => this.wordcloudService.delete(this.props.datafile.id).then(response => response).catch(err => err)
+          preConfirm: () => WordCloudService.delete(this.props.datafile.id).then(response => response).catch(err => err)
         }).then((response) => {
             this.setState({loading: false});
             if(response.value){

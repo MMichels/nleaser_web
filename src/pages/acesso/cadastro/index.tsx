@@ -7,8 +7,7 @@ import { LoadingSpinnerComponent } from "../../../components/loading";
 import formStyles from "../../../styles/formStyles.module.scss";
 import { Button, Container, Form } from "react-bootstrap";
 
-class CadastroComponent extends Component<RouteComponentProps> {
-    userService = new UserService();
+class CadastroComponent extends Component<RouteComponentProps> {    
     state = {
         email: "",
         password: "",
@@ -24,7 +23,7 @@ class CadastroComponent extends Component<RouteComponentProps> {
             this.setState({ error: "Preencha todos os dados" });
         } else {
             this.setState({ loading: true });
-            this.userService.create(email, password, name)
+            await UserService.create(email, password, name)
                 .then(() => {
                     this.setState({ loading: true });
                     this.props.history.push("/");
