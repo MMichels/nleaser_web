@@ -22,7 +22,7 @@ interface IAddCardProps {
 
 function AddCard({id, onClick} : IAddCardProps) {
   return (
-    <Card bg="dark" key="add_datafile" style={{width: '33%', margin: "8px 2px"}}>
+    <Card bg="secondary" key="add_datafile" className={styles.card + " col-4 bg-gradient" } style={{width: '33%'}}>
       <Card.Body className="d-flex align-items-center">
         <button className={styles.addButton} onClick={onClick}>          
             <FontAwesomeIcon icon={faPlusCircle} size="4x" />
@@ -83,34 +83,32 @@ const DatafilesDashboardComponent = () => {
       get();    
   }
 
-  const cards = dataFiles.map((d) =>
-      <DataFileCardComponent id={d.id} name={d.name} createdAt={d.created_at.toString()} onExclude={onExcludeDatafile}/>
-    );
-  cards.push();
-
   return (
-    <div className="w-100 h-100 overflow-scroll">
+    <div className="d-flex flex-column justify-content-center align-items-center">
       <AddDataFileModalComponent show={modalAddFileIsOpen} onRequestClose={closeModal}/>
 
-      <div className="w-100 h-100">
         <h1 className={"text-center text-white fs-1 " + pagesStyles.dashBoardTitle}>Seus conjuntos de dados</h1>
-        {error && <p className="error">{error}</p>}
-        {
-          loading ? <LoadingSpinnerComponent /> : (
-            <ul className="row p-0 m-0">
-              {
-                dataFiles.map(
-                  (d, idx) => 
-                    <DataFileCardComponent key={idx} id={d.id} name={d.name} createdAt={d.created_at.toString()} onExclude={onExcludeDatafile}/>
-                )
-              }
-              <AddCard id={total + 1} onClick={openModal} />
-
-            </ul>
-          )
-        }
         
-      </div>
+        {error && <p className="error">{error}</p>}
+
+        <div>
+          {
+            loading ? <LoadingSpinnerComponent /> : (
+              <ul className="row justify-content-center gap-1 p-0 m-0">
+                {
+                  dataFiles.map(
+                    (d, idx) => 
+                      <DataFileCardComponent className={styles.card} key={idx} id={d.id} name={d.name} createdAt={d.created_at.toString()} onExclude={onExcludeDatafile}/>
+                  )
+                }
+                <AddCard id={total + 1} onClick={openModal} />
+
+              </ul>
+            )
+          }        
+        </div>
+        
+      
     </div>
   );
 }
