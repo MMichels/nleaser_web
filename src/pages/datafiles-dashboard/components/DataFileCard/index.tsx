@@ -38,6 +38,7 @@ export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
   }
 
   const monitoringDatafileProcessing = async () => {
+
     await getTasks();
     if(['queued', 'in_progress'].includes(tasks?.tasks[0].status)){      
       _timerConsulta.current = setTimeout(async () => {                
@@ -47,7 +48,6 @@ export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
   }  
 
   useEffect(() => {
-    debugger;
     monitoringDatafileProcessing().then(() => setLoading(false));
     return () => {
       clearTimeout(_timerConsulta.current)
@@ -93,7 +93,6 @@ export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
         );
     });
   }
-
   
   const formatedCreatedAtDate = format(new Date(props.createdAt), 'dd MMMM yyyy - HH:MM', {locale: ptBR});
 
@@ -105,13 +104,13 @@ export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
   ) 
 
   return (
-    <Card key={props.id} bg="dark" style={{width: "33%", margin: "8px 2px"}} >      
+    <Card key={props.id} bg="secondary" className="col-4 bg-gradient" style={{width: "33%"}} >      
       <Card.Header className={styles.header + " p-0 m-0 py-2 text-white text-capitalize text-center text-nowrap fs-4 overflow-hidden"}>
           {props.name}
         </Card.Header>
       <Card.Body className="d-flex">
           {
-            error && <Card.Text className="text-danger">{error}</Card.Text>
+            error && <Card.Text className="fs-2 text-black text-center">{error}</Card.Text>
           }
           {
             loading &&
