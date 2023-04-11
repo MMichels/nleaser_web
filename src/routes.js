@@ -8,7 +8,7 @@ import { CadastroPage } from "./pages/acesso/cadastro";
 import { LoginPage } from "./pages/acesso/login";
 import { DataFilesDashboardRoutes } from "./pages/datafiles-dashboard/routes";
 import { NLPDashboardRoutes } from "./pages/nlp-methods-dashboard/routes";
-import {NLPTutorialRoutes} from "./pages/tutorial/routes"
+import { NLPTutorialRoutes } from "./pages/tutorial/routes"
 import { BackgroundComponent } from "./components/Background";
 import { HeaderComponent } from "./components/Header";
 import { AuthenticationContextProvider as AuthenticationProvider, useAuth } from "./contexts/AuthenticationContext";
