@@ -82,9 +82,7 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
             })
         }
 
-        return (
-            <BackgroundComponent>
-                <HeaderComponent />                
+        return (             
                 <div className={pagesStyles.dashBoard + " " + styles.dashBoardPurple}>
                     <div className={styles.dashHeader}>
                         <h1>
@@ -120,7 +118,6 @@ class NLPDashBoardComponent extends Component<RouteComponentProps<{datafile_id}>
                         </ul>
                     }
                 </div>
-            </BackgroundComponent>
         );
     }
 }

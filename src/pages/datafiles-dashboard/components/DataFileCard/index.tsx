@@ -111,7 +111,7 @@ export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
         </Card.Header>
       <Card.Body className="d-flex">
           {
-            error && <Card.Text className="fs-2 text-black text-center">{error}</Card.Text>
+            error && <Card.Text className="fs-2 text-white-50 text-center text-shadow">{error}</Card.Text>
           }
           {
             loading &&
@@ -128,7 +128,7 @@ export const DataFileCardComponent = React.memo((props:IDataFileCardProps) => {
             renderLink &&
             <div>
               <Link className="d-flex row text-decoration-none text-light text-center align-items-center h-100" to={`/dashboard/nlp/${props.id}`}>              
-                <h2 className="text-success">Importado com sucesso</h2>
+                <h2 className="text-success text-shadow">Importado com sucesso</h2>
                 <p className={styles.accessNlpLink}>Acessar métodos de NLP!!</p>
               </Link>
             </div>
